@@ -2,32 +2,38 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+.bg-gradient {
+  background: var(--main-main_gradiation, linear-gradient(91deg, #5097fa 0%, #5363ff 100%));
 }
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+// width height font-size 순서
+// pc / tablet / mobile 순서
+// 640 65 18/ 440 55 16 / 335 50 16
+// 540 65 18/ 510 55 16/ 295 50 16
+// 420 65 18/ 420 55 16/ 295 50 16
+// 345 65 18/ 246 55 16 / 335 50 16
+// 200 70 18/ 164 55 16/ 335 50 16
+// 185 65 18 / 140 55 16/ 335 50 16
+.btn-640 {
+  width: 640px;
+  height: 65px;
 }
-
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+.btn-540 {
+  width: 540px;
+  height: 65px;
 }
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+.btn-420 {
+  width: 420px;
+  height: 65px;
+}
+.btn-345 {
+  width: 345px;
+  height: 65px;
+}
+.btn-200 {
+  width: 200px;
+  height: 70px;
+}
+.btn-185 {
+  width: 185px;
+  height: 65px;
 }
