@@ -10,16 +10,20 @@ interface SecondaryButtonProps {
   // PC 사이즈 기준 width에 맞는 사이즈 불러오시면 됩니다!
 }
 
-export default function SecondaryButton({ children, handleClick, isDisabled = false, btnSize }: SecondaryButtonProps) {
+export default function SecondaryButton({ children, handleClick, isDisabled = true, btnSize }: SecondaryButtonProps) {
   return (
     <div>
       <button
         type="button"
         onClick={handleClick}
         disabled={isDisabled}
-        className={`flex justify-center px-24 py-288 items-center rounded-lg bg-gray-500 border ${isDisabled ? 'text-gray-500' : 'text-white border-black'} ${btnSize}`}
+        className={`flex justify-center px-24 py-288 items-center rounded-lg bg-transparent  border ${isDisabled ? 'text-gray1 border-black3' : 'border-blue'} ${btnSize}`}
       >
-        {children}
+        <p
+          className={`${isDisabled ? 'text-gray1' : 'bg-gradient-to-r from-blue to-indigo text-transparent bg-clip-text'}`}
+        >
+          {children}
+        </p>
       </button>
     </div>
   );

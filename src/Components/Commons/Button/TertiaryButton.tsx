@@ -16,7 +16,7 @@ export default function TertiaryButton({ children, handleClick, isDisabled = fal
         type="button"
         onClick={handleClick}
         disabled={isDisabled}
-        className={`flex justify-center px-24 py-288 items-center rounded-lg bg-black border ${isDisabled ? 'text-gray-500' : 'text-white border-white'} ${btnSize}`}
+        className={`flex justify-center px-24 py-288 items-center rounded-lg bg-transparent border ${isDisabled ? 'text-gray1 border-black3' : 'text-gray2 border-gray2'} ${btnSize}`}
       >
         {children}
       </button>
