@@ -10,7 +10,7 @@ const FieldLabel = React.forwardRef<HTMLSpanElement, FieldLabelProps>(
     if (!children) return null;
 
     const fieldLabelClasses = classNames(
-      'text-base font-normal absolute right-4 top-1/2 -translate-y-1/2',
+      'absolute right-4 top-1/2 -translate-y-1/2',
       className
     );
 

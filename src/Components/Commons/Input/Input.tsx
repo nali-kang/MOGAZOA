@@ -1,15 +1,16 @@
 import classNames from 'classnames';
 import React, { ForwardedRef } from 'react';
 
+// 타입 정의
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement> {
   className?: string;
   invalid?: boolean;
   textarea?: boolean;
   rows?: number;
-  // eslint-disable-next-line no-unused-vars
   formatter?: (value: string) => string;
 }
 
+// input 컴포넌트 정의
 const Input = React.forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProps>(
   ({ className = '', invalid = false, textarea = false, formatter, ...rest }: InputProps, ref) => {
     const { value, onChange, ...restProps } = rest;
@@ -20,10 +21,12 @@ const Input = React.forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProp
       className
     );
 
+    // textarea일 경우 textarea로 렌더링
     if (textarea) {
       return <textarea className={inputClasses} ref={ref as ForwardedRef<HTMLTextAreaElement>} {...rest} />;
     }
 
+    // fomatter와 onChange가 있을 경우 value를 포맷팅
     if (formatter && onChange) {
       return (
         <input
@@ -46,6 +49,7 @@ const Input = React.forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProp
       );
     }
 
+    // 기본 input 타입 정의
     return <input className={inputClasses} ref={ref as ForwardedRef<HTMLInputElement>} {...rest} />;
   }
 );

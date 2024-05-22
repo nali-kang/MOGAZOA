@@ -1,5 +1,4 @@
 import classNames from 'classnames';
-import React from 'react';
 
 import ErrorMessage from './ErrorMessage';
 import Label from './Label';
