@@ -78,7 +78,7 @@ export function DropdownSearch({ option, value, onChange, type = 'search' }: Pro
           <div className="flex justify-between items-center self-stretch w-full">
             <input
               value={search}
-              className="w-full bg-transparent focus:outline-none mt-[0.37rem] mb-[0.42rem] text-base leading-[normal]"
+              className={`${open ? 'text-[#f1f1f5]' : 'text-[#6e6e82]'} w-full bg-transparent focus:outline-none mt-[0.37rem] mb-[0.42rem] text-base leading-[normal]`}
               onChange={(e: React.ChangeEvent) => {
                 const target = e.target as HTMLInputElement;
                 setOpen(!!target.value);
