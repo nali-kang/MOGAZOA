@@ -10,7 +10,7 @@ interface SecondaryButtonProps {
   // PC 사이즈 기준 width에 맞는 사이즈 불러오시면 됩니다!
 }
 
-export default function SecondaryButton({ children, handleClick, isDisabled = true, btnSize }: SecondaryButtonProps) {
+export default function SecondaryButton({ children, handleClick, isDisabled = false, btnSize }: SecondaryButtonProps) {
   return (
     <div>
       <button
