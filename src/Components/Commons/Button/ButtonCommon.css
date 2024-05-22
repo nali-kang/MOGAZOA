@@ -1,35 +1,26 @@
 .btn-640 {
   width: 335px;
   height: 50px;
-
-  width: 640px;
-  height: 65px;
 }
 .btn-540 {
-  width: 540px;
-  height: 65px;
+  width: 295px;
+  height: 50px;
 }
 .btn-420 {
-  width: 420px;
-  height: 65px;
+  width: 295px;
+  height: 50px;
 }
 .btn-345 {
   width: 335px;
   height: 50px;
-  width: 345px;
-  height: 65px;
 }
 .btn-200 {
   width: 335px;
   height: 50px;
-  width: 200px;
-  height: 70px;
 }
 .btn-185 {
   width: 335px;
   height: 50px;
-  width: 185px;
-  height: 65px;
 }
 @media (min-width: 768px) {
   .btn-640 {
