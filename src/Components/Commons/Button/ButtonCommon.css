@@ -1,0 +1,85 @@
+.btn-640 {
+  width: 335px;
+  height: 50px;
+
+  width: 640px;
+  height: 65px;
+}
+.btn-540 {
+  width: 540px;
+  height: 65px;
+}
+.btn-420 {
+  width: 420px;
+  height: 65px;
+}
+.btn-345 {
+  width: 335px;
+  height: 50px;
+  width: 345px;
+  height: 65px;
+}
+.btn-200 {
+  width: 335px;
+  height: 50px;
+  width: 200px;
+  height: 70px;
+}
+.btn-185 {
+  width: 335px;
+  height: 50px;
+  width: 185px;
+  height: 65px;
+}
+@media (min-width: 768px) {
+  .btn-640 {
+    width: 440px;
+    height: 55px;
+  }
+  .btn-540 {
+    width: 510px;
+    height: 55px;
+  }
+  .btn-420 {
+    width: 420px;
+    height: 55px;
+  }
+  .btn-345 {
+    width: 246px;
+    height: 55px;
+  }
+  .btn-200 {
+    width: 164px;
+    height: 55px;
+  }
+  .btn-185 {
+    width: 140px;
+    height: 55px;
+  }
+}
+@media (min-width: 1024px) {
+  .btn-640 {
+    width: 640px;
+    height: 65px;
+  }
+  .btn-540 {
+    width: 540px;
+    height: 65px;
+  }
+  .btn-420 {
+    width: 420px;
+    height: 65px;
+  }
+  .btn-345 {
+    width: 345px;
+    height: 65px;
+  }
+  .btn-200 {
+    width: 200px;
+    height: 70px;
+  }
+  .btn-185 {
+    width: 185px;
+    height: 65px;
+  }
+}

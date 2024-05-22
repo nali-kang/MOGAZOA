@@ -1,28 +1,4 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-.btn-640 {
-  width: 640px;
-  height: 65px;
-}
-.btn-540 {
-  width: 540px;
-  height: 65px;
-}
-.btn-420 {
-  width: 420px;
-  height: 65px;
-}
-.btn-345 {
-  width: 345px;
-  height: 65px;
-}
-.btn-200 {
-  width: 200px;
-  height: 70px;
-}
-.btn-185 {
-  width: 185px;
-  height: 65px;
-}
+@import '@/Components/Commons/Button/ButtonCommon.css';
