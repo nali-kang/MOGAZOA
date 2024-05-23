@@ -18,9 +18,9 @@ export default function InputContainer({
   errorMessage = '',
   children
 }: InputContainerProps) {
-  const inputFormContainer = classNames('flex flex-col w-full relative', className);
-  const inputFormLabel = 'mb-2';
-  const inputFormErrorMessage = 'mt-2 absolute -bottom-6';
+  const inputFormContainer = classNames('flex flex-col w-full', className);
+  const inputFormLabel = 'mb-2.5';
+  const inputFormErrorMessage = 'mt-2.5';
 
   return (
     <div className={inputFormContainer}>

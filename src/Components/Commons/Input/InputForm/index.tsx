@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
 import classNames from 'classnames';
 import React, { forwardRef, useEffect, useRef, useState } from 'react';
 import { UseFormRegisterReturn } from 'react-hook-form';
 
-import FieldLabel from '../FeildLabel';
-import Input from '../Input';
-import InputContainer from '../InputContainer';
+import FieldLabel from '@/Components/Commons/Input/FeildLabel';
+import Input from '@/components/Commons/Input/Input';
+import InputContainer from '@/components/Commons/Input/InputContainer';
 
 interface InputFormProps extends React.InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement> {
   className?: string;
@@ -16,6 +16,7 @@ interface InputFormProps extends React.InputHTMLAttributes<HTMLInputElement | HT
   textarea?: boolean;
   rows?: number;
   register?: UseFormRegisterReturn;
+  maxLength?: number;
   // eslint-disable-next-line no-unused-vars
   formatter?: (value: string) => string;
 }
@@ -46,6 +47,7 @@ const InputForm = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputFormPr
       textarea = false,
       rows = 5,
       required = false,
+      maxLength = 300,
       ...rest
     }: InputFormProps,
     ref
@@ -53,12 +55,23 @@ const InputForm = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputFormPr
     // fieldLabel 너비 지정
     const [inputFieldPaddingRight, setInputFieldPaddingRight] = useState('2rem');
     const fieldLabelRef = useRef<HTMLSpanElement>(null);
+    const [currentLength, setCurrentLength] = useState(0);
 
-    const { register, ...restProps } = rest;
+    const { register, onChange, ...restProps } = rest;
+
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      const { value } = event.target;
+      if (value.length <= maxLength) {
+        setCurrentLength(value.length);
+        if (onChange) {
+          onChange(event);
+        }
+      }
+    };
 
     const classes = {
       inputFieldContainer: classNames('relative'),
-      inputField: classNames(fieldLabel && `paddingRight: ${inputFieldPaddingRight}`)
+      inputField: classNames(fieldLabel && `p-4 paddingRight: ${inputFieldPaddingRight}`),
     };
 
     useEffect(() => {
@@ -77,10 +90,16 @@ const InputForm = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputFormPr
             rows={rows}
             invalid={!!errorMessage}
             ref={ref as React.Ref<HTMLInputElement>}
+            onChange={handleInputChange}
             {...register}
             {...restProps}
           />
           <FieldLabel ref={fieldLabelRef}>{fieldLabel}</FieldLabel>
+          {textarea && (
+            <div className="text-gray1 font-sm absolute text-black" style={{ right: '20px', bottom: '20px' }}>
+              {currentLength} / {maxLength}
+            </div>
+          )}
         </div>
       </InputContainer>
     );

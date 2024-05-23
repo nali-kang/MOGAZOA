@@ -26,9 +26,7 @@ const FileInputForm = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputFo
     ref
   ) => {
     const [backgroundImage, setBackgroundImage] = useState<string | null>(backgroundImageUrl || null);
-
     const { onChange: registerOnChange, ...restProps } = rest;
-
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       // register의 onChange를 먼저 호출
       if (registerOnChange) {
@@ -52,7 +50,7 @@ const FileInputForm = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputFo
     );
 
     const inputFieldContainerClasses = classNames(
-      'relative w-full rounded-lg border border-gray-300 bg-gray-100 aspect-video',
+      'relative w-full rounded-lg border border-black4 bg-black3 aspect-video',
       errorMessage && 'border-red-400',
       className
     );

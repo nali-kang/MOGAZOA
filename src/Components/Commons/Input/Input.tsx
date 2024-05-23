@@ -10,20 +10,27 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement | HTMLTe
   formatter?: (value: string) => string;
 }
 
-// input 컴포넌트 정의
 const Input = React.forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProps>(
   ({ className = '', invalid = false, textarea = false, formatter, ...rest }: InputProps, ref) => {
     const { value, onChange, ...restProps } = rest;
 
     const inputClasses = classNames(
-      'flex w-full p-4 gap-4 text-black rounded-md border border-gray-300 outline-none bg-white placeholder-gray-400',
-      invalid && 'border-red-400 focus:border-gray-300',
+      'flex w-full p-4 gap-4 text-white rounded-md border border-black4 outline-none bg-black3 placeholder-gray-400 focus:border-blue',
+      invalid && 'border-red focus:border-blue',
       className
     );
 
     // textarea일 경우 textarea로 렌더링
     if (textarea) {
-      return <textarea className={inputClasses} ref={ref as ForwardedRef<HTMLTextAreaElement>} {...rest} />;
+      return (
+        <div className="relative">
+          <textarea
+            className={inputClasses}
+            ref={ref as ForwardedRef<HTMLTextAreaElement>}
+            {...rest}
+          />
+        </div>
+      );
     }
 
     // fomatter와 onChange가 있을 경우 value를 포맷팅
@@ -49,7 +56,6 @@ const Input = React.forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProp
       );
     }
 
-    // 기본 input 타입 정의
     return <input className={inputClasses} ref={ref as ForwardedRef<HTMLInputElement>} {...rest} />;
   }
 );

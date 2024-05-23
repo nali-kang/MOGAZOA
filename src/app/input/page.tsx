@@ -1,57 +1,59 @@
 'use client';
 
 import React from 'react';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import FileInputForm from '@/Components/Commons/Input/FileInputForm/FileInputForm';
-import InputForm from '../../Components/Commons/Input/InputForm';
+import InputForm from '@/Components/Commons/Input/InputForm';
+import { defaultLoginFormValues, validate } from '@/Constant/AuthForm.type';
 
-interface FormValues {
-  firstName: string;
-  lastName: string;
-  file: FileList;
-
+export interface IFormInputs {
+  email: string;
+  password: string;
+  passwordConfirm?: string;
+  type?: string;
+  file?: FileList;
 }
-
-function InputPage() {
+export default function InputPage() {
   const {
     register,
-    handleSubmit,
     formState: { errors },
-  } = useForm<FormValues>();
+  } = useForm<IFormInputs>({ defaultValues: defaultLoginFormValues, mode: 'onTouched' });
 
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
-    console.log(data);
+  const registerList = {
+    email: register('email', validate.email),
+    password: register('password', validate.password),
   };
 
   return (
-    <div className="p-4 bg-black1 min-h-screen text-white">
-      <h1 className="text-2xl mb-4">Input Form</h1>
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-        <InputForm
-          label="이메일"
-          errorMessage={errors.firstName?.message}
-          {...register('firstName', { required: 'First name is required' })}
-        />
-
-        <InputForm
-          label="비밀번호"
-          errorMessage={errors.lastName?.message}
-          {...register('lastName', { required: 'Last name is required' })}
-        />
-      </form>
-      <form onSubmit={handleSubmit(onSubmit)}>
+    <div className="bg-black2 p-3 gap-3">
+      <form className="pb-20 w-[140px] h-[140px]">
         <FileInputForm
-          className="my-4"
-          label="file"
+          label="프로필 편집"
           errorMessage={errors.file ? 'File is required' : undefined}
           register={register('file', { required: true })}
         />
-        <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
-          Submit
-        </button>
+      </form>
+      <form>
+        <div className="flex gap-4">
+          <InputForm
+            label="이메일"
+            errorMessage={errors.email?.message}
+            type="email"
+            {...registerList.email}
+            name="email"
+          />
+          <InputForm
+            label="비밀번호"
+            errorMessage={errors.password?.message}
+            type="password"
+            {...registerList.password}
+            name="password"
+          />
+        </div>
+      </form>
+      <form>
+        <InputForm label="텍스트" textarea {...registerList.password} name="password" />
       </form>
     </div>
   );
 }
-
-export default InputPage;
