@@ -39,14 +39,6 @@ function TestPage() {
         }}
       />
       <Dropdown
-        option={option}
-        value={nickname}
-        onChange={(value: any) => {
-          setNickname(value);
-        }}
-        type="nickname"
-      />
-      <Dropdown
         option={sort}
         value={sorting}
         onChange={(value: any) => {

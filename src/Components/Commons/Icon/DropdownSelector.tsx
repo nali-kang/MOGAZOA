@@ -3,6 +3,9 @@ import React from 'react';
 interface Props {
   open: boolean;
 }
+/**
+ * prop 활용하여 svg 변경을 위해 별도 컴포넌트로 사용
+ */
 function DropdownSelector({ open }: Props) {
   return (
     <svg width={24} height={24} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
