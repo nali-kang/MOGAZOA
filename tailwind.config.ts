@@ -11,7 +11,7 @@ const config: Config = {
       colors: {
         black1: '#17171C', // 진함
         black2: '#21212A', // 보통
-        black3: '#2E2E3A', // 연함
+        black3: '#353542', // 연함
         gray1: '#6E6E82', // 진함
         gray2: '#9FA6B2', // 연함
         white: '#F1F1F5',
