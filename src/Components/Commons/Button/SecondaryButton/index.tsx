@@ -57,7 +57,6 @@ export default function SecondaryButton({
       <button
         type="button"
         onClick={handleButtonClick}
-        disabled={isDisabled}
         className={`flex justify-center px-24 py-288 items-center rounded-lg bg-transparent  border ${isBtnActive ? 'border-pink' : 'text-gray1 border-black3'} ${sizeClass}`}
       >
         <p className={`${isBtnActive ? 'text-pink' : 'text-gray1'}`}>{children}</p>
