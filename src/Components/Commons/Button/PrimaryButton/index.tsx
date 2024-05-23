@@ -1,30 +1,26 @@
 'use client';
 
-import { ReactNode } from 'react';
+import { ButtonProps } from '@/Types/ButtonProps';
 
-interface PrimaryButtonProps {
-  children: ReactNode;
-  handleClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  isDisabled?: boolean;
-  btnSize: 'btn-640' | 'btn-540' | 'btn-420' | 'btn-345' | 'btn-200' | 'btn-185';
-  // PC 사이즈 기준 width에 맞는 사이즈 불러오시면 됩니다!
-}
-// width height font-size 순서
-// pc / tablet / mobile 순서
-// 640 65 18/ 440 55 16 / 335 50 16
-// 540 65 18/ 510 55 16/ 295 50 16
-// 420 65 18/ 420 55 16/ 295 50 16
-// 345 65 18/ 246 55 16 / 335 50 16
-// 200 70 18/ 164 55 16/ 335 50 16
-// 185 65 18 / 140 55 16/ 335 50 16
-export default function PrimaryButton({ children, handleClick, isDisabled = false, btnSize }: PrimaryButtonProps) {
+const btnSizeClassnames: Record<ButtonProps['btnSize'], string> = {
+  'btn-640': 'w-[335px] h-[50px] md:w-[440px] md:h-[55px] lg:w-[640px] lg:h-[65px] text-base lg:text-lg',
+  'btn-540': 'w-[295px] h-[50px] md:w-[510px] md:h-[55px] lg:w-[540px] lg:h-[65px] text-base lg:text-lg',
+  'btn-420': 'w-[295px] h-[50px] md:w-[420px] md:h-[55px] lg:w-[420px] lg:h-[65px] text-base lg:text-lg',
+  'btn-345': 'w-[335px] h-[50px] md:w-[246px] md:h-[55px] lg:w-[345px] lg:h-[65px] text-base lg:text-lg',
+  'btn-200': 'w-[335px] h-[50px] md:w-[164px] md:h-[55px] lg:w-[200px] lg:h-[70px] text-base lg:text-lg',
+  'btn-185': 'w-[335px] h-[50px] md:w-[140px] md:h-[55px] lg:w-[185px] lg:h-[65px] text-base lg:text-lg',
+};
+
+export default function PrimaryButton({ children, handleClick, isDisabled = false, btnSize }: ButtonProps) {
+  const sizeClass = btnSizeClassnames[btnSize];
+
   return (
     <div>
       <button
         type="button"
         onClick={handleClick}
         disabled={isDisabled}
-        className={`flex justify-center px-24 py-288 items-center rounded-lg ${btnSize} ${isDisabled ? 'bg-black3 text-gray1' : 'bg-gradient text-white'} `}
+        className={`flex justify-center px-24 py-288 items-center rounded-lg ${sizeClass} ${isDisabled ? 'bg-black3 text-gray1' : 'bg-gradient text-white'} `}
       >
         {children}
       </button>
