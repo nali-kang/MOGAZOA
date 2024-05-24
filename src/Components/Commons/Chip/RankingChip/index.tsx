@@ -14,7 +14,7 @@ export default function RankingChip({ children }: RankingChipProps) {
   // children에 '1등' '2등' 이외등수 적으시면 각 스타일 적용
   return (
     <div
-      className={`flex justify-center items-center ${rankChipStyle} rounded-[50px]  w-[26px] h-[16px] text-[10px] lg:w-[32] lg:h-[18px] lg:text-[12px]`}
+      className={`inline-flex justify-center items-center ${rankChipStyle} rounded-[50px] h-[16px] px-[2px] py-[6px] text-[10px] lg:h-[18px] lg:py-[8px] lg:text-[12px]`}
     >
       {children}
     </div>
