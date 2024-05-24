@@ -1,0 +1,112 @@
+[
+  {
+    "updatedAt": "2024-05-24T07:49:09.222Z",
+    "createdAt": "2024-05-24T07:49:09.222Z",
+    "teamId": "team1",
+    "image": "/Images/img-profile1.svg",
+    "description": "평범한 사용자",
+    "nickname": "user1",
+    "id": 1,
+    "reviewCount": 10,
+    "followersCount": 100
+  },
+  {
+    "updatedAt": "2024-05-24T07:50:09.222Z",
+    "createdAt": "2024-05-24T07:50:09.222Z",
+    "teamId": "team2",
+    "image": "/Images/img-profile2.svg",
+    "description": "활발한 리뷰어",
+    "nickname": "user2",
+    "id": 2,
+    "reviewCount": 20,
+    "followersCount": 200
+  },
+  {
+    "updatedAt": "2024-05-24T07:51:09.222Z",
+    "createdAt": "2024-05-24T07:51:09.222Z",
+    "teamId": "team3",
+    "image": "/Images/img-profile3.svg",
+    "description": "전문가 리뷰어",
+    "nickname": "user3",
+    "id": 3,
+    "reviewCount": 30,
+    "followersCount": 300
+  },
+  {
+    "updatedAt": "2024-05-24T07:52:09.222Z",
+    "createdAt": "2024-05-24T07:52:09.222Z",
+    "teamId": "team4",
+    "image": "/Images/img-profile4.svg",
+    "description": "팬시 리뷰어",
+    "nickname": "user4",
+    "id": 4,
+    "reviewCount": 40,
+    "followersCount": 400
+  },
+  {
+    "updatedAt": "2024-05-24T07:53:09.222Z",
+    "createdAt": "2024-05-24T07:53:09.222Z",
+    "teamId": "team5",
+    "image": "/Images/img-profile5.svg",
+    "description": "레저 리뷰어",
+    "nickname": "user5",
+    "id": 5,
+    "reviewCount": 50,
+    "followersCount": 500
+  },
+  {
+    "updatedAt": "2024-05-24T07:54:09.222Z",
+    "createdAt": "2024-05-24T07:54:09.222Z",
+    "teamId": "team6",
+    "image": "/Images/img-profile6.svg",
+    "description": "호기심 많은 리뷰어",
+    "nickname": "user6",
+    "id": 6,
+    "reviewCount": 60,
+    "followersCount": 600
+  },
+  {
+    "updatedAt": "2024-05-24T07:55:09.222Z",
+    "createdAt": "2024-05-24T07:55:09.222Z",
+    "teamId": "team7",
+    "image": "/Images/img-profile7.svg",
+    "description": "귀염 리뷰어",
+    "nickname": "user7",
+    "id": 7,
+    "reviewCount": 70,
+    "followersCount": 700
+  },
+  {
+    "updatedAt": "2024-05-24T07:56:09.222Z",
+    "createdAt": "2024-05-24T07:56:09.222Z",
+    "teamId": "team8",
+    "image": "/Images/img-profile8.svg",
+    "description": "맛있는 리뷰어",
+    "nickname": "user8",
+    "id": 8,
+    "reviewCount": 80,
+    "followersCount": 800
+  },
+  {
+    "updatedAt": "2024-05-24T07:57:09.222Z",
+    "createdAt": "2024-05-24T07:57:09.222Z",
+    "teamId": "team9",
+    "image": "/Images/img-profile9.svg",
+    "description": "소셜 리뷰어",
+    "nickname": "user9",
+    "id": 9,
+    "reviewCount": 90,
+    "followersCount": 900
+  },
+  {
+    "updatedAt": "2024-05-24T07:58:09.222Z",
+    "createdAt": "2024-05-24T07:58:09.222Z",
+    "teamId": "team10",
+    "image": "/Images/img-profile10.svg",
+    "description": "유명한 리뷰어",
+    "nickname": "user10",
+    "id": 10,
+    "reviewCount": 100,
+    "followersCount": 1000
+  }
+]
