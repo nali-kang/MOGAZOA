@@ -32,7 +32,7 @@ function NavigationBar({ firstTitle, secondTitle }: MyComponentProps) {
 
   return (
     <>
-      <nav className="flex items-center justify-between w-full sm:h-[70px] bg-bgblack px-[20px] py-[23px]  min-w-[375px] md:hidden ">
+      <nav className="flex items-center justify-between w-full h-[70px] bg-bgblack px-[20px]  min-w-[375px] md:hidden ">
         <Image src="/icons/menu-icon.svg" alt="메뉴이미지" width={24} height={24} />
         {!isSearchClicked && (
           <>
