@@ -9,20 +9,22 @@ export default function Products({ product }: ProductProps) {
   const { reviewCount, favoriteCount, image, name, rating } = product;
 
   return (
-    <div className="flex flex-col p-[10px] justify-center relative bg-scblack w-[160px] h-[183px] rounded-[8px] border border-black3">
-      <div className="flex justify-center relative items-center overflow-hidden  w-[140px] h-[98px]">
+    <div className="flex flex-col p-[10px] justify-center relative bg-scblack border border-black3 w-[160px] h-[183px] rounded-[8px] md:w-[247px] md:h-[256px] lg:w-[300px] lg:h-[308px]">
+      <div className="flex justify-center relative items-center overflow-hidden  w-[140px] h-[98px] mb-[10px] md:mb-[20px] md:w-[227px] md:h-[160px] lg:w-[284px] lg:h=[200px] lg:mb-[25px]">
         <Image src={image} alt="productImage" fill />
       </div>
-      <p className="text-white text-[14px]">{name}</p>
-      <div className="flex gap-[10px]">
-        <p className="text-gray1 font-light">후기 {reviewCount}</p>
-        <p className="text-gray1 font-light">찜 {favoriteCount}</p>
-      </div>
-      <div className="flex items-center gap-[2px]">
-        <div className="relative w-[12px] h-[12px]">
-          <Image src="/Icons/star-icon.svg" alt="productGrade" fill />
+      <p className="text-white text-[14px] mb-[5px] md:mb-[10px] md:text-[16px]  ">{name}</p>
+      <div className="flex flex-col md:flex-row md:justify-between">
+        <div className="flex gap-[10px] text-gray1 font-light text-[12px] md:text-[14px] md:gap-[15px] lg:text-[16px]">
+          <p>후기 {reviewCount}</p>
+          <p>찜 {favoriteCount}</p>
         </div>
-        <p className="text-gray2 text-[12px] font-light">{rating}</p>
+        <div className="flex items-center gap-[2px]">
+          <div className="relative w-[12px] h-[12px]">
+            <Image src="/Icons/star-icon.svg" alt="productGrade" fill />
+          </div>
+          <p className="text-gray2 text-[12px] font-light md:text-[14px] lg:text-[16px]">{rating}</p>
+        </div>
       </div>
     </div>
   );
