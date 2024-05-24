@@ -12,6 +12,8 @@ const config: Config = {
         black1: '#17171C', // 진함
         black2: '#21212A', // 보통
         black3: '#2E2E3A', // 연함
+        bgblack: '#1C1C22', // 배경 검정색
+        scblack: '#252530', // 검색창 검정색
         gray1: '#6E6E82', // 진함
         gray2: '#9FA6B2', // 연함
         white: '#F1F1F5',
