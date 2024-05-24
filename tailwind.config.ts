@@ -14,12 +14,15 @@ const config: Config = {
         black3: '#353542', // 연함
         gray1: '#6E6E82', // 진함
         gray2: '#9FA6B2', // 연함
+        'gray2-10': 'rgba(159, 166, 178, 0.10)', // gray2 색상 불투명도 10%
         white: '#F1F1F5',
         blue: '#5097FA',
         indigo: '#5363FF',
         yellow: '#FFC83C',
         green: '#05D58B',
+        'green-10': 'rgba(5, 213, 139, 0.10)', // green 색상 불투명도 10%
         pink: '#FF2F9F',
+        'pink-10': 'rgba(255, 47, 159, 0.10)', // pink 불투명도 10%
         red: '#FF0000',
       },
       backgroundImage: {
