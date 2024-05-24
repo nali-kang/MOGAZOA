@@ -17,13 +17,27 @@ const config: Config = {
         'gray2-10': 'rgba(159, 166, 178, 0.10)', // gray2 색상 불투명도 10%
         white: '#F1F1F5',
         blue: '#5097FA',
+        'blue-10': 'rgba(48, 152, 227, 0.10)',
         indigo: '#5363FF',
+        'indigo-10': 'rgba(117, 122, 255, 0.10)',
         yellow: '#FFC83C',
-        green: '#05D58B',
+        lime: '#C5D17C',
+        'lime-10': 'rgba(197, 209, 124, 0.10)',
+        green: '#05D58B', // 청록색느낌
         'green-10': 'rgba(5, 213, 139, 0.10)', // green 색상 불투명도 10%
-        pink: '#FF2F9F',
+        green2: '#49AF1A', // 연두색
+        'green2-10': 'rgba(73, 175, 26, 0.10)',
+        pink: '#FF2F9F', // 진한 핑크
         'pink-10': 'rgba(255, 47, 159, 0.10)', // pink 불투명도 10%
+        pink2: '#D676C1', // 연한핑크
+        'pink2-10': 'rgba(214, 118, 193, 0.10)',
         red: '#FF0000',
+        orange1: '#F75532', // 진함
+        'orange1-10': 'rgba(247, 85, 50, 0.10)',
+        orange2: '#FF7E46', // 연함
+        'orange2-10': 'rgba(255, 126, 70, 0.10)',
+        purple: '#A953FF',
+        'purple-10': 'rgba(169, 83, 255, 0.10)',
       },
       backgroundImage: {
         gradient: 'linear-gradient(102deg, rgba(80, 151, 250, 1) 4.11%, rgba(83, 99, 255, 1) 100%)',
