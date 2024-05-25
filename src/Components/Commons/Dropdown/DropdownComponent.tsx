@@ -81,6 +81,7 @@ export function DropdownSearch({ option, value, onChange, type = 'search' }: Sea
     return searchFilter.length > 0 ? (
       searchFilter.map((e) => (
         <button
+          key={e.value}
           type="button"
           className={`flex items-center gap-2.5 self-stretch py-1 px-5 rounded-md font-['Pretendard'] text-sm md:text-base leading-[normal] md:leading-[1.375rem] cursor-pointer hover:text-[#f1f1f5] ${e.value === value ? 'bg-[#353542] text-[#f1f1f5]' : 'text-[#6e6e82]'}`}
           onClick={() => {
@@ -181,7 +182,7 @@ export function Dropdown({ option, value, onChange, type = 'category' }: Dropdow
   const widthSize = useMemo(() => {
     switch (type) {
       case 'sort':
-        return 'w-[6.375rem] md:w-[11.25rem] lg:w-[12.5rem]';
+        return 'w-[8.375rem] md:w-[11.25rem] lg:w-[12.5rem]';
       default:
         return 'w-[18.4375rem] md:w-[22.5rem]';
     }
@@ -231,6 +232,7 @@ export function Dropdown({ option, value, onChange, type = 'category' }: Dropdow
             >
               {option.map((e) => (
                 <button
+                  key={e.value}
                   type="button"
                   className={`flex items-center gap-2.5 self-stretch py-1 px-5 rounded-md font-['Pretendard'] text-sm md:text-base leading-[normal] md:leading-[1.375rem] cursor-pointer hover:text-[#f1f1f5] ${e.value === value ? 'bg-[#353542] text-[#f1f1f5]' : 'text-[#6e6e82]'}`}
                   onClick={() => {

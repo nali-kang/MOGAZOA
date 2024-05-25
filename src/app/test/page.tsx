@@ -6,7 +6,6 @@ import { useState } from 'react';
 function TestPage() {
   const [selectOption, setSelectOption] = useState<string>('option');
   const [search, setSearch] = useState<string>('');
-  const [nickname, setNickname] = useState<string>('');
   const [sorting, setSorting] = useState<'latest' | 'upstar' | 'downstar' | 'like'>('latest');
 
   const option: Option[] = [
@@ -30,7 +29,7 @@ function TestPage() {
   ];
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2 p-10">
       <Dropdown
         option={option}
         value={selectOption}
