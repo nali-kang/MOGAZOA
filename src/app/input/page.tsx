@@ -4,7 +4,6 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import FileInputForm from '@/Components/Commons/Input/FileInputForm/FileInputForm';
 import InputForm from '@/Components/Commons/Input/InputForm';
-import { defaultLoginFormValues, validate } from '@/Constant/AuthForm.type';
 
 export interface IFormInputs {
   email: string;
@@ -13,47 +12,49 @@ export interface IFormInputs {
   type?: string;
   file?: FileList;
 }
+
 export default function InputPage() {
   const {
     register,
     formState: { errors },
-  } = useForm<IFormInputs>({ defaultValues: defaultLoginFormValues, mode: 'onTouched' });
-
-  const registerList = {
-    email: register('email', validate.email),
-    password: register('password', validate.password),
-  };
+  } = useForm<IFormInputs>({ mode: 'onTouched' });
 
   return (
-    <div className="bg-black2 p-3 gap-3">
-      <form className="pb-20 w-[140px] h-[140px]">
-        <FileInputForm
-          label="프로필 편집"
-          errorMessage={errors.file ? 'File is required' : undefined}
-          register={register('file', { required: true })}
-        />
-      </form>
-      <form>
-        <div className="flex gap-4">
-          <InputForm
-            label="이메일"
-            errorMessage={errors.email?.message}
-            type="email"
-            {...registerList.email}
-            name="email"
+    <div className="flex flex-col bg-black2 p-3 gap-4">
+      <div className="flex gap-4 h-[160px]">
+        <form className="h-[140px] w-[140px]">
+          <FileInputForm
+            errorMessage={errors.file ? 'File is required' : undefined}
+            register={register('file', { required: true })}
+            className="h-full"
           />
-          <InputForm
-            label="비밀번호"
-            errorMessage={errors.password?.message}
-            type="password"
-            {...registerList.password}
-            name="password"
-          />
-        </div>
-      </form>
-      <form>
-        <InputForm label="텍스트" textarea {...registerList.password} name="password" />
-      </form>
+        </form>
+        <form className="flex flex-col justify-between w-[360px]">
+          <div>
+            <InputForm
+              className="w-[360px] h-[55px]"
+              placeholder="상품평 (상품 등록 여부를 확인해 주세요)"
+              errorMessage={errors.email?.message}
+              type="email"
+              {...register('email')}
+            />
+          </div>
+          <div>
+            <InputForm
+              className="w-[360px] h-[60px]"
+              placeholder="카테고리 선택"
+              errorMessage={errors.password?.message}
+              type="password"
+              {...register('password')}
+            />
+          </div>
+        </form>
+      </div>
+      <div>
+        <form>
+          <InputForm className="w-[515px] h-[470px]" textarea {...register('password')} />
+        </form>
+      </div>
     </div>
   );
 }

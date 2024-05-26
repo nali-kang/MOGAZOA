@@ -61,17 +61,20 @@ const InputForm = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputFormPr
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const { value } = event.target;
-      if (value.length <= maxLength) {
+      if (value.length > maxLength) {
+        event.target.value = value.slice(0, maxLength);
+        setCurrentLength(maxLength);
+      } else {
         setCurrentLength(value.length);
-        if (onChange) {
-          onChange(event);
-        }
+      }
+      if (onChange) {
+        onChange(event);
       }
     };
 
     const classes = {
       inputFieldContainer: classNames('relative'),
-      inputField: classNames(fieldLabel && `p-4 paddingRight: ${inputFieldPaddingRight}`),
+      inputField: classNames(fieldLabel),
     };
 
     useEffect(() => {
@@ -84,6 +87,7 @@ const InputForm = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputFormPr
       <InputContainer className={className} label={label} required={required} errorMessage={errorMessage}>
         <div className={classes.inputFieldContainer}>
           <Input
+            className={className} // 여기에 className 추가
             style={{ paddingRight: inputFieldPaddingRight }}
             id={label}
             textarea={textarea}

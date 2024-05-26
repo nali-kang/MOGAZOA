@@ -15,8 +15,8 @@ const Input = React.forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProp
     const { value, onChange, ...restProps } = rest;
 
     const inputClasses = classNames(
-      'flex w-full p-4 gap-4 text-white rounded-md border border-black4 outline-none bg-black3 placeholder-gray-400 focus:border-blue',
-      invalid && 'border-red focus:border-blue',
+      'flex leading-none p-[23px_20px] text-xs text-white rounded-md border border-black4 outline-none bg-black3 placeholder-gray-400 focus:border-blue resize-none',
+      invalid ? 'border-red hover:border-blue focus:border-blue' : 'border-black4 hover:border-blue focus:border-blue',
       className
     );
 

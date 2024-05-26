@@ -1,7 +1,6 @@
 import classNames from 'classnames';
 import React, { forwardRef, useEffect, useState } from 'react';
 import { UseFormRegisterReturn } from 'react-hook-form';
-
 import InputContainer from '@/components/Commons/Input/InputContainer';
 import { ReactComponent as ImageIconSvg } from '@/public/Icons/img-icon.svg';
 
@@ -27,6 +26,7 @@ const FileInputForm = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputFo
   ) => {
     const [backgroundImage, setBackgroundImage] = useState<string | null>(backgroundImageUrl || null);
     const { onChange: registerOnChange, ...restProps } = rest;
+
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       // register의 onChange를 먼저 호출
       if (registerOnChange) {
@@ -50,8 +50,8 @@ const FileInputForm = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputFo
     );
 
     const inputFieldContainerClasses = classNames(
-      'relative w-full rounded-lg border border-black4 bg-black3 aspect-video',
-      errorMessage && 'border-red-400',
+      'relative rounded-lg border border-black4 bg-black3 aspect-video hover:border-blue w-full h-full',
+      errorMessage && 'border-red',
       className
     );
 
@@ -66,12 +66,11 @@ const FileInputForm = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputFo
             backgroundSize: 'cover',
           }}
         >
-          <label
-            htmlFor={label}
+          <div
             className="flex flex-col items-center gap-4 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 cursor-pointer"
           >
             <ImageIconSvg className="w-8 h-8" />
-          </label>
+          </div>
           <input
             className="hidden"
             id={label}
