@@ -55,21 +55,14 @@ const InputForm = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputFormPr
     // fieldLabel 너비 지정
     const [inputFieldPaddingRight, setInputFieldPaddingRight] = useState('2rem');
     const fieldLabelRef = useRef<HTMLSpanElement>(null);
-    const [currentLength, setCurrentLength] = useState(0);
+    const [inputValue, setInputValue] = useState('');
 
     const { register, onChange, ...restProps } = rest;
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const { value } = event.target;
-      if (value.length > maxLength) {
-        event.target.value = value.slice(0, maxLength);
-        setCurrentLength(maxLength);
-      } else {
-        setCurrentLength(value.length);
-      }
-      if (onChange) {
-        onChange(event);
-      }
+      // maxLength 제한을 적용하여 상태 업데이트
+      setInputValue(value.slice(0, maxLength));
     };
 
     const classes = {
@@ -87,7 +80,7 @@ const InputForm = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputFormPr
       <InputContainer className={className} label={label} required={required} errorMessage={errorMessage}>
         <div className={classes.inputFieldContainer}>
           <Input
-            className={className} // 여기에 className 추가
+            className={className}
             style={{ paddingRight: inputFieldPaddingRight }}
             id={label}
             textarea={textarea}
@@ -101,7 +94,7 @@ const InputForm = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputFormPr
           <FieldLabel ref={fieldLabelRef}>{fieldLabel}</FieldLabel>
           {textarea && (
             <div className="text-gray1 font-sm absolute text-black" style={{ right: '20px', bottom: '20px' }}>
-              {currentLength} / {maxLength}
+              {inputValue.length} / {maxLength}
             </div>
           )}
         </div>
