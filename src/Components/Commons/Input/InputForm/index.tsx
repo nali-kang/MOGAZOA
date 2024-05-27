@@ -93,7 +93,7 @@ const InputForm = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputFormPr
           />
           <FieldLabel ref={fieldLabelRef}>{fieldLabel}</FieldLabel>
           {textarea && (
-            <div className="text-gray1 font-sm absolute text-black" style={{ right: '20px', bottom: '20px' }}>
+            <div className="text-gray1 text-sm font-normal absolute text-black" style={{ right: '20px', bottom: '20px' }}>
               {inputValue.length} / {maxLength}
             </div>
           )}

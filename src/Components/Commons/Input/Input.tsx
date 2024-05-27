@@ -1,7 +1,6 @@
 import classNames from 'classnames';
 import React, { ForwardedRef } from 'react';
 
-// 타입 정의
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement> {
   className?: string;
   invalid?: boolean;

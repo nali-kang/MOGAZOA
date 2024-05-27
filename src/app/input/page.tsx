@@ -21,7 +21,7 @@ export default function InputPage() {
 
   return (
     <div className="flex flex-col bg-black2 p-3 gap-4">
-      <div className="flex gap-4 h-[160px]">
+      <div className="flex gap-4 h-[140px]">
         <form className="h-[140px] w-[140px]">
           <FileInputForm
             errorMessage={errors.file ? 'File is required' : undefined}
@@ -34,8 +34,7 @@ export default function InputPage() {
             <InputForm
               className="w-[360px] h-[55px]"
               placeholder="상품평 (상품 등록 여부를 확인해 주세요)"
-              errorMessage={errors.email?.message}
-              type="email"
+              type="text"
               {...register('email')}
             />
           </div>
@@ -43,8 +42,7 @@ export default function InputPage() {
             <InputForm
               className="w-[360px] h-[60px]"
               placeholder="카테고리 선택"
-              errorMessage={errors.password?.message}
-              type="password"
+              type="text"
               {...register('password')}
             />
           </div>
@@ -52,7 +50,7 @@ export default function InputPage() {
       </div>
       <div>
         <form>
-          <InputForm className="w-[515px] h-[470px]" textarea {...register('password')} />
+          <InputForm className="w-[515px] h-[470px] text-xl" textarea {...register('password')} />
         </form>
       </div>
     </div>
