@@ -8,7 +8,7 @@ interface ErrorMessageProps extends React.HTMLAttributes<HTMLParagraphElement> {
 export default function ErrorMessage({ className, children }: ErrorMessageProps) {
   if (!children) return null;
 
-  const errorMessageClasses = classNames('text-sm font-normal ml-2 text-red-500', className);
+  const errorMessageClasses = classNames('text-xs text-red lg:text-sm', className);
 
   return <p className={errorMessageClasses}>{children}</p>;
 }
