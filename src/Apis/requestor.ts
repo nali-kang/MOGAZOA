@@ -1,3 +1,5 @@
+'use client';
+
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import { errorInterceptor, requestInterceptor, successInterceptor } from './interceptors';
 
