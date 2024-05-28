@@ -29,7 +29,7 @@ const FileInputForm = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputFo
     const [inputId, setInputId] = useState<string | null>(null);
 
     useEffect(() => {
-      setInputId(label || `file-input-${Math.random().toString(36).substr(2, 9)}`);
+      setInputId(label || `file-input-${Math.random().toString(36)}`);
     }, [label]);
 
     const { onChange: registerOnChange, ...restProps } = rest;
