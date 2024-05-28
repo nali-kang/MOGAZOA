@@ -1,57 +1,91 @@
 'use client';
 
 import React from 'react';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import FileInputForm from '@/Components/Commons/Input/FileInputForm/FileInputForm';
-import InputForm from '../../Components/Commons/Input/InputForm';
+import InputForm from '@/Components/Commons/Input/InputForm/InputForm';
 
-interface FormValues {
-  firstName: string;
-  lastName: string;
-  file: FileList;
-
+export interface IFormInputs {
+  category?: string;
+  review?: string;
+  file?: FileList;
+  bio?: string;
 }
 
-function InputPage() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormValues>();
+export default function InputPage() {
+  const { register, watch } = useForm<IFormInputs>({
+    mode: 'onTouched',
+    defaultValues: {
+      review: '',
+      category: '',
+      bio: '',
+    },
+  });
 
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
-    console.log(data);
+  // 테스트: 입력 값이 변경될 때마다 콘솔에 로그를 찍는 함수
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    console.log('기본 이벤트 타겟 값', event.target.value);
   };
 
-  return (
-    <div className="p-4 bg-black1 min-h-screen text-white">
-      <h1 className="text-2xl mb-4">Input Form</h1>
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-        <InputForm
-          label="이메일"
-          errorMessage={errors.firstName?.message}
-          {...register('firstName', { required: 'First name is required' })}
-        />
+  // 테스트: defaultValues로 지정한 값들을 watch로 감시
+  const watchReview = watch('review');
+  const watchCategory = watch('category');
+  const watchBio = watch('bio');
+  const watchFile = watch('file');
 
-        <InputForm
-          label="비밀번호"
-          errorMessage={errors.lastName?.message}
-          {...register('lastName', { required: 'Last name is required' })}
-        />
-      </form>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <FileInputForm
-          className="my-4"
-          label="file"
-          errorMessage={errors.file ? 'File is required' : undefined}
-          register={register('file', { required: true })}
-        />
-        <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
-          Submit
-        </button>
-      </form>
+  // 테스트: defaultValues 출력
+  React.useEffect(() => {
+    console.log(`Review: ${watchReview}`);
+    console.log(`Category: ${watchCategory}`);
+    console.log(`Bio: ${watchBio}`);
+    if (watchFile && watchFile.length > 0) {
+      console.log(`Total Files: ${watchFile.length}`);
+      Array.from(watchFile).forEach((file, index) => {
+        console.log(`File ${index + 1}: `, file.name, file.type, file.size);
+      });
+    }
+  }, [watchReview, watchCategory, watchBio, watchFile]);
+
+  return (
+    <div className="flex flex-col bg-black2 p-3 gap-4">
+      <div className="flex gap-4">
+        <form>
+          <FileInputForm
+            className="w-[135px] h-[135px] "
+            register={register('file', { required: true })}
+            {...register('file', {
+              onChange: handleInputChange,
+            })}
+          />
+        </form>
+        <form className="flex flex-col justify-between w-[360px]">
+          <div>
+            <InputForm
+              className="w-[360px] h-[55px] text-xs"
+              placeholder="상품평 (상품 등록 여부를 확인해 주세요)"
+              type="text"
+              {...register('review', {
+                onChange: handleInputChange,
+              })}
+            />
+          </div>
+          <div>
+            <InputForm
+              className="w-[360px] h-[55px] text-xs"
+              placeholder="카테고리 선택"
+              type="text"
+              {...register('category', {
+                onChange: handleInputChange,
+              })}
+            />
+          </div>
+        </form>
+      </div>
+      <div>
+        <form>
+          <InputForm className="w-[512px] h-[170px] text-xs" placeholder="설명을 입력해주세요." textarea />
+        </form>
+      </div>
     </div>
   );
 }
-
-export default InputPage;

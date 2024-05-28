@@ -1,8 +1,7 @@
 import classNames from 'classnames';
 import React, { forwardRef, useEffect, useState } from 'react';
 import { UseFormRegisterReturn } from 'react-hook-form';
-
-import InputContainer from '@/components/Commons/Input/InputContainer';
+import InputContainer from '@/Components/Commons/Input/InputContainer';
 import { ReactComponent as ImageIconSvg } from '@/public/Icons/img-icon.svg';
 
 interface InputFormProps extends React.InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement> {
@@ -21,20 +20,24 @@ const FileInputForm = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputFo
       errorMessage = '',
       required = false,
       backgroundImageUrl = '',
+      register,
       ...rest
     }: InputFormProps,
     ref
   ) => {
     const [backgroundImage, setBackgroundImage] = useState<string | null>(backgroundImageUrl || null);
+    const [inputId, setInputId] = useState<string | null>(null);
+
+    useEffect(() => {
+      setInputId(label || `file-input-${Math.random().toString(36)}`);
+    }, [label]);
 
     const { onChange: registerOnChange, ...restProps } = rest;
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      // register의 onChange를 먼저 호출
       if (registerOnChange) {
         registerOnChange(event);
       }
-
       const file = event.target.files?.[0];
       if (file) {
         const fileURL = URL.createObjectURL(file);
@@ -45,45 +48,46 @@ const FileInputForm = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputFo
     useEffect(
       () => () => {
         if (backgroundImage) {
-          URL.revokeObjectURL(backgroundImage); // 메모리 누수 방지
+          URL.revokeObjectURL(backgroundImage);
         }
       },
       [backgroundImage]
     );
 
-    const inputFieldContainerClasses = classNames(
-      'relative w-full rounded-lg border border-gray-300 bg-gray-100 aspect-video',
-      errorMessage && 'border-red-400',
-      className
-    );
+    const inputFieldContainerClasses = classNames('inset-0 rounded-lg overflow-hidden', className);
 
     return (
       <InputContainer className={className} label={label} required={required} errorMessage={errorMessage}>
-        <div
-          className={inputFieldContainerClasses}
-          style={{
-            backgroundImage: backgroundImage
-              ? `linear-gradient(0deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${backgroundImage})`
-              : undefined,
-            backgroundSize: 'cover',
-          }}
-        >
+        {inputId && (
           <label
-            htmlFor={label}
-            className="flex flex-col items-center gap-4 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 cursor-pointer"
+            htmlFor={inputId}
+            className="relative cursor-pointer rounded-lg border border-black4 bg-black3 aspect-video hover:border-blue w-full h-full"
           >
-            <ImageIconSvg className="w-8 h-8" />
+            <div
+              className={inputFieldContainerClasses}
+              style={{
+                backgroundImage: backgroundImage ? `url(${backgroundImage})` : undefined,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                zIndex: 0,
+              }}
+            />
+            {!backgroundImage && (
+              <div className="flex flex-col items-center gap-4 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-0">
+                <ImageIconSvg className="w-8 h-8" />
+              </div>
+            )}
+            <input
+              className="hidden z-10 w-full h-full opacity-0 cursor-pointer"
+              id={inputId}
+              type="file"
+              accept="image/*"
+              ref={ref as React.Ref<HTMLInputElement>}
+              onChange={handleFileChange}
+              {...restProps}
+            />
           </label>
-          <input
-            className="hidden"
-            id={label}
-            type="file"
-            accept="image/*"
-            ref={ref as React.Ref<HTMLInputElement>}
-            onChange={handleFileChange}
-            {...restProps}
-          />
-        </div>
+        )}
       </InputContainer>
     );
   }

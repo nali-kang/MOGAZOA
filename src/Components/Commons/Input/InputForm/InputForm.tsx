@@ -1,12 +1,11 @@
-"use client";
+'use client';
 
 import classNames from 'classnames';
-import React, { forwardRef, useEffect, useRef, useState } from 'react';
+import React, { forwardRef, useState } from 'react';
 import { UseFormRegisterReturn } from 'react-hook-form';
 
-import FieldLabel from '../FeildLabel';
-import Input from '../Input';
-import InputContainer from '../InputContainer';
+import Input from '@/Components/Commons/Input/Input';
+import InputContainer from '@/Components/Commons/Input/InputContainer';
 
 interface InputFormProps extends React.InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement> {
   className?: string;
@@ -16,6 +15,7 @@ interface InputFormProps extends React.InputHTMLAttributes<HTMLInputElement | HT
   textarea?: boolean;
   rows?: number;
   register?: UseFormRegisterReturn;
+  maxLength?: number;
   // eslint-disable-next-line no-unused-vars
   formatter?: (value: string) => string;
 }
@@ -25,7 +25,6 @@ interface InputFormProps extends React.InputHTMLAttributes<HTMLInputElement | HT
  * label, input, errorMessage가 포함되어있습니다.
  * @param className string; InputForm 커스텀 스타일; 컨테이너의 스타일을 주입할 수 있습니다.
  * @param label string; input과 연결된 label입니다.
- * @param fieldLabel string; input 맨 뒤에 고정된 문자열; ex) '원'
  * @param errorMessage string; 에러 메세지; react-hook-form의 errors.{form}.message에 대응됩니다.
  * @param type string; input의 타입; type=number의 경우 01234 -> 1,234 형태로 포맷팅됩니다. 금액/시간 등에는 number를 사용해주세요.
  * @param textarea boolean; textarea; input을 textarea로 변경합니다.
@@ -46,41 +45,46 @@ const InputForm = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputFormPr
       textarea = false,
       rows = 5,
       required = false,
+      maxLength = 300,
       ...rest
     }: InputFormProps,
     ref
   ) => {
-    // fieldLabel 너비 지정
-    const [inputFieldPaddingRight, setInputFieldPaddingRight] = useState('2rem');
-    const fieldLabelRef = useRef<HTMLSpanElement>(null);
-
+    const [inputValue, setInputValue] = useState('');
     const { register, ...restProps } = rest;
+
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      const { value } = event.target;
+      if (value.length <= maxLength) {
+        setInputValue(value);
+      }
+    };
 
     const classes = {
       inputFieldContainer: classNames('relative'),
-      inputField: classNames(fieldLabel && `paddingRight: ${inputFieldPaddingRight}`)
+      inputField: classNames(fieldLabel),
     };
-
-    useEffect(() => {
-      // fieldLabel 크기만큼 여백 지정
-      const fieldLabelWidth = fieldLabelRef.current?.offsetWidth ?? 0;
-      setInputFieldPaddingRight(`${fieldLabelWidth / 10 + 2}rem`);
-    }, [fieldLabel]);
 
     return (
       <InputContainer className={className} label={label} required={required} errorMessage={errorMessage}>
         <div className={classes.inputFieldContainer}>
           <Input
-            style={{ paddingRight: inputFieldPaddingRight }}
+            className={className}
             id={label}
             textarea={textarea}
             rows={rows}
+            maxLength={maxLength}
             invalid={!!errorMessage}
             ref={ref as React.Ref<HTMLInputElement>}
+            onChange={handleInputChange}
             {...register}
             {...restProps}
           />
-          <FieldLabel ref={fieldLabelRef}>{fieldLabel}</FieldLabel>
+          {textarea && (
+            <div className="text-gray1 text-sm font-normal absolute text-black right-[23px] bottom-[20px]">
+              {inputValue.length} / {maxLength}
+            </div>
+          )}
         </div>
       </InputContainer>
     );
