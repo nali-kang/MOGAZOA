@@ -54,11 +54,7 @@ const FileInputForm = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputFo
       [backgroundImage]
     );
 
-    const inputFieldContainerClasses = classNames(
-      'absolute inset-0 rounded-lg overflow-hidden h-full w-full',
-      errorMessage && 'border-red',
-      className
-    );
+    const inputFieldContainerClasses = classNames('inset-0 rounded-lg overflow-hidden', className);
 
     return (
       <InputContainer className={className} label={label} required={required} errorMessage={errorMessage}>
@@ -73,14 +69,16 @@ const FileInputForm = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputFo
                 backgroundImage: backgroundImage ? `url(${backgroundImage})` : undefined,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
-                zIndex: 1,
+                zIndex: 0,
               }}
             />
-            <div className="flex flex-col items-center gap-4 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-              <ImageIconSvg className="w-8 h-8" />
-            </div>
+            {!backgroundImage && (
+              <div className="flex flex-col items-center gap-4 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-0">
+                <ImageIconSvg className="w-8 h-8" />
+              </div>
+            )}
             <input
-              className="hidden"
+              className="hidden z-10 w-full h-full opacity-0 cursor-pointer"
               id={inputId}
               type="file"
               accept="image/*"

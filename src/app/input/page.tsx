@@ -47,13 +47,13 @@ export default function InputPage() {
   }, [watchReview, watchCategory, watchBio, watchFile]);
 
   return (
-    <div className="flex flex-col bg-black2 p-3 gap-4 w-[100%]">
+    <div className="flex flex-col bg-black2 p-3 gap-4">
       <div className="flex gap-4">
         <form>
           <FileInputForm
-            className="w-[135px] h-[135px]"
+            className="w-[135px] h-[135px] "
             register={register('file', { required: true })}
-            {...register('review', {
+            {...register('file', {
               onChange: handleInputChange,
             })}
           />
@@ -61,7 +61,7 @@ export default function InputPage() {
         <form className="flex flex-col justify-between w-[360px]">
           <div>
             <InputForm
-              className="w-[360px] h-[55px]"
+              className="w-[360px] h-[55px] text-xs"
               placeholder="상품평 (상품 등록 여부를 확인해 주세요)"
               type="text"
               {...register('review', {
@@ -71,7 +71,7 @@ export default function InputPage() {
           </div>
           <div>
             <InputForm
-              className="w-[360px] h-[55px]"
+              className="w-[360px] h-[55px] text-xs"
               placeholder="카테고리 선택"
               type="text"
               {...register('category', {
@@ -83,7 +83,7 @@ export default function InputPage() {
       </div>
       <div>
         <form>
-          <InputForm className="w-[517px] h-[470px] text-xl" placeholder="설명을 입력해주세요." textarea />
+          <InputForm className="w-[510px] h-[470px] text-xs" placeholder="설명을 입력해주세요." textarea />
         </form>
       </div>
     </div>
