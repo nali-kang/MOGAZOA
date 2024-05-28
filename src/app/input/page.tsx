@@ -83,7 +83,7 @@ export default function InputPage() {
       </div>
       <div>
         <form>
-          <InputForm className="w-[510px] h-[470px] text-xs" placeholder="설명을 입력해주세요." textarea />
+          <InputForm className="w-[512px] h-[470px] text-xs" placeholder="설명을 입력해주세요." textarea />
         </form>
       </div>
     </div>
