@@ -55,7 +55,7 @@ const InputForm = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputFormPr
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const { value } = event.target;
-      if (value.length <= maxLength) { 
+      if (value.length <= maxLength) {
         setInputValue(value);
       }
     };
@@ -80,15 +80,12 @@ const InputForm = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputFormPr
             {...register}
             {...restProps}
           />
-            {textarea && (
-              <div
-                className="text-gray1 text-sm font-normal absolute text-black"
-                style={{ right: '20px', bottom: '20px' }}
-              >
-                {inputValue.length} / {maxLength}
-              </div>
-            )}
-          </div>
+          {textarea && (
+            <div className="text-gray1 text-sm font-normal absolute text-black right-[23px] bottom-[20px]">
+              {inputValue.length} / {maxLength}
+            </div>
+          )}
+        </div>
       </InputContainer>
     );
   }
