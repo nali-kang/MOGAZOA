@@ -19,12 +19,6 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
-      "@/components/*": ["./src/Components/*"],
-      "@/utils/*": ["./src/libs/Utils/*"],
-      "@/hooks/*": ["./src/libs/Hooks/*"],
-      "@/constants/*": ["./src/libs/Constants/*"],
-      "@/apis/*": ["./src/apis/*"],
-      "@/pages/*": ["./pages/*"],
       "@/public/*": ["./public/*"]
     }
   },

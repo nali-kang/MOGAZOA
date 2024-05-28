@@ -12,9 +12,9 @@ const config: Config = {
         black1: '#17171C', // 진함
         black2: '#21212A', // 보통
         black3: '#2E2E3A', // 연함
+        black4: '#353542',
         bgblack: '#1C1C22', // 배경 검정색
         scblack: '#252530', // 검색창 검정색
-        black4: '#353542',
         gray1: '#6E6E82', // 진함
         gray2: '#9FA6B2', // 연함
         'gray2-10': 'rgba(159, 166, 178, 0.10)', // gray2 색상 불투명도 10%
