@@ -3,7 +3,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import FileInputForm from '@/Components/Commons/Input/FileInputForm/FileInputForm';
-import InputForm from '@/Components/Commons/Input/InputForm';
+import InputForm from '@/Components/Commons/Input/InputForm/InputForm';
 
 export interface IFormInputs {
   category?: string;
