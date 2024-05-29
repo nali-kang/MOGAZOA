@@ -23,7 +23,7 @@ export default function Home() {
   return (
     <div>
       <NavigationBar firstTitle="비교하기" secondTitle="내 프로필" />
-      <div className="flex flex-col justify-normal px-[20px] pt-[30px] gap-[25px] w-full lg:justify-center md:pl-[25px] md:pr-[30px] md:pt-[40px] md:flex-row lg:pt-[60px] lg:flex-row">
+      <div className="flex flex-col justify-normal px-[20px] pt-[30px] gap-[25px] lg:gap-[110px] w-full lg:justify-center md:pl-[25px] md:pr-[30px] md:pt-[40px] md:flex-row lg:pt-[60px] lg:flex-row">
         <Sidemenu onSelectCategory={setSelectedCategory} />
         <div className="flex flex-col lg:flex-row-reverse lg:gap-[60px]">
           <ReveiwRank />
