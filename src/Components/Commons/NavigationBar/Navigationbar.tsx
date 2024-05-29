@@ -56,8 +56,8 @@ function NavigationBar({ firstTitle, secondTitle }: MyComponentProps) {
         />
         <div className="flex items-center ml-auto gap-[30px] xl:gap-[60px]">
           <Searchbar />
-          <p className="text-white text-sm xl:text-base font-nomal">{firstTitle}</p>
-          <p className="text-white text-sm xl:text-base font-nomal">{secondTitle}</p>
+          <p className="text-white text-sm xl:text-base font-nomal font-['Pretendard']">{firstTitle}</p>
+          <p className="text-white text-sm xl:text-base font-nomal font-['Pretendard']">{secondTitle}</p>
         </div>
       </nav>
     </>
