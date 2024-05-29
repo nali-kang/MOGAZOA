@@ -1,38 +1,30 @@
+import sortingOptions from '@/Constant/SortingOption';
 import Products from '..';
 import productMockData from '../productMockData.json';
-
-interface ProductType {
-  updatedAt: string;
-  createdAt: string;
-  writerId: number;
-  categoryId: number;
-  favoriteCount: number;
-  reviewCount: number;
-  rating: number;
-  image: string;
-  name: string;
-  id: number;
-}
+import { ProductType } from '@/Types/ProductType';
 
 interface ProductsCategoryProps {
   category: number | 'hot' | 'rating';
+  sortingOption?: keyof typeof sortingOptions;
 }
 
-export default function ProductsCategory({ category }: ProductsCategoryProps) {
+export default function ProductsCategory({ category, sortingOption }: ProductsCategoryProps) {
   let sortedProductData: ProductType[] = [];
 
   switch (category) {
     case 'hot':
-      sortedProductData = productMockData.list
-        .sort((a: ProductType, b: ProductType) => b.favoriteCount - a.favoriteCount)
-        .slice(0, 6);
+      sortedProductData = productMockData.list.sort(sortingOptions.like).slice(0, 6);
       break;
     case 'rating':
-      sortedProductData = productMockData.list.sort((a: ProductType, b: ProductType) => b.rating - a.rating);
+      sortedProductData = productMockData.list.sort(sortingOptions.downstar);
       break;
     default:
       if (typeof category === 'number') {
         sortedProductData = productMockData.list.filter((product: ProductType) => product.categoryId === category);
+        if (sortingOption && sortingOptions[sortingOption]) {
+          console.log(sortingOption);
+          sortedProductData = sortedProductData.sort(sortingOptions[sortingOption]);
+        }
       }
       break;
   }
