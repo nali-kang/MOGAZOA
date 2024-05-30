@@ -1,10 +1,9 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { DropdownSearch, Option } from '../Commons/Dropdown/DropdownComponent';
 import Button from '../Commons/Button';
-import src from '../../../custom';
-import Image from 'next/image';
 
 interface Compare {
   star: number;
@@ -13,8 +12,8 @@ interface Compare {
 }
 
 interface Props {
-  compareFirst: Compare;
-  compareSecond: Compare;
+  compareFirst?: Compare;
+  compareSecond?: Compare;
 }
 
 function CompareComponent({ compareFirst, compareSecond }: Props) {
