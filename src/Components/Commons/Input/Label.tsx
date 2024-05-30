@@ -9,8 +9,8 @@ export default function Label({ className = '', children, htmlFor, required = fa
   if (!children) return null;
 
   const labelClasses = classNames(
-    'text-base font-normal text-white',
-    required && 'after:content-[\'*\'] after:text-white',
+    'text-xs font-pretendard text-white lg:text-base',
+    required && "after:content-['*'] after:text-white",
     className
   );
 
