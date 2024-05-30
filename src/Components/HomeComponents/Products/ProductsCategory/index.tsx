@@ -1,7 +1,8 @@
 import sortingOptions from '@/Constant/SortingOption';
+import { ProductType } from '@/Types/ProductType';
+
 import Products from '..';
 import productMockData from '../productMockData.json';
-import { ProductType } from '@/Types/ProductType';
 
 interface ProductsCategoryProps {
   category: number | 'hot' | 'rating';

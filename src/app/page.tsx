@@ -1,13 +1,14 @@
 'use client';
 
 import { useState } from 'react';
-import { categories } from '@/Constant/Categories';
+
 import FloatingButton from '@/Components/Commons/Button/FloatingButton';
+import { Dropdown, Option } from '@/Components/Commons/Dropdown/DropdownComponent';
 import ProductsCategory from '@/Components/HomeComponents/Products/ProductsCategory';
 import ReveiwRank from '@/Components/HomeComponents/ReviewRank';
 import Sidemenu from '@/Components/HomeComponents/Sidemenu';
 import NavigationBar from '@/Components/NavigationBar/Navigationbar';
-import { Dropdown, Option } from '@/Components/Commons/Dropdown/DropdownComponent';
+import { categories } from '@/Constant/Categories';
 
 export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState<number | 'hot' | 'rating' | null>(null);

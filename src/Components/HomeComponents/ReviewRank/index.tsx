@@ -1,5 +1,5 @@
-import mockData from './mockData.json';
 import RankProfile from './RankProfile';
+import mockData from './mockData.json';
 
 export default function ReveiwRank() {
   const sortedReviewData = mockData.sort((a, b) => b.reviewCount - a.reviewCount);
