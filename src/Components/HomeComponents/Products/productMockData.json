@@ -1,0 +1,137 @@
+{
+  "nextCursor": 10,
+  "list": [
+    {
+      "updatedAt": "2024-05-24T10:04:20.441Z",
+      "createdAt": "2024-05-24T10:04:20.441Z",
+      "writerId": 1,
+      "categoryId": 1,
+      "favoriteCount": 10,
+      "reviewCount": 5,
+      "rating": 4.5,
+      "image": "/Images/adidas-shoes.svg",
+      "name": "상품 1",
+      "id": 1
+    },
+    {
+      "updatedAt": "2024-05-25T10:04:20.441Z",
+      "createdAt": "2024-05-25T10:04:20.441Z",
+      "writerId": 1,
+      "categoryId": 1,
+      "favoriteCount": 11,
+      "reviewCount": 6,
+      "rating": 5,
+      "image": "/Images/adidas-shoes.svg",
+      "name": "상품 11",
+      "id": 11
+    },
+    {
+      "updatedAt": "2024-05-24T10:04:20.442Z",
+      "createdAt": "2024-05-24T10:04:20.442Z",
+      "writerId": 2,
+      "categoryId": 2,
+      "favoriteCount": 20,
+      "reviewCount": 15,
+      "rating": 4.0,
+      "image": "/Images/adidas-shoes.svg",
+      "name": "상품 2",
+      "id": 2
+    },
+    {
+      "updatedAt": "2024-05-24T10:04:20.443Z",
+      "createdAt": "2024-05-24T10:04:20.443Z",
+      "writerId": 3,
+      "categoryId": 3,
+      "favoriteCount": 30,
+      "reviewCount": 25,
+      "rating": 4.7,
+      "image": "/Images/adidas-shoes.svg",
+      "name": "상품 3",
+      "id": 3
+    },
+    {
+      "updatedAt": "2024-05-24T10:04:20.444Z",
+      "createdAt": "2024-05-24T10:04:20.444Z",
+      "writerId": 4,
+      "categoryId": 4,
+      "favoriteCount": 40,
+      "reviewCount": 35,
+      "rating": 4.2,
+      "image": "/Images/adidas-shoes.svg",
+      "name": "상품 4",
+      "id": 4
+    },
+    {
+      "updatedAt": "2024-05-24T10:04:20.445Z",
+      "createdAt": "2024-05-24T10:04:20.445Z",
+      "writerId": 5,
+      "categoryId": 5,
+      "favoriteCount": 50,
+      "reviewCount": 45,
+      "rating": 4.8,
+      "image": "/Images/adidas-shoes.svg",
+      "name": "상품 5",
+      "id": 5
+    },
+    {
+      "updatedAt": "2024-05-24T10:04:20.446Z",
+      "createdAt": "2024-05-24T10:04:20.446Z",
+      "writerId": 6,
+      "categoryId": 6,
+      "favoriteCount": 60,
+      "reviewCount": 55,
+      "rating": 4.6,
+      "image": "/Images/adidas-shoes.svg",
+      "name": "상품 6",
+      "id": 6
+    },
+    {
+      "updatedAt": "2024-05-24T10:04:20.447Z",
+      "createdAt": "2024-05-24T10:04:20.447Z",
+      "writerId": 7,
+      "categoryId": 7,
+      "favoriteCount": 70,
+      "reviewCount": 65,
+      "rating": 4.9,
+      "image": "/Images/adidas-shoes.svg",
+      "name": "상품 7",
+      "id": 7
+    },
+    {
+      "updatedAt": "2024-05-24T10:04:20.448Z",
+      "createdAt": "2024-05-24T10:04:20.448Z",
+      "writerId": 8,
+      "categoryId": 8,
+      "favoriteCount": 80,
+      "reviewCount": 75,
+      "rating": 4.3,
+      "image": "/Images/adidas-shoes.svg",
+      "name": "상품 8",
+      "id": 8
+    },
+    {
+      "updatedAt": "2024-05-24T10:04:20.449Z",
+      "createdAt": "2024-05-24T10:04:20.449Z",
+      "writerId": 9,
+      "categoryId": 9,
+      "favoriteCount": 90,
+      "reviewCount": 85,
+      "rating": 4.4,
+      "image": "/Images/adidas-shoes.svg",
+      "name": "상품 9",
+      "id": 9
+    },
+    {
+      "updatedAt": "2024-05-24T10:04:20.450Z",
+      "createdAt": "2024-05-24T10:04:20.450Z",
+      "writerId": 10,
+      "categoryId": 10,
+      "favoriteCount": 100,
+      "reviewCount": 95,
+      "rating": 4.1,
+      "image": "/Images/adidas-shoes.svg",
+      "name": "상품 10",
+      "id": 10
+    }
+  ]
+}

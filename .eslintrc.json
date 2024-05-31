@@ -20,7 +20,8 @@
     ],
     "no-console": "off",
     "jsx-a11y/label-has-associated-control": "off",
-    "react-hooks/exhaustive-deps": "off"
+    "react-hooks/exhaustive-deps": "off",
+    "import/order": "off"
   },
   "settings": {
     "import/resolver": {
