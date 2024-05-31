@@ -5,8 +5,8 @@ export default function ReveiwRank() {
   const sortedReviewData = mockData.sort((a, b) => b.reviewCount - a.reviewCount);
 
   return (
-    <div className="flex mb-[60px] gap-[30px]">
-      <hr className="hidden w-[1px] h-full border border-scblack lg:block" />
+    <div className="flex mb-[60px] gap-[30px] lg:border-l lg:border-scblack ">
+      {/* <hr className="hidden w-[1px] h-full border border-scblack lg:block" /> */}
       <div className="lg:pl-[30px] lg:pr-[46px] ">
         <p className="text-white mb-[20px] lg:mb-[30px]">리뷰어 랭킹</p>
         <div className="flex overflow-x-auto gap-[15px] max-w-[530px]  md:max-w-[550px] lg:overflow-hidden lg:flex-col">
