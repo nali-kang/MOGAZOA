@@ -5,7 +5,7 @@ import { useState } from 'react';
 import FloatingButton from '@/Components/Commons/Button/FloatingButton';
 import { Dropdown, Option } from '@/Components/Commons/Dropdown/DropdownComponent';
 import ProductsCategory from '@/Components/HomeComponents/Products/ProductsCategory';
-import ReveiwRank from '@/Components/HomeComponents/ReviewRank';
+import ReviewRank from '@/Components/HomeComponents/ReviewRank';
 import Sidemenu from '@/Components/HomeComponents/Sidemenu';
 import NavigationBar from '@/Components/NavigationBar/Navigationbar';
 import { categories } from '@/Constant/Categories';
@@ -24,13 +24,13 @@ export default function Home() {
   return (
     <div>
       <NavigationBar firstTitle="비교하기" secondTitle="내 프로필" />
-      <div className="flex flex-col justify-normal px-[20px] pt-[30px] gap-[25px] lg:gap-[110px] w-full lg:justify-center md:pl-[25px] md:pr-[30px] md:pt-[40px] md:flex-row lg:pt-[60px] lg:flex-row">
+      <div className="flex flex-col justify-normal px-[20px] pt-[30px] gap-[25px] lg:gap-[110px]  md:pt-[40px] md:flex-row lg:justify-center lg:w-full lg:pt-[60px] lg:flex-row ">
         <Sidemenu onSelectCategory={setSelectedCategory} />
         <div className="flex flex-col lg:flex-row-reverse lg:gap-[60px]">
-          <ReveiwRank />
+          <ReviewRank />
           <div className="">
             {selectedCategory === null ? (
-              <>
+              <div>
                 <div className="mb-[60px] lg:mb-[80px]">
                   <h1 className="text-white text-[20px] font-semibold leading-7 mb-[30px] lg:text-[24px] lg:leading-none ">
                     지금 핫한 상품
@@ -44,9 +44,9 @@ export default function Home() {
                   </h1>
                   <ProductsCategory category="rating" />
                 </div>
-              </>
+              </div>
             ) : (
-              <div>
+              <div className="mg:w-full ">
                 <div className="flex justify-between">
                   <h1 className="text-white text-[20px] font-semibold leading-7 mb-[30px] lg:text-[24px] lg:leading-none ">
                     {categories.find((category) => category.id === selectedCategory)?.name}의 모든상품

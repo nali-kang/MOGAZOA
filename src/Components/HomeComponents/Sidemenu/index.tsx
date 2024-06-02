@@ -20,7 +20,7 @@ export default function Sidemenu({ onSelectCategory }: SidemenuProps) {
   };
 
   return (
-    <div className="hidden px-[20px] min-w-[150px] md:flex md:flex-col">
+    <div className="hidden px-[20px] w-[150px] md:flex md:flex-col">
       <p className="text-[16px] text-white mb-[32px]">카테고리</p>
       <ul>
         {categories.map((category) => (

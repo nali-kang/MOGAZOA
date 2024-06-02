@@ -2,7 +2,7 @@ import sortingOptions from '@/Constant/SortingOption';
 import { ProductType } from '@/Types/ProductType';
 
 import Products from '..';
-import productMockData from '../productMockData.json';
+import { useGetProductItems } from '@/Apis/Product/useProduct.Service';
 
 interface ProductsCategoryProps {
   category: number | 'hot' | 'rating';
@@ -10,20 +10,21 @@ interface ProductsCategoryProps {
 }
 
 export default function ProductsCategory({ category, sortingOption }: ProductsCategoryProps) {
+  const params = {};
+  const { data } = useGetProductItems(params);
   let sortedProductData: ProductType[] = [];
 
   switch (category) {
     case 'hot':
-      sortedProductData = productMockData.list.sort(sortingOptions.like).slice(0, 6);
+      sortedProductData = data.list.sort(sortingOptions.like).slice(0, 6);
       break;
     case 'rating':
-      sortedProductData = productMockData.list.sort(sortingOptions.downstar);
+      sortedProductData = data.list.sort(sortingOptions.downstar);
       break;
     default:
       if (typeof category === 'number') {
-        sortedProductData = productMockData.list.filter((product: ProductType) => product.categoryId === category);
+        sortedProductData = data.list.filter((product: ProductType) => product.categoryId === category);
         if (sortingOption && sortingOptions[sortingOption]) {
-          console.log(sortingOption);
           sortedProductData = sortedProductData.sort(sortingOptions[sortingOption]);
         }
       }
@@ -31,7 +32,7 @@ export default function ProductsCategory({ category, sortingOption }: ProductsCa
   }
 
   return (
-    <div className="grid grid-cols-2 gap-[15px] lg:grid-cols-3 lg:gap-[20px]">
+    <div className="grid grid-cols-2 gap-[15px] lg:grid-cols-3 lg:gap-[20px] lg:w-full">
       {sortedProductData.map((product: ProductType) => (
         <Products key={product.id} product={product} />
       ))}

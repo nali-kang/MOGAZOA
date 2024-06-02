@@ -226,7 +226,7 @@ export function Dropdown({ option, value, onChange, type = 'category' }: Dropdow
 
       {isOpen && (
         <div className="relative">
-          <div className="absolute top-2">
+          <div className="absolute top-2 z-10">
             <div
               className={`${widthSize} state_menu__size_l flex flex-col items-start p-2 rounded-lg border border-[#353542] bg-[#252530]`}
             >
