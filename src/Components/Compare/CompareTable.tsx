@@ -4,12 +4,21 @@ interface Props {
   compareFirst?: Compare;
   compareSecond?: Compare;
 }
+/**
+ * 비교상품 column list
+ */
 const COMPARE_LIST = [
   { dataIndex: 'rating', label: '별점' },
   { dataIndex: 'reviewCount', label: '리뷰 개수' },
   { dataIndex: 'favoriteCount', label: '찜 개수' },
 ];
 
+/**
+ * 비교 상품 테이블
+ * @param compareFirst - 첫번째 상품 정보
+ * @param compareSecond - 두번째 상품 정보
+ * @returns
+ */
 function CompareTable({ compareFirst, compareSecond }: Props) {
   return (
     <div className="w-full h-[18.5625rem] mt-20 bg-[#252530] border-2 border-[#353542] rounded-xl">

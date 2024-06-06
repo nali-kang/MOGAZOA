@@ -8,11 +8,21 @@ import { useCustomParam } from '@/Hooks/useCustomParams';
 import CompareTable from './CompareTable';
 import { Compare } from '@/Types/CompareType';
 
+/**
+ * @type compareFirst 비교하기 첫번째 상품
+ * @type compareSecond 비교하기 두번째 상품
+ */
 interface Props {
   compareFirst?: Compare;
   compareSecond?: Compare;
 }
 
+/**
+ * 두개 상품의 각 비교대상을 점수제로 비교하기 위한 함수
+ * @param a 숫자 비교를 위한 첫번째 상품의 비교대상
+ * @param b 숫자 비교를 위한 두번쨰 상품의 비교대상
+ * @returns 이기면 1 지면 -1 비기면 0 점수 획득
+ */
 function compareNumber(a: number, b: number) {
   if (a === b) {
     return 0;
@@ -23,13 +33,25 @@ function compareNumber(a: number, b: number) {
   return -1;
 }
 
+/**
+ * 비교대상의 상품을 담기위해 State 사용
+ * 페이지 이동시에도 비교상품을 가지기 위해 localStorage 사용
+ * Server Component 사용을 위해 상품id를 전달하기 위한 search param 사용
+ */
+
 function CompareComponent({ compareFirst, compareSecond }: Props) {
+  // search param 사용하기 위한 custom hook
+  // server component에 데이터 전달을 위해 query string 활용
   const params = useCustomParam();
 
+  // 선택한 상품내용을 담기 위한 state
   const [selectOption1, setSelectOption1] = useState<string>('');
   const [selectOption2, setSelectOption2] = useState<string>('');
 
   useEffect(() => {
+    // SSR 방식으로 localStorage 접근 시 오류 발생
+    // window 객체를 직접 호출하면 오류 발생
+    // 두 상황을 타개하기 위해 useMemo를 쓰지 않고 state, effect 활용 -> 랜더된 후 localStroage 접근
     setSelectOption1(localStorage.getItem('compare1') ?? '');
     setSelectOption2(localStorage.getItem('compare2') ?? '');
   }, []);
@@ -47,6 +69,8 @@ function CompareComponent({ compareFirst, compareSecond }: Props) {
     { label: '옵션10', value: 'option9' },
   ];
 
+  // 상품의 비교대상(별점, 리뷰, 찜)을 계산하여 점수 확인
+  // 양수일 경우 첫번째 상품 승, 음수일 경우 두번째 상품 승, 0점 무승부
   const compareState = useMemo(() => {
     if (compareFirst && compareSecond) {
       return (
