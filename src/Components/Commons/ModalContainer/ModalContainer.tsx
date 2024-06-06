@@ -52,7 +52,7 @@ export default function ModalContainer() {
 
   return (
     <Modal
-      className=" bg-bgblack w-[335px] h-[518px] md:w-[590px] md:h-[642px] xl:w-[620px] xl:h-[698px] "
+      className=" bg-bgblack"
       isOpen={modalState.isOpen}
       style={modalStyles}
       onRequestClose={() => {
