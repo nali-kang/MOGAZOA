@@ -1,6 +1,5 @@
 'use client';
 
-import TestModal from '@/Components/Modal/TestModal';
 import { ModalSetterContext, ModalStateContext } from '@/Context/ModalContext';
 import { FunctionComponent, useContext } from 'react';
 import Modal from 'react-modal';
