@@ -10,7 +10,7 @@ function ComparePage({ searchParams }: Props) {
     <Suspense>
       <CompareComponent
         compareFirst={
-          searchParams?.key1
+          searchParams?.compare1
             ? {
                 rating: 4.5,
                 reviewCount: 100,
@@ -19,7 +19,7 @@ function ComparePage({ searchParams }: Props) {
             : undefined
         }
         compareSecond={
-          searchParams?.key1
+          searchParams?.compare2
             ? {
                 rating: 4.3,
                 reviewCount: 100,

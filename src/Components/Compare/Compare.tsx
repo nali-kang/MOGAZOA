@@ -30,8 +30,8 @@ function CompareComponent({ compareFirst, compareSecond }: Props) {
   const [selectOption2, setSelectOption2] = useState<string>('');
 
   useEffect(() => {
-    setSelectOption1(localStorage.getItem('key1') ?? '');
-    setSelectOption2(localStorage.getItem('key2') ?? '');
+    setSelectOption1(localStorage.getItem('compare1') ?? '');
+    setSelectOption2(localStorage.getItem('compare2') ?? '');
   }, []);
 
   const option: Option[] = [
@@ -69,7 +69,7 @@ function CompareComponent({ compareFirst, compareSecond }: Props) {
               value={selectOption1}
               onChange={(value: string) => {
                 setSelectOption1(value);
-                localStorage.setItem('key1', value);
+                localStorage.setItem('compare1', value);
                 params.reset();
               }}
               type="tag_first"
@@ -82,7 +82,7 @@ function CompareComponent({ compareFirst, compareSecond }: Props) {
               value={selectOption2}
               onChange={(value: string) => {
                 setSelectOption2(value);
-                localStorage.setItem('key2', value);
+                localStorage.setItem('compare2', value);
                 params.reset();
               }}
               type="tag_second"
@@ -91,7 +91,7 @@ function CompareComponent({ compareFirst, compareSecond }: Props) {
           <Button
             color="primary"
             className="w-[12.5rem] py-6 px-16 font-base font-normal leading-[normal]"
-            onClick={() => params.set('key1', selectOption1).set('key2', selectOption2).push()}
+            onClick={() => params.set('compare1', selectOption1).set('compare2', selectOption2).push()}
           >
             비교하기
           </Button>
@@ -103,7 +103,7 @@ function CompareComponent({ compareFirst, compareSecond }: Props) {
                 {compareState > 0 && (
                   <div className="flex flex-col gap-5 items-center">
                     <span className="flex gap-2">
-                      <p className="text-[#05D58B]">{option.find((e) => e.value === params.get('key1'))?.label}</p>
+                      <p className="text-[#05D58B]">{option.find((e) => e.value === params.get('compare1'))?.label}</p>
                       상품이 승리하였습니다!
                     </span>
                     <p className="text-base font-normal leading-normal text-[#9FA6B2]">
@@ -114,7 +114,7 @@ function CompareComponent({ compareFirst, compareSecond }: Props) {
                 {compareState < 0 && (
                   <div className="flex flex-col gap-5 items-center">
                     <span className="flex gap-2">
-                      <p className="text-[#FF2F9F]">{option.find((e) => e.value === params.get('key2'))?.label}</p>
+                      <p className="text-[#FF2F9F]">{option.find((e) => e.value === params.get('compare2'))?.label}</p>
                       상품이 승리하였습니다!
                     </span>
                     <p className="text-base font-normal leading-normal text-[#9FA6B2]">
