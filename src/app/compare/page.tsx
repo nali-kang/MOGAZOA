@@ -1,5 +1,6 @@
 import { apiRequestor } from '@/Apis/server.requestor';
 import CompareComponent from '@/Components/Compare/Compare';
+import { ProductDetail } from '@/Types/ProductType';
 
 interface Props {
   searchParams?: { [key: string]: string | string[] | undefined };
@@ -10,8 +11,8 @@ interface Props {
  * @returns
  */
 async function ComparePage({ searchParams }: Props) {
-  let compare1: any = {};
-  let compare2: any = {};
+  let compare1: { data?: ProductDetail } = {};
+  let compare2: { data?: ProductDetail } = {};
 
   if (searchParams?.compare1 && searchParams?.compare2) {
     compare1 = await apiRequestor.get(`/products/${searchParams?.compare1 ? Number(searchParams?.compare1) : 0}`);
@@ -21,20 +22,20 @@ async function ComparePage({ searchParams }: Props) {
   return (
     <CompareComponent
       compareFirst={
-        searchParams?.compare1
+        searchParams?.compare1 && compare1?.data
           ? {
-              rating: compare1?.data?.rating,
-              reviewCount: compare1.data?.reviewCount,
-              favoriteCount: compare1.data?.favoriteCount,
+              rating: compare1.data.rating,
+              reviewCount: compare1.data.reviewCount,
+              favoriteCount: compare1.data.favoriteCount,
             }
           : undefined
       }
       compareSecond={
-        searchParams?.compare2
+        searchParams?.compare2 && compare2?.data
           ? {
-              rating: compare2?.data?.rating,
-              reviewCount: compare2.data?.reviewCount,
-              favoriteCount: compare2.data?.favoriteCount,
+              rating: compare2.data.rating,
+              reviewCount: compare2.data.reviewCount,
+              favoriteCount: compare2.data.favoriteCount,
             }
           : undefined
       }
