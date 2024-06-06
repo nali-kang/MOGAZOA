@@ -136,6 +136,7 @@ export function DropdownSearch({ option, value, onChange, type = 'search' }: Sea
                 clickHandler(!!target.value);
                 setSearch(target.value);
               }}
+              onFocus={() => clickHandler(true)}
             />
             <DropdownSelector open={isOpen} />
           </div>

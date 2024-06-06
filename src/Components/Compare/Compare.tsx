@@ -115,7 +115,12 @@ function CompareComponent({ compareFirst, compareSecond }: Props) {
           <Button
             color="primary"
             className="w-[12.5rem] py-6 px-16 font-base font-normal leading-[normal]"
-            onClick={() => params.set('compare1', selectOption1).set('compare2', selectOption2).push()}
+            disabled={!(selectOption1 && selectOption2)}
+            onClick={() => {
+              if (selectOption1 && selectOption2) {
+                params.set('compare1', selectOption1).set('compare2', selectOption2).push();
+              }
+            }}
           >
             비교하기
           </Button>
