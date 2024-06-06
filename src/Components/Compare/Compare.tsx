@@ -6,6 +6,7 @@ import { DropdownSearch, Option } from '../Commons/Dropdown/DropdownComponent';
 import Button from '../Commons/Button';
 import { useCustomParam } from '@/Hooks/useCustomParams';
 import CompareTable from './CompareTable';
+import { useGetProductItems } from '@/Apis/Product/useProduct.Service';
 import { Compare } from '@/Types/CompareType';
 
 /**
@@ -45,29 +46,23 @@ function CompareComponent({ compareFirst, compareSecond }: Props) {
   const params = useCustomParam();
 
   // 선택한 상품내용을 담기 위한 state
-  const [selectOption1, setSelectOption1] = useState<string>('');
-  const [selectOption2, setSelectOption2] = useState<string>('');
+  const [selectOption1, setSelectOption1] = useState<number | undefined>();
+  const [selectOption2, setSelectOption2] = useState<number | undefined>();
 
   useEffect(() => {
     // SSR 방식으로 localStorage 접근 시 오류 발생
     // window 객체를 직접 호출하면 오류 발생
     // 두 상황을 타개하기 위해 useMemo를 쓰지 않고 state, effect 활용 -> 랜더된 후 localStroage 접근
-    setSelectOption1(localStorage.getItem('compare1') ?? '');
-    setSelectOption2(localStorage.getItem('compare2') ?? '');
+    setSelectOption1(Number(localStorage.getItem('compare1')));
+    setSelectOption2(Number(localStorage.getItem('compare2')));
   }, []);
 
-  const option: Option[] = [
-    { label: '옵션1', value: 'option' },
-    { label: '옵션2', value: 'option1' },
-    { label: '옵션3', value: 'option2' },
-    { label: '옵션4', value: 'option3' },
-    { label: '옵션5', value: 'option4' },
-    { label: '옵션6', value: 'option5' },
-    { label: '옵션7', value: 'option6' },
-    { label: '옵션8', value: 'option7' },
-    { label: '옵션9', value: 'option8' },
-    { label: '옵션10', value: 'option9' },
-  ];
+  const productOption = useGetProductItems({});
+
+  const option: Option[] = useMemo(
+    () => productOption?.data?.list?.map((e: any) => ({ label: e.name, value: e.id })),
+    [productOption]
+  );
 
   // 상품의 비교대상(별점, 리뷰, 찜)을 계산하여 점수 확인
   // 양수일 경우 첫번째 상품 승, 음수일 경우 두번째 상품 승, 0점 무승부
@@ -91,9 +86,9 @@ function CompareComponent({ compareFirst, compareSecond }: Props) {
             <DropdownSearch
               option={option}
               value={selectOption1}
-              onChange={(value: string) => {
+              onChange={(value: number) => {
                 setSelectOption1(value);
-                localStorage.setItem('compare1', value);
+                localStorage.setItem('compare1', `${value}`);
                 params.reset();
               }}
               type="tag_first"
@@ -104,9 +99,9 @@ function CompareComponent({ compareFirst, compareSecond }: Props) {
             <DropdownSearch
               option={option}
               value={selectOption2}
-              onChange={(value: string) => {
+              onChange={(value: number) => {
                 setSelectOption2(value);
-                localStorage.setItem('compare2', value);
+                localStorage.setItem('compare2', `${value}`);
                 params.reset();
               }}
               type="tag_second"
@@ -114,7 +109,7 @@ function CompareComponent({ compareFirst, compareSecond }: Props) {
           </div>
           <Button
             color="primary"
-            className="w-[12.5rem] py-6 px-16 font-base font-normal leading-[normal]"
+            className="w-[12.5rem] h-[4.375rem] flex items-center justify-center font-base font-normal leading-[normal] px-0 py-0"
             disabled={!(selectOption1 && selectOption2)}
             onClick={() => {
               if (selectOption1 && selectOption2) {
@@ -126,7 +121,7 @@ function CompareComponent({ compareFirst, compareSecond }: Props) {
           </Button>
         </article>
         <article className="w-full flex items-center justify-center">
-          {compareFirst && compareSecond && selectOption1 && selectOption2 ? (
+          {params.getData('compare1') && params.getData('compare2') ? (
             <div className="w-full h-[51.315rem] pt-[8.75rem] pb-[14.75rem] flex flex-col items-center">
               <strong className="text-2xl laeding-[normal] font-semibold text-[#F1F1F5]">
                 {compareState > 0 && (
