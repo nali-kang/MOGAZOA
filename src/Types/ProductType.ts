@@ -12,7 +12,6 @@ export interface ProductType {
 }
 
 export interface ProductDetail {
-  data: any;
   updatedAt: string;
   createdAt: string;
   writerId: number;

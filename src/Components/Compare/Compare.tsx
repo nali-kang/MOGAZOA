@@ -127,7 +127,9 @@ function CompareComponent({ compareFirst, compareSecond }: Props) {
                 {compareState > 0 && (
                   <div className="flex flex-col gap-5 items-center">
                     <span className="flex gap-2">
-                      <p className="text-[#05D58B]">{option.find((e) => e.value === params.get('compare1'))?.label}</p>
+                      <p className="text-[#05D58B]">
+                        {option.find((op) => op.value === Number(params.get('compare1')))?.label}
+                      </p>
                       상품이 승리하였습니다!
                     </span>
                     <p className="text-base font-normal leading-normal text-[#9FA6B2]">
@@ -138,7 +140,9 @@ function CompareComponent({ compareFirst, compareSecond }: Props) {
                 {compareState < 0 && (
                   <div className="flex flex-col gap-5 items-center">
                     <span className="flex gap-2">
-                      <p className="text-[#FF2F9F]">{option.find((e) => e.value === params.get('compare2'))?.label}</p>
+                      <p className="text-[#FF2F9F]">
+                        {option.find((op) => op.value === Number(params.get('compare2')))?.label}
+                      </p>
                       상품이 승리하였습니다!
                     </span>
                     <p className="text-base font-normal leading-normal text-[#9FA6B2]">

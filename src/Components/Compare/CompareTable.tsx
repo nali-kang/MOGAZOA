@@ -29,12 +29,12 @@ function CompareTable({ compareFirst, compareSecond }: Props) {
         <p>결과</p>
       </div>
       <div className="grid grid-rows-3 text-[#9FA6B2] text-base font-normal leading-normal">
-        {COMPARE_LIST.map((e: any) => {
-          const first = compareFirst?.[e.dataIndex as 'rating' | 'reviewCount' | 'favoriteCount'] ?? 0;
-          const second = compareSecond?.[e.dataIndex as 'rating' | 'reviewCount' | 'favoriteCount'] ?? 0;
+        {COMPARE_LIST.map((compare: any) => {
+          const first = compareFirst?.[compare.dataIndex as 'rating' | 'reviewCount' | 'favoriteCount'] ?? 0;
+          const second = compareSecond?.[compare.dataIndex as 'rating' | 'reviewCount' | 'favoriteCount'] ?? 0;
           return (
-            <div className="h-[5rem] grid grid-cols-4 content-center justify-items-center">
-              <p>{e.label}</p>
+            <div key={compare.dataIndex} className="h-[5rem] grid grid-cols-4 content-center justify-items-center">
+              <p>{compare.label}</p>
               <p className="text-white">{first}</p>
               <p className="text-white">{second}</p>
               <p className="text-white">
