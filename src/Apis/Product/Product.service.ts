@@ -1,5 +1,6 @@
 /* eslint-disable class-methods-use-this */
 
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { AxiosRequestConfig } from 'axios';
 import { apiRequestor, apiRequestorToken } from '../requestor';
 import { GetProductProps, GetProductReviewList, PostProductItems } from './Product.type';
