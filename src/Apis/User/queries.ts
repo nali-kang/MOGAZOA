@@ -1,57 +1,54 @@
-import { BaseQuery } from '../common.type';
 import UserService from './User.service';
-import { PatchUserProps, UserId } from './User.type';
+import { PatchUserProps } from './User.type';
 
 const queryKeys = {
-  getUserMe: (params: BaseQuery) => ['getUserMe', params] as const,
+  getUserMe: () => ['getUserMe'] as const,
   patchUserMe: (payload: PatchUserProps) => ['patchUserMe', payload] as const,
-  getUserRanking: (params: BaseQuery) => ['getUserRanking', params] as const,
-  getUserInfo: (userId: UserId, params: BaseQuery) => ['getUserInfo', { userId, params }] as const,
-  getUserCreatedProduct: (userId: UserId, params: BaseQuery) => ['getUserCreatedProduct', { userId, params }] as const,
-  getUserReviewedProduct: (userId: UserId, params: BaseQuery) =>
-    ['getUserReviewedProduct', { userId, params }] as const,
-  getUserFavoriteProduct: (userId: UserId, params: BaseQuery) =>
-    ['getUserFavoriteProduct', { userId, params }] as const,
-  getUserFollowees: (userId: UserId, params: BaseQuery) => ['getUserFollowees', { userId, params }] as const,
-  getUserFollowers: (userId: UserId, params: BaseQuery) => ['getUserFollowers', { userId, params }] as const,
+  getUserRanking: () => ['getUserRanking'] as const,
+  getUserInfo: (userId: number) => ['getUserInfo', userId] as const,
+  getUserCreatedProduct: (userId: number) => ['getUserCreatedProduct', userId] as const,
+  getUserReviewedProduct: (userId: number) => ['getUserReviewedProduct', userId] as const,
+  getUserFavoriteProduct: (userId: number) => ['getUserFavoriteProduct', userId] as const,
+  getUserFollowees: (userId: number) => ['getUserFollowees', userId] as const,
+  getUserFollowers: (userId: number) => ['getUserFollowers', userId] as const,
 };
 
 const queryOptions = {
-  getUserMe: (params: BaseQuery) => ({
-    queryKey: queryKeys.getUserMe(params),
-    queryFn: () => UserService.getUserMe(params),
+  getUserMe: () => ({
+    queryKey: queryKeys.getUserMe(),
+    queryFn: () => UserService.getUserMe(),
   }),
   patchUserMe: (payload: PatchUserProps) => ({
     mutationKey: queryKeys.patchUserMe(payload),
     mutationFn: (patchPayload: PatchUserProps) => UserService.patchUserMe(patchPayload),
   }),
-  getUserRanking: (params: BaseQuery) => ({
-    queryKey: queryKeys.getUserRanking(params),
-    queryFn: () => UserService.getUserRanking(params),
+  getUserRanking: () => ({
+    queryKey: queryKeys.getUserRanking(),
+    queryFn: () => UserService.getUserRanking(),
   }),
-  getUserInfo: (userId: UserId, params: BaseQuery) => ({
-    queryKey: queryKeys.getUserInfo(userId, params),
-    queryFn: () => UserService.getUserInfo(userId, params),
+  getUserInfo: (userId: number) => ({
+    queryKey: queryKeys.getUserInfo(userId),
+    queryFn: () => UserService.getUserInfo(userId),
   }),
-  getUserCreatedProduct: (userId: UserId, params: BaseQuery) => ({
-    queryKey: queryKeys.getUserCreatedProduct(userId, params),
-    queryFn: () => UserService.getUserCreatedProduct(userId, params),
+  getUserCreatedProduct: (userId: number) => ({
+    queryKey: queryKeys.getUserCreatedProduct(userId),
+    queryFn: () => UserService.getUserCreatedProduct(userId),
   }),
-  getUserReviewedProduct: (userId: UserId, params: BaseQuery) => ({
-    queryKey: queryKeys.getUserReviewedProduct(userId, params),
-    queryFn: () => UserService.getUserReviewedProduct(userId, params),
+  getUserReviewedProduct: (userId: number) => ({
+    queryKey: queryKeys.getUserReviewedProduct(userId),
+    queryFn: () => UserService.getUserReviewedProduct(userId),
   }),
-  getUserFavoriteProduct: (userId: UserId, params: BaseQuery) => ({
-    queryKey: queryKeys.getUserFavoriteProduct(userId, params),
-    queryFn: () => UserService.getUserFavoriteProduct(userId, params),
+  getUserFavoriteProduct: (userId: number) => ({
+    queryKey: queryKeys.getUserFavoriteProduct(userId),
+    queryFn: () => UserService.getUserFavoriteProduct(userId),
   }),
-  getUserFollowees: (userId: UserId, params: BaseQuery) => ({
-    queryKey: queryKeys.getUserFollowees(userId, params),
-    queryFn: () => UserService.getUserFollowees(userId, params),
+  getUserFollowees: (userId: number) => ({
+    queryKey: queryKeys.getUserFollowees(userId),
+    queryFn: () => UserService.getUserFollowees(userId),
   }),
-  getUserFollowers: (userId: UserId, params: BaseQuery) => ({
-    queryKey: queryKeys.getUserFollowers(userId, params),
-    queryFn: () => UserService.getUserFollowers(userId, params),
+  getUserFollowers: (userId: number) => ({
+    queryKey: queryKeys.getUserFollowers(userId),
+    queryFn: () => UserService.getUserFollowers(userId),
   }),
 };
 

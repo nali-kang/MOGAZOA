@@ -1,53 +1,43 @@
 /* eslint-disable class-methods-use-this */
 
-import { AxiosRequestConfig } from 'axios';
 import { apiRequestor, apiRequestorToken } from '../requestor';
-import { PatchUserProps, UserId } from './User.type';
-import { BaseQuery } from '../common.type';
+import { PatchUserProps } from './User.type';
 
 class UserService {
-  getUserMe(params: BaseQuery) {
-    const config: AxiosRequestConfig = { params };
-    return apiRequestorToken.get(`/users/me`, config);
+  getUserMe() {
+    return apiRequestorToken.get(`/users/me`);
   }
 
   patchUserMe(payload: PatchUserProps) {
     return apiRequestorToken.patch(`/users/me`, payload);
   }
 
-  getUserRanking(params: BaseQuery) {
-    const config: AxiosRequestConfig = { params };
-    return apiRequestor.get(`/users/ranking`, config);
+  getUserRanking() {
+    return apiRequestor.get(`/users/ranking`);
   }
 
-  getUserInfo(userID: UserId, params: BaseQuery) {
-    const config: AxiosRequestConfig = { params };
-    return apiRequestor.get(`/users/${userID}`, config);
+  getUserInfo(userID: number) {
+    return apiRequestor.get(`/users/${userID}`);
   }
 
-  getUserCreatedProduct(userID: UserId, params: BaseQuery) {
-    const config: AxiosRequestConfig = { params };
-    return apiRequestor.get(`/users/${userID}/created-products`, config);
+  getUserCreatedProduct(userID: number) {
+    return apiRequestor.get(`/users/${userID}/created-products`);
   }
 
-  getUserReviewedProduct(userID: UserId, params: BaseQuery) {
-    const config: AxiosRequestConfig = { params };
-    return apiRequestor.get(`/users/${userID}/reviewed-products`, config);
+  getUserReviewedProduct(userID: number) {
+    return apiRequestor.get(`/users/${userID}/reviewed-products`);
   }
 
-  getUserFavoriteProduct(userID: UserId, params: BaseQuery) {
-    const config: AxiosRequestConfig = { params };
-    return apiRequestor.get(`/users/${userID}/favorite-products`, config);
+  getUserFavoriteProduct(userID: number) {
+    return apiRequestor.get(`/users/${userID}/favorite-products`);
   }
 
-  getUserFollowees(userID: UserId, params: BaseQuery) {
-    const config: AxiosRequestConfig = { params };
-    return apiRequestor.get(`/users/${userID}/followees`, config);
+  getUserFollowees(userID: number) {
+    return apiRequestor.get(`/users/${userID}/followees`);
   }
 
-  getUserFollowers(userID: UserId, params: BaseQuery) {
-    const config: AxiosRequestConfig = { params };
-    return apiRequestor.get(`/users/${userID}/followers`, config);
+  getUserFollowers(userID: number) {
+    return apiRequestor.get(`/users/${userID}/followers`);
   }
 }
 
