@@ -30,7 +30,7 @@ export default function Home() {
         <Sidemenu onSelectCategory={setSelectedCategory} />
         <div className="flex flex-col lg:flex-row-reverse lg:gap-[60px]">
           <ReviewRank />
-          <div className="w-full">
+          <div className="lg:w-[650px]">
             {selectedCategory === null && !searchValue ? (
               <div>
                 <div className="mb-[60px] lg:mb-[80px]">
@@ -61,7 +61,7 @@ export default function Home() {
               <div className="w-full ">
                 <div className="flex justify-between">
                   <h1 className="text-white text-[20px] font-semibold leading-7 mb-[30px] lg:text-[24px] lg:leading-none ">
-                    &quot;{searchValue}&quot;에 대한 검색결과
+                    &quot;{searchValue}&quot;로 검색한 상품
                   </h1>
                   <Dropdown option={sort} value={sorting} onChange={(value: any) => setSorting(value)} type="sort" />
                 </div>
@@ -72,7 +72,7 @@ export default function Home() {
                 <div className="flex justify-between">
                   <h1 className="text-white text-[20px] font-semibold leading-7 mb-[30px] lg:text-[24px] lg:leading-none ">
                     {categories.find((category) => category.id === selectedCategory)?.name}의 &quot;{searchValue}
-                    &quot;에 대한 검색결과
+                    &quot;로 검색한 상품
                   </h1>
                   <Dropdown option={sort} value={sorting} onChange={(value: any) => setSorting(value)} type="sort" />
                 </div>
