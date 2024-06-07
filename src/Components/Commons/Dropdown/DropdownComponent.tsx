@@ -36,7 +36,6 @@ interface SearchProps extends Props {
 export function DropdownSearch({ option, value, onChange, type = 'search' }: SearchProps) {
   // dropdown hook
   const { btnRef, isOpen, clickHandler } = useDropdown();
-
   // 검색 input value state
   const [search, setSearch] = useState<string>('');
 
@@ -137,6 +136,7 @@ export function DropdownSearch({ option, value, onChange, type = 'search' }: Sea
                 clickHandler(!!target.value);
                 setSearch(target.value);
               }}
+              onFocus={() => clickHandler(true)}
             />
             <DropdownSelector open={isOpen} />
           </div>

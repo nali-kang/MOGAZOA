@@ -1,8 +1,10 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
+import ModalProvider from '@/Context/ModalContext';
+import ModalContainer from '@/Components/Commons/ModalContainer/ModalContainer';
 import Providers from './Providers';
-import ClientSessionProvider from '@/Components/Auth/ClientSessionProvider'; 
+import ClientSessionProvider from '@/Components/Auth/ClientSessionProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -18,9 +20,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className={`${inter.className} bg-bgblack`}>
+      <body className={`${inter.className} bg-black1`}>
         <ClientSessionProvider>
-          <Providers>{children}</Providers>
+          <Providers>
+            <ModalProvider>
+              <ModalContainer />
+              {children}
+            </ModalProvider>
+          </Providers>
         </ClientSessionProvider>
       </body>
     </html>

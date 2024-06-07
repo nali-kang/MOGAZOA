@@ -1,8 +1,8 @@
-import NextAuth, { AuthOptions, User } from 'next-auth';
+import NextAuth, { AuthOptions } from 'next-auth';
 import KakaoProvider from 'next-auth/providers/kakao';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
-export const authOptions: AuthOptions = {
+const authOptions: AuthOptions = {
   providers: [
     KakaoProvider({
       clientId: process.env.KAKAO_CLIENT_ID!,
@@ -14,11 +14,11 @@ export const authOptions: AuthOptions = {
         email: { label: 'Email', type: 'email' },
         password: { label: 'Password', type: 'password' },
       },
-      authorize: async (credentials): Promise<User | null> => {
+      authorize: async (credentials) => {
         if (!credentials) {
           return null;
         }
-        // 실제 사용자 인증 로직 추가
+        // 사용자 찾기 로직 추가
         const user = { id: '1', name: 'J Smith', email: 'jsmith@example.com' };
         if (user) {
           return user;
@@ -33,13 +33,16 @@ export const authOptions: AuthOptions = {
   },
   callbacks: {
     async session({ session, token }) {
-      return {
-        ...session,
-        user: {
-          ...session.user,
-          id: token.id as string,
-        },
-      };
+      if (token) {
+        return {
+          ...session,
+          user: {
+            ...session.user,
+            id: token.id as string,
+          },
+        };
+      }
+      return session;
     },
     async jwt({ token, user }) {
       if (user) {
