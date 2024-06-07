@@ -7,23 +7,39 @@ import NavigationBar from '@/Components/NavigationBar/Navigationbar';
 import Button from '@/Components/Commons/Button';
 import InputForm from '@/Components/Commons/Input/InputForm/InputForm';
 import { IFormInput, defaultLoginFormValues, validate } from '@/Constant/AuthForm.type';
+import AuthService from '@/Apis/Auth/Auth.service';
 
 export default function SignUpPage() {
   const {
-    // handleSubmit,
+    handleSubmit,
     register,
     watch,
-    formState: { errors /* isValid */ },
+    formState: { errors },
   } = useForm<IFormInput>({ defaultValues: defaultLoginFormValues, mode: 'onTouched' });
 
-  //   const password = watch('password');
-  //   const passwordConfirm = watch('passwordConfirm');
+  const handleSignupSuccess = () => {
+    console.log('성공');
+  };
 
-  // const { mutate: signupMutate } = usePostUser({
-  //     email: '',
-  //     password: '',
-  //     type: 'employee'
-  //   });
+  const handleSignupError = (error: any) => {
+    console.error('회원가입 실패:', error);
+  };
+
+  const onSubmit = async (payload: IFormInput) => {
+    const { passwordConfirm, ...dataToSubmit } = payload;
+    try {
+      const response = await AuthService.postAuthSignUp({
+        email: dataToSubmit.email,
+        nickname: dataToSubmit.nickname,
+        password: dataToSubmit.password,
+        passwordConfirmation: passwordConfirm,
+      });
+      console.log('회원가입 성공:', response.data);
+      handleSignupSuccess();
+    } catch (error) {
+      handleSignupError(error);
+    }
+  };
 
   const registerList = {
     email: register('email', validate.email),
@@ -40,12 +56,14 @@ export default function SignUpPage() {
     },
     required: '비밀번호를 확인해주세요',
   });
+  console.log("Base URL:", process.env.NEXT_PUBLIC_API_BASE_URL); // 환경 변수 확인용
+
 
   return (
     <div>
       <NavigationBar firstTitle="로그인" secondTitle="회원가입" />
       <div className="flex justify-center content-center">
-        <div className="flex flex-col gap-[35px] pt-[20px]">
+        <form className="flex flex-col gap-[35px] pt-[20px]" onSubmit={handleSubmit(onSubmit)}>
           <div>
             <InputForm
               label="이메일"
@@ -62,11 +80,11 @@ export default function SignUpPage() {
               label="닉네임"
               placeholder="닉네임을 입력해 주세요"
               className="w-[335px] h-[55px]"
-              basicMessage='최대 10글자 가능'
+              basicMessage="최대 10글자 가능"
               errorMessage={errors.nickname?.message}
               type="text"
-              {...registerList.email}
-              name="email"
+              {...registerList.nickname}
+              name="nickname"
             />
           </div>
           <div>
@@ -74,7 +92,7 @@ export default function SignUpPage() {
               label="비밀번호"
               placeholder="비밀번호를 입력해 주세요"
               className="w-[335px] h-[55px]"
-              basicMessage='최소 8글자'
+              basicMessage="최소 8글자"
               errorMessage={errors.password?.message}
               type="password"
               {...registerList.password}
@@ -82,7 +100,6 @@ export default function SignUpPage() {
             />
           </div>
           <div>
-            {' '}
             <InputForm
               label="비밀번호 확인"
               placeholder="비밀번호를 확인해 주세요"
@@ -92,10 +109,10 @@ export default function SignUpPage() {
               {...passwordConfirmRegister}
             />
           </div>
-          <Button color="primary" className="w-[335px] h-[50px] mt-[150px] text-[16px]">
+          <Button type="submit" color="primary" className="w-[335px] h-[50px] mt-[150px] text-[16px]">
             가입하기
           </Button>
-        </div>
+        </form>
       </div>
     </div>
   );

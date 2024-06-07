@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import Providers from './Providers';
+import ClientSessionProvider from '@/Components/Auth/ClientSessionProvider'; 
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -18,7 +19,9 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={`${inter.className} bg-bgblack`}>
-        <Providers>{children}</Providers>
+        <ClientSessionProvider>
+          <Providers>{children}</Providers>
+        </ClientSessionProvider>
       </body>
     </html>
   );
