@@ -12,6 +12,7 @@ import { ReactComponent as KaKaoIcon } from '@/public/Icons/kakao-icon.svg';
 
 export default function LoginPage() {
   const { data: session } = useSession();
+  console.log('Session data:', session);
 
   const {
     handleSubmit,
@@ -48,6 +49,7 @@ export default function LoginPage() {
     password: register('password', validate.password),
   };
 
+  
   return (
     <div>
       <NavigationBar firstTitle="로그인" secondTitle="회원가입" />
@@ -102,7 +104,7 @@ export default function LoginPage() {
             </>
           ) : (
             <div>
-              <p>이미 로그인 되었습니다.</p>
+              <p className='text-white'>로그인 되었습니다.</p>
             </div>
           )}
         </div>

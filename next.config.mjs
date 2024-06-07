@@ -34,7 +34,14 @@ const nextConfig = {
         pathname: '/**'
       }
     ]
-  }
+  },
+  env: {
+    NEXT_PUBLIC_API_BASE_URL: process.env.NEXT_PUBLIC_API_BASE_URL,
+    NEXTAUTH_URL: process.env.NEXTAUTH_URL,
+    NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
+    KAKAO_CLIENT_ID: process.env.KAKAO_CLIENT_ID,
+    KAKAO_CLIENT_SECRET: process.env.KAKAO_CLIENT_SECRET,
+  },
 };
 
 export default nextConfig;

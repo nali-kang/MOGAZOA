@@ -27,6 +27,12 @@ export default function SignUpPage() {
 
   const onSubmit = async (payload: IFormInput) => {
     const { passwordConfirm, ...dataToSubmit } = payload;
+    console.log('보내는 데이터:', {
+      email: dataToSubmit.email,
+      nickname: dataToSubmit.nickname,
+      password: dataToSubmit.password,
+      passwordConfirmation: passwordConfirm,
+    });
     try {
       const response = await AuthService.postAuthSignUp({
         email: dataToSubmit.email,
@@ -56,8 +62,7 @@ export default function SignUpPage() {
     },
     required: '비밀번호를 확인해주세요',
   });
-  console.log("Base URL:", process.env.NEXT_PUBLIC_API_BASE_URL); // 환경 변수 확인용
-
+  console.log('NEXT_PUBLIC_API_BASE_URL:', process.env.NEXT_PUBLIC_API_BASE_URL);
 
   return (
     <div>

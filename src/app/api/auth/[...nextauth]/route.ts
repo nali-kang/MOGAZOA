@@ -1,6 +1,7 @@
 import NextAuth, { AuthOptions } from 'next-auth';
 import KakaoProvider from 'next-auth/providers/kakao';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import axios from 'axios';
 
 const authOptions: AuthOptions = {
   providers: [
@@ -18,12 +19,21 @@ const authOptions: AuthOptions = {
         if (!credentials) {
           return null;
         }
-        // 사용자 찾기 로직 추가
-        const user = { id: '1', name: 'J Smith', email: 'jsmith@example.com' };
-        if (user) {
-          return user;
+        try {
+          // 실제 API 호출을 사용하여 사용자 인증
+          const response = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/signIn`, {
+            email: credentials.email,
+            password: credentials.password,
+          });
+
+          if (response.data && response.data.user) {
+            return response.data.user;
+          }
+          return null;
+        } catch (error) {
+          console.error('Error in authorization:', error);
+          return null;
         }
-        return null;
       },
     }),
   ],
