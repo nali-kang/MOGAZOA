@@ -1,18 +1,21 @@
+/* eslint-disable no-nested-ternary */
+
 'use client';
 
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 
 import FloatingButton from '@/Components/Commons/Button/FloatingButton';
 import { Dropdown, Option } from '@/Components/Commons/Dropdown/DropdownComponent';
 import ProductsCategory from '@/Components/HomeComponents/Products/ProductsCategory';
 import ReviewRank from '@/Components/HomeComponents/ReviewRank';
 import Sidemenu from '@/Components/HomeComponents/Sidemenu';
-import NavigationBar from '@/Components/NavigationBar/Navigationbar';
 import { categories } from '@/Constant/Categories';
+import SearchContext from './SearchContext';
 
 export default function Home() {
-  const [selectedCategory, setSelectedCategory] = useState<number | 'hot' | 'rating' | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
   const [sorting, setSorting] = useState<'latest' | 'upstar' | 'downstar' | 'like'>('latest');
+  const { searchValue } = useContext(SearchContext);
 
   const sort: Option[] = [
     { label: '최신순', value: 'latest' },
@@ -23,40 +26,59 @@ export default function Home() {
 
   return (
     <div>
-      <NavigationBar firstTitle="비교하기" secondTitle="내 프로필" />
       <div className="flex flex-col justify-normal px-[20px] pt-[30px] gap-[25px] lg:gap-[110px]  md:pt-[40px] md:flex-row lg:justify-center lg:w-full lg:pt-[60px] lg:flex-row ">
         <Sidemenu onSelectCategory={setSelectedCategory} />
         <div className="flex flex-col lg:flex-row-reverse lg:gap-[60px]">
           <ReviewRank />
-          <div className="">
-            {selectedCategory === null ? (
+          <div className="w-full">
+            {selectedCategory === null && !searchValue ? (
               <div>
                 <div className="mb-[60px] lg:mb-[80px]">
                   <h1 className="text-white text-[20px] font-semibold leading-7 mb-[30px] lg:text-[24px] lg:leading-none ">
                     지금 핫한 상품
                     <span className="bg-gradient-to-r from-blue to-indigo text-transparent bg-clip-text">TOP 6</span>
                   </h1>
-                  <ProductsCategory category="hot" />
+                  <ProductsCategory order="recent" />
                 </div>
                 <div>
                   <h1 className="text-white text-[20px] font-semibold leading-7 mb-[30px] lg:text-[24px] lg:leading-none ">
                     별점이 높은 상품
                   </h1>
-                  <ProductsCategory category="rating" />
+                  <ProductsCategory order="rating" />
                 </div>
               </div>
-            ) : (
-              <div className="mg:w-full ">
+            ) : selectedCategory !== null && !searchValue ? (
+              <div className="w-full ">
                 <div className="flex justify-between">
                   <h1 className="text-white text-[20px] font-semibold leading-7 mb-[30px] lg:text-[24px] lg:leading-none ">
                     {categories.find((category) => category.id === selectedCategory)?.name}의 모든상품
                   </h1>
                   <Dropdown option={sort} value={sorting} onChange={(value: any) => setSorting(value)} type="sort" />
                 </div>
-
                 <ProductsCategory category={selectedCategory} sortingOption={sorting} />
               </div>
-            )}
+            ) : searchValue && selectedCategory === null ? (
+              <div className="w-full ">
+                <div className="flex justify-between">
+                  <h1 className="text-white text-[20px] font-semibold leading-7 mb-[30px] lg:text-[24px] lg:leading-none ">
+                    &quot;{searchValue}&quot;에 대한 검색결과
+                  </h1>
+                  <Dropdown option={sort} value={sorting} onChange={(value: any) => setSorting(value)} type="sort" />
+                </div>
+                <ProductsCategory searchValue={searchValue} sortingOption={sorting} />
+              </div>
+            ) : searchValue && selectedCategory !== null ? (
+              <div className="w-full ">
+                <div className="flex justify-between">
+                  <h1 className="text-white text-[20px] font-semibold leading-7 mb-[30px] lg:text-[24px] lg:leading-none ">
+                    {categories.find((category) => category.id === selectedCategory)?.name}의 &quot;{searchValue}
+                    &quot;에 대한 검색결과
+                  </h1>
+                  <Dropdown option={sort} value={sorting} onChange={(value: any) => setSorting(value)} type="sort" />
+                </div>
+                <ProductsCategory category={selectedCategory} searchValue={searchValue} sortingOption={sorting} />
+              </div>
+            ) : null}
           </div>
         </div>
       </div>

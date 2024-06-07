@@ -5,30 +5,27 @@ import Products from '..';
 import { useGetProductItems } from '@/Apis/Product/useProduct.Service';
 
 interface ProductsCategoryProps {
-  category: number | 'hot' | 'rating';
+  category?: number;
+  order?: 'recent' | 'rating' | 'reviewCount';
   sortingOption?: keyof typeof sortingOptions;
+  searchValue?: string;
 }
 
-export default function ProductsCategory({ category, sortingOption }: ProductsCategoryProps) {
-  const params = {};
+export default function ProductsCategory({ category, order, sortingOption, searchValue }: ProductsCategoryProps) {
+  const params = { keyword: searchValue, category, order };
   const { data } = useGetProductItems(params);
-  let sortedProductData: ProductType[] = [];
 
-  switch (category) {
-    case 'hot':
-      sortedProductData = data.list.sort(sortingOptions.like).slice(0, 6);
-      break;
-    case 'rating':
-      sortedProductData = data.list.sort(sortingOptions.downstar);
-      break;
-    default:
-      if (typeof category === 'number') {
-        sortedProductData = data.list.filter((product: ProductType) => product.categoryId === category);
-        if (sortingOption && sortingOptions[sortingOption]) {
-          sortedProductData = sortedProductData.sort(sortingOptions[sortingOption]);
-        }
-      }
-      break;
+  let sortedProductData: ProductType[] = data.list;
+
+  if (order === 'recent' && !category && !searchValue) {
+    sortedProductData = data.list.slice(0, 6);
+  }
+  if (category) {
+    sortedProductData = data.list.filter((product: ProductType) => product.categoryId === category);
+  }
+
+  if (sortingOption && sortingOptions[sortingOption]) {
+    sortedProductData = sortedProductData.sort(sortingOptions[sortingOption]);
   }
 
   return (

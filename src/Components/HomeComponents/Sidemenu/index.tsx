@@ -3,13 +3,13 @@ import React, { useState } from 'react';
 import { categories } from '@/Constant/Categories';
 
 interface SidemenuProps {
-  onSelectCategory: (category: number | 'hot' | 'rating' | null) => void;
+  onSelectCategory: (category: number | null) => void;
 }
 
 export default function Sidemenu({ onSelectCategory }: SidemenuProps) {
-  const [selectedCategory, setSelectedCategory] = useState<number | 'hot' | 'rating' | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
 
-  const handleCategoryClick = (category: number | 'hot' | 'rating') => {
+  const handleCategoryClick = (category: number) => {
     if (selectedCategory === category) {
       setSelectedCategory(null);
       onSelectCategory(null);

@@ -16,7 +16,6 @@ interface UserProfile {
 export default function ReviewRank() {
   const params = {};
   const { data } = useGetUserRanking(params);
-  console.log(data);
   const sortedReviewData = data.sort((a: UserProfile, b: UserProfile) => b.followersCount - a.followersCount);
 
   return (
