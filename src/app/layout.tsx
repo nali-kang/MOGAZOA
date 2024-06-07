@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import Providers from './Providers';
+import QueryProvider from './Providers';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -18,7 +18,7 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={`${inter.className} bg-bgblack`}>
-        <Providers>{children}</Providers>
+        <QueryProvider>{children}</QueryProvider>
       </body>
     </html>
   );
