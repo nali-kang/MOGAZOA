@@ -78,11 +78,13 @@ function CompareComponent({ compareFirst, compareSecond }: Props) {
   }, [compareFirst, compareSecond, params]);
 
   return (
-    <main className="pt-[3.75rem]">
+    <main className="pt-[1.88rem] md:pt-[2.5rem] lg:pt-[3.75rem]">
       <section className="mx-auto flex flex-col w-fit">
-        <article className="flex gap-5 items-end">
+        <article className="flex-col md:flex-row flex gap-[1.88rem] md:gap-5 items-end">
           <div className="flex flex-col gap-[0.62rem]">
-            <label className='text-[#F1F1F5] font-["Pretendard"] text-base font-normal leading-[normal]'>상품1</label>
+            <strong className='text-[#F1F1F5] font-["Pretendard"] text-sm lg:text-base font-normal leading-[normal]'>
+              상품1
+            </strong>
             <DropdownSearch
               option={option}
               value={selectOption1}
@@ -95,7 +97,9 @@ function CompareComponent({ compareFirst, compareSecond }: Props) {
             />
           </div>
           <div className="flex flex-col gap-[0.62rem]">
-            <label className='text-[#F1F1F5] font-["Pretendard"] text-base font-normal leading-[normal]'>상품2</label>
+            <strong className='text-[#F1F1F5] font-["Pretendard"] text-sm lg:text-base font-normal leading-[normal]'>
+              상품2
+            </strong>
             <DropdownSearch
               option={option}
               value={selectOption2}
@@ -109,7 +113,7 @@ function CompareComponent({ compareFirst, compareSecond }: Props) {
           </div>
           <Button
             color="primary"
-            className="w-[12.5rem] h-[4.375rem] flex items-center justify-center font-base font-normal leading-[normal] px-0 py-0"
+            className="w-[20.9375rem] md:w-[10.25rem] lg:w-[12.5rem] h-[3.175rem] md:h-[3.4375rem] lg:h-[4.375rem] flex items-center justify-center font-base font-normal leading-[normal] !px-0 !py-0"
             disabled={!(selectOption1 && selectOption2)}
             onClick={() => {
               if (selectOption1 && selectOption2) {
@@ -122,36 +126,38 @@ function CompareComponent({ compareFirst, compareSecond }: Props) {
         </article>
         <article className="w-full flex items-center justify-center">
           {params.getData('compare1') && params.getData('compare2') ? (
-            <div className="w-full h-[51.315rem] pt-[8.75rem] pb-[14.75rem] flex flex-col items-center">
-              <strong className="text-2xl laeding-[normal] font-semibold text-[#F1F1F5]">
+            <div className="w-full h-[34.25rem] md:h-[51.315rem] pt-[6.25rem] md:pt-[8.75rem] md:pb-[14.75rem] flex flex-col items-center">
+              <div className="text-xl lg:text-2xl laeding-[normal] font-semibold text-[#F1F1F5] text-center">
                 {compareState > 0 && (
                   <div className="flex flex-col gap-5 items-center">
-                    <span className="flex gap-2">
-                      <p className="text-[#05D58B]">
-                        {option.find((op) => op.value === Number(params.get('compare1')))?.label}
-                      </p>
-                      상품이 승리하였습니다!
-                    </span>
-                    <p className="text-base font-normal leading-normal text-[#9FA6B2]">
+                    <div>
+                      <span className="text-[#05D58B]">
+                        {`${option.find((op) => op.value === Number(params.get('compare1')))?.label} `}
+                      </span>
+                      상품이 <br className="block lg:hidden" />
+                      승리하였습니다!
+                    </div>
+                    <p className="text-xs lg:text-base font-normal leading-normal text-[#9FA6B2]">
                       3가지 항목 중 {Math.abs(compareState) + 1}가지 항목에서 우세합니다.
                     </p>
                   </div>
                 )}
                 {compareState < 0 && (
                   <div className="flex flex-col gap-5 items-center">
-                    <span className="flex gap-2">
-                      <p className="text-[#FF2F9F]">
-                        {option.find((op) => op.value === Number(params.get('compare2')))?.label}
-                      </p>
-                      상품이 승리하였습니다!
-                    </span>
-                    <p className="text-base font-normal leading-normal text-[#9FA6B2]">
+                    <div>
+                      <span className="text-[#FF2F9F]">
+                        {`${option.find((op) => op.value === Number(params.get('compare2')))?.label} `}
+                      </span>
+                      상품이
+                      <br className="block lg:hidden" /> 승리하였습니다!
+                    </div>
+                    <p className="text-xs lg:text-base font-normal leading-normal text-[#9FA6B2]">
                       3가지 항목 중 {Math.abs(compareState) + 1}가지 항목에서 우세합니다.
                     </p>
                   </div>
                 )}
                 {compareState === 0 && <span>무승부입니다.</span>}
-              </strong>
+              </div>
               <CompareTable compareFirst={compareFirst} compareSecond={compareSecond} />
             </div>
           ) : (
