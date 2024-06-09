@@ -15,8 +15,10 @@ async function ComparePage({ searchParams }: Props) {
   let compare2: { data?: ProductDetail } = {};
 
   if (searchParams?.compare1 && searchParams?.compare2) {
-    compare1 = await apiRequestor.get(`/products/${searchParams?.compare1 ? Number(searchParams?.compare1) : 0}`);
-    compare2 = await apiRequestor.get(`/products/${searchParams?.compare2 ? Number(searchParams?.compare2) : 0}`);
+    [compare1, compare2] = await Promise.all([
+      apiRequestor.get(`/products/${searchParams?.compare1 ? Number(searchParams?.compare1) : 0}`),
+      apiRequestor.get(`/products/${searchParams?.compare2 ? Number(searchParams?.compare2) : 0}`),
+    ]);
   }
 
   return (
