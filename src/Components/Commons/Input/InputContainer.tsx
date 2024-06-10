@@ -22,7 +22,7 @@ export default function InputContainer({
   errorMessage = '',
   children,
 }: InputContainerProps) {
-  const inputFormContainer = classNames('flex flex-col w-full h-full', className);
+  const inputFormContainer = classNames('flex flex-col', className);
   const inputFormLabel = 'mb-2.5';
   const inputFormErrorMessage = 'mt-2.5';
   const inputFormBasicMessage = 'mt-2.5';
