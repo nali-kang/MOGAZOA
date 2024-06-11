@@ -1,26 +1,20 @@
 import { useMutation, useSuspenseQuery } from '@tanstack/react-query';
 import queryOptions from './queries';
-import { BaseQuery } from '../common.type';
 import {
   GetProduct as GetProductRes,
   GetUserFollow as GetUserFollowRes,
   GetUserRanking as GetUserRankingRes,
   PatchUserMeRes,
   PatchUserProps,
-  UserId,
   UserInformationRes,
 } from './User.type';
 import { selectData } from '../Utils';
 
 /**
  * 특정 사용자의 정보를 조회합니다.
- * @param params optional; \{
-  offset?: number;
-  limit?: number;
-}
  */
-export function useGetUserMe(params: BaseQuery) {
-  const res = useSuspenseQuery(queryOptions.getUserMe(params));
+export function useGetUserMe() {
+  const res = useSuspenseQuery(queryOptions.getUserMe());
   return selectData<UserInformationRes>(res);
 }
 
@@ -43,90 +37,71 @@ export function usePatchUserMe(payload: PatchUserProps) {
 
 /**
  * 유저 랭킹 조회
- * @param params optional; \{
-  offset?: number;
-  limit?: number;
-}
  */
-export function useGetUserRanking(params: BaseQuery) {
-  const res = useSuspenseQuery(queryOptions.getUserRanking(params));
+export function useGetUserRanking() {
+  const res = useSuspenseQuery(queryOptions.getUserRanking());
   return selectData<GetUserRankingRes>(res);
 }
 
 /**
  * 유저 정보 조회
- * @param userId require; \{userId: number}
- * @param params optional; \{
-  offset?: number;
-  limit?: number;
 }
  */
-export function useGetUserInfo(userId: UserId, params: BaseQuery) {
-  const res = useSuspenseQuery(queryOptions.getUserInfo(userId, params));
+export function useGetUserInfo(userId: number) {
+  const res = useSuspenseQuery(queryOptions.getUserInfo(userId));
   return selectData<UserInformationRes>(res);
 }
 
 /**
  * 유저가 생성한 상품 조회
- * @param userId require;  \{userId: number}
- * @param params optional; \{
-  offset?: number;
-  limit?: number;
-}
+ * @param userId require;  \number
+ * @param cursor optional; \number 기본값0
  */
-export function useGetUserCreatedProduct(userId: UserId, params: BaseQuery) {
-  const res = useSuspenseQuery(queryOptions.getUserCreatedProduct(userId, params));
+export function useGetUserCreatedProduct(userId: number, cursor: number = 0) {
+  const res = useSuspenseQuery(queryOptions.getUserCreatedProduct(userId, cursor));
   return selectData<GetProductRes>(res);
 }
 
 /**
  * 유저가 찜한 상품 조회
- * @param userId require; \{userId: number}
- * @param params optional; \{
-  offset?: number;
-  limit?: number;
+ * @param userId require;  \number
+ * @param cursor optional; \number 기본값0
 }
  */
-export function useGetUserReviewedProduct(userId: UserId, params: BaseQuery) {
-  const res = useSuspenseQuery(queryOptions.getUserReviewedProduct(userId, params));
+export function useGetUserReviewedProduct(userId: number, cursor: number = 0) {
+  const res = useSuspenseQuery(queryOptions.getUserReviewedProduct(userId, cursor));
   return selectData<GetProductRes>(res);
 }
 
 /**
  * 유저가 찜한 상품 조회
- * @param userId require; \{userId: number}
- * @param params optional; \{
-  offset?: number;
-  limit?: number;
+ * @param userId require;  \number
+ * @param cursor optional; \number 기본값0
 }
  */
-export function useGetUserFavoriteProduct(userId: UserId, params: BaseQuery) {
-  const res = useSuspenseQuery(queryOptions.getUserFavoriteProduct(userId, params));
+export function useGetUserFavoriteProduct(userId: number, cursor: number = 0) {
+  const res = useSuspenseQuery(queryOptions.getUserFavoriteProduct(userId, cursor));
   return selectData<GetProductRes>(res);
 }
 
 /**
  * 유저가 팔로우한 유저 조회(팔로잉)
- * @param userId require; \{userId: number}
- * @param params optional; \{
-  offset?: number;
-  limit?: number;
+ * @param userId require;  \number
+ * @param cursor optional; \number 기본값0
 }
  */
-export function useGetUserFollowees(userId: UserId, params: BaseQuery) {
-  const res = useSuspenseQuery(queryOptions.getUserFollowees(userId, params));
+export function useGetUserFollowees(userId: number, cursor: number = 0) {
+  const res = useSuspenseQuery(queryOptions.getUserFollowees(userId, cursor));
   return selectData<GetUserFollowRes>(res);
 }
 
 /**
  * 유저를 팔로우한 유저 조회(팔로워)
- * @param userId require; \{userId: number}
- * @param params optional; \{
-  offset?: number;
-  limit?: number;
+ * @param userId require;  \number
+ * @param cursor optional; \number 기본값0
 }
  */
-export function useGetUserFollowers(userId: UserId, params: BaseQuery) {
-  const res = useSuspenseQuery(queryOptions.getUserFollowers(userId, params));
+export function useGetUserFollowers(userId: number, cursor: number = 0) {
+  const res = useSuspenseQuery(queryOptions.getUserFollowers(userId, cursor));
   return selectData<GetUserFollowRes>(res);
 }

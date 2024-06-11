@@ -30,7 +30,7 @@ function getQueryClient() {
   return browserQueryClient;
 }
 
-export default function Providers({ children }: { children: ReactNode }) {
+export default function QueryProvider({ children }: { children: ReactNode }) {
   // 참고: 쿼리 클라이언트를 초기화할 때 useState를 사용하지 마세요.
   // 이 코드와 코드 사이에 서스펜스 경계가 있습니다.
   // React가 초기에 클라이언트를 버리기 때문에 일시 중지합니다.

@@ -1,11 +1,12 @@
 import { BaseQuery } from '../common.type';
 
-export type OrderType = 'recent' | 'rating' | 'reviewCount' | 'ratingDesc' | 'ratingAsc' | 'likeCount';
+export type GetOrderType = 'recent' | 'rating' | 'reviewCount';
+export type OrderType = 'recent' | 'ratingDesc' | 'ratingAsc' | 'likeCount';
 
 export type GetProductProps = BaseQuery & {
   keyword?: string;
   category?: number;
-  order?: OrderType;
+  order?: GetOrderType;
   cursor?: number;
 };
 
