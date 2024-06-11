@@ -26,11 +26,11 @@ export default function Home() {
 
   return (
     <div>
-      <div className="flex flex-col justify-center px-[20px] pt-[30px] gap-[25px] lg:gap-[110px]  md:pt-[40px] md:flex-row lg:w-full lg:pt-[60px] lg:flex-row ">
+      <div className="flex flex-col justify-center px-[20px] pt-[30px] gap-[25px] lg:gap-[110px] md:pt-[40px] md:flex-row lg:w-full lg:pt-[60px] lg:flex-row ">
         <Sidemenu onSelectCategory={setSelectedCategory} />
         <div className="flex flex-col lg:flex-row-reverse lg:gap-[60px]">
           <ReviewRank />
-          <div className="w-[750px]">
+          <div className="w-full">
             {selectedCategory === null && !searchValue ? (
               <div>
                 <div className="mb-[60px] lg:mb-[80px]">
