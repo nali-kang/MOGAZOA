@@ -38,6 +38,8 @@ export default function ProductsCategory({ category }: ProductsCategoryProps) {
       ))}
     </div>
   ) : (
-    <div className="flex justify-center items-center text-[20px] text-white w-[100%] h-[266px]">상품이 없습니다.</div>
+    <div className="flex justify-center items-center text-[15px] md:text-[20px] text-white w-[100%] md:h-[80px] xl:h-[266px]">
+      상품이 없습니다.
+    </div>
   );
 }

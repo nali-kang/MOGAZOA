@@ -1,4 +1,4 @@
-import { useGetUserMe, useGetUserInfo } from '@/Apis/User/useUserService';
+import { useGetUserMe, useGetUserInfo, useGetUserFollowees, useGetUserFollowers } from '@/Apis/User/useUserService';
 
 import Button from '../../Button';
 import { useContext } from 'react';
@@ -9,11 +9,28 @@ function UserProfileCard() {
   const userId = 192;
   // const userMeInfo = useGetUserMe(params);
   const usersInfo = useGetUserInfo(userId, params);
-  const setModalState = useContext(ModalSetterContext);
-  function handleOnClick() {
-    setModalState({ isOpen: true, type: 'followee' });
-  }
+  const FolloweesInfo = useGetUserFollowees(userId, params);
+  const FollowersInfo = useGetUserFollowers(userId, params);
 
+  const setModalState = useContext(ModalSetterContext);
+  function handleFolloweeOnClick() {
+    setModalState({
+      isOpen: true,
+      type: 'followee',
+      FolloweesInfo: FolloweesInfo,
+      userId: userId,
+      nickName: usersInfo.data.nickname,
+    });
+  }
+  function handleFollowerOnClick() {
+    setModalState({
+      isOpen: true,
+      type: 'follower',
+      FollowersInfo: FollowersInfo,
+      userId: userId,
+      nickName: usersInfo.data.nickname,
+    });
+  }
   return (
     <article className="flex justify-center mx-[1.25rem] xl:mx-[0] mt-[30px] md:mt-[40px] xl:mt-[0] xl:row-span-3">
       <div className="flex flex-col items-center gap-[1.875rem] xl:gap-[2.5rem] px-[1.25rem] md:px-[1.875rem] xl:px-[1.25rem] py-[1.875rem] xl:pt-[2.5rem] xl:pb-[1.875rem] w-[20.9375rem] md:w-[31.8125rem]  xl:w-[21.25rem] xl:h-[603px] bg-scblack border-black4 rounded-[0.75rem]">
@@ -36,7 +53,7 @@ function UserProfileCard() {
         <div className="flex">
           <div className="flex flex-col items-center gap-[0.625rem] pr-[3.75rem] md:pr-[5rem] xl:pr-[3.125rem] border-r border-black4">
             <button
-              onClick={handleOnClick}
+              onClick={handleFollowerOnClick}
               className="font-['Pretendard'] text-white text-[1.125rem] xl:text-[1.25rem] font-semibold bg-transparent border-none p-0 cursor-pointer"
               type="button"
             >
@@ -46,7 +63,7 @@ function UserProfileCard() {
           </div>
           <div className="flex flex-col items-center gap-[0.625rem] pl-[3.75rem] md:pl-[5rem] xl:pl-[3.125rem]">
             <button
-              onClick={handleOnClick}
+              onClick={handleFolloweeOnClick}
               className="font-['Pretendard'] text-white text-[1.125rem] xl:text-[1.25rem] font-semibold bg-transparent border-none p-0 cursor-pointer"
               type="button"
             >
