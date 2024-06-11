@@ -7,7 +7,7 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 
 const axiosRequestConfig: AxiosRequestConfig = {
-  baseURL: 'https://mogazoa-api.vercel.app/4-18/',
+  baseURL: `${process.env.NEXT_PUBLIC_API_BASE_URL}`,
   responseType: 'json',
   headers: {
     'Content-Type': 'application/json',
