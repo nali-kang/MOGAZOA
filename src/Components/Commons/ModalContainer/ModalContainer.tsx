@@ -1,8 +1,7 @@
 'use client';
 
 import CompareModal from '@/Components/Compare/CompareModal';
-import { ModalSetterContext, ModalStateContext } from '@/Context/ModalContext';
-import { FunctionComponent, useContext } from 'react';
+import { FunctionComponent } from 'react';
 import Modal from 'react-modal';
 
 const modalStyles: ReactModal.Styles = {
@@ -41,9 +40,9 @@ const MODAL_COMPONENTS: ModalComponents = {
   // test: TestModal, 이런식으로 추가
 };
 
-export default function ModalContainer() {
-  const modalState = useContext(ModalStateContext);
-  const setModalState = useContext(ModalSetterContext);
+export default function ModalContainer(props: any) {
+  const { modalState } = props;
+  const { setModalState } = props;
 
   if (!modalState.type) {
     return null;

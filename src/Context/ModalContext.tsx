@@ -1,5 +1,6 @@
 'use client';
 
+import ModalContainer from '@/Components/Commons/ModalContainer/ModalContainer';
 import { ReactNode, createContext, useState } from 'react';
 /**
  * @param \{ isOpen: boolean, type: string }
@@ -28,7 +29,10 @@ function ModalProvider({ children }: ModalProviderProps) {
 
   return (
     <ModalSetterContext.Provider value={setModalState}>
-      <ModalStateContext.Provider value={modalState}>{children}</ModalStateContext.Provider>
+      <ModalStateContext.Provider value={modalState}>
+        {children}
+        <ModalContainer modalState={modalState} setModalState={setModalState} />
+      </ModalStateContext.Provider>
     </ModalSetterContext.Provider>
   );
 }
