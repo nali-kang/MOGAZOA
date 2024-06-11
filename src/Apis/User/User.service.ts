@@ -1,5 +1,6 @@
 /* eslint-disable class-methods-use-this */
 
+import { AxiosRequestConfig } from 'axios';
 import { apiRequestor, apiRequestorToken } from '../requestor';
 import { PatchUserProps } from './User.type';
 
@@ -20,24 +21,24 @@ class UserService {
     return apiRequestor.get(`/users/${userID}`);
   }
 
-  getUserCreatedProduct(userID: number) {
-    return apiRequestor.get(`/users/${userID}/created-products`);
+  getUserCreatedProduct(userID: number, cursor: number) {
+    return apiRequestor.get(`/users/${userID}/created-products?cursor=${cursor}`);
   }
 
-  getUserReviewedProduct(userID: number) {
-    return apiRequestor.get(`/users/${userID}/reviewed-products`);
+  getUserReviewedProduct(userID: number, cursor: number) {
+    return apiRequestor.get(`/users/${userID}/reviewed-products?cursor=${cursor}`);
   }
 
-  getUserFavoriteProduct(userID: number) {
-    return apiRequestor.get(`/users/${userID}/favorite-products`);
+  getUserFavoriteProduct(userID: number, cursor: number) {
+    return apiRequestor.get(`/users/${userID}/favorite-products?cursor=${cursor}`);
   }
 
-  getUserFollowees(userID: number) {
-    return apiRequestor.get(`/users/${userID}/followees`);
+  getUserFollowees(userID: number, cursor: number) {
+    return apiRequestor.get(`/users/${userID}/followees?cursor=${cursor}`);
   }
 
-  getUserFollowers(userID: number) {
-    return apiRequestor.get(`/users/${userID}/followers`);
+  getUserFollowers(userID: number, cursor: number) {
+    return apiRequestor.get(`/users/${userID}/followers?cursor=${cursor}`);
   }
 }
 

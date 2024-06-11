@@ -6,11 +6,11 @@ const queryKeys = {
   patchUserMe: (payload: PatchUserProps) => ['patchUserMe', payload] as const,
   getUserRanking: () => ['getUserRanking'] as const,
   getUserInfo: (userId: number) => ['getUserInfo', userId] as const,
-  getUserCreatedProduct: (userId: number) => ['getUserCreatedProduct', userId] as const,
-  getUserReviewedProduct: (userId: number) => ['getUserReviewedProduct', userId] as const,
-  getUserFavoriteProduct: (userId: number) => ['getUserFavoriteProduct', userId] as const,
-  getUserFollowees: (userId: number) => ['getUserFollowees', userId] as const,
-  getUserFollowers: (userId: number) => ['getUserFollowers', userId] as const,
+  getUserCreatedProduct: (userId: number, cursor: number) => ['getUserCreatedProduct', { userId, cursor }] as const,
+  getUserReviewedProduct: (userId: number, cursor: number) => ['getUserReviewedProduct', { userId, cursor }] as const,
+  getUserFavoriteProduct: (userId: number, cursor: number) => ['getUserFavoriteProduct', { userId, cursor }] as const,
+  getUserFollowees: (userId: number, cursor: number) => ['getUserFollowees', { userId, cursor }] as const,
+  getUserFollowers: (userId: number, cursor: number) => ['getUserFollowers', { userId, cursor }] as const,
 };
 
 const queryOptions = {
@@ -30,25 +30,25 @@ const queryOptions = {
     queryKey: queryKeys.getUserInfo(userId),
     queryFn: () => UserService.getUserInfo(userId),
   }),
-  getUserCreatedProduct: (userId: number) => ({
-    queryKey: queryKeys.getUserCreatedProduct(userId),
-    queryFn: () => UserService.getUserCreatedProduct(userId),
+  getUserCreatedProduct: (userId: number, cursor: number) => ({
+    queryKey: queryKeys.getUserCreatedProduct(userId, cursor),
+    queryFn: () => UserService.getUserCreatedProduct(userId, cursor),
   }),
-  getUserReviewedProduct: (userId: number) => ({
-    queryKey: queryKeys.getUserReviewedProduct(userId),
-    queryFn: () => UserService.getUserReviewedProduct(userId),
+  getUserReviewedProduct: (userId: number, cursor: number) => ({
+    queryKey: queryKeys.getUserReviewedProduct(userId, cursor),
+    queryFn: () => UserService.getUserReviewedProduct(userId, cursor),
   }),
-  getUserFavoriteProduct: (userId: number) => ({
-    queryKey: queryKeys.getUserFavoriteProduct(userId),
-    queryFn: () => UserService.getUserFavoriteProduct(userId),
+  getUserFavoriteProduct: (userId: number, cursor: number) => ({
+    queryKey: queryKeys.getUserFavoriteProduct(userId, cursor),
+    queryFn: () => UserService.getUserFavoriteProduct(userId, cursor),
   }),
-  getUserFollowees: (userId: number) => ({
-    queryKey: queryKeys.getUserFollowees(userId),
-    queryFn: () => UserService.getUserFollowees(userId),
+  getUserFollowees: (userId: number, cursor: number) => ({
+    queryKey: queryKeys.getUserFollowees(userId, cursor),
+    queryFn: () => UserService.getUserFollowees(userId, cursor),
   }),
-  getUserFollowers: (userId: number) => ({
-    queryKey: queryKeys.getUserFollowers(userId),
-    queryFn: () => UserService.getUserFollowers(userId),
+  getUserFollowers: (userId: number, cursor: number) => ({
+    queryKey: queryKeys.getUserFollowers(userId, cursor),
+    queryFn: () => UserService.getUserFollowers(userId, cursor),
   }),
 };
 

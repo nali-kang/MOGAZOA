@@ -55,44 +55,53 @@ export function useGetUserInfo(userId: number) {
 /**
  * 유저가 생성한 상품 조회
  * @param userId require;  \number
+ * @param cursor optional; \number 기본값0
  */
-export function useGetUserCreatedProduct(userId: number) {
-  const res = useSuspenseQuery(queryOptions.getUserCreatedProduct(userId));
+export function useGetUserCreatedProduct(userId: number, cursor: number = 0) {
+  const res = useSuspenseQuery(queryOptions.getUserCreatedProduct(userId, cursor));
   return selectData<GetProductRes>(res);
 }
 
 /**
  * 유저가 찜한 상품 조회
+ * @param userId require;  \number
+ * @param cursor optional; \number 기본값0
 }
  */
-export function useGetUserReviewedProduct(userId: number) {
-  const res = useSuspenseQuery(queryOptions.getUserReviewedProduct(userId));
+export function useGetUserReviewedProduct(userId: number, cursor: number = 0) {
+  const res = useSuspenseQuery(queryOptions.getUserReviewedProduct(userId, cursor));
   return selectData<GetProductRes>(res);
 }
 
 /**
  * 유저가 찜한 상품 조회
+ * @param userId require;  \number
+ * @param cursor optional; \number 기본값0
 }
  */
-export function useGetUserFavoriteProduct(userId: number) {
-  const res = useSuspenseQuery(queryOptions.getUserFavoriteProduct(userId));
+export function useGetUserFavoriteProduct(userId: number, cursor: number = 0) {
+  const res = useSuspenseQuery(queryOptions.getUserFavoriteProduct(userId, cursor));
   return selectData<GetProductRes>(res);
 }
 
 /**
  * 유저가 팔로우한 유저 조회(팔로잉)
+ * @param userId require;  \number
+ * @param cursor optional; \number 기본값0
 }
  */
-export function useGetUserFollowees(userId: number) {
-  const res = useSuspenseQuery(queryOptions.getUserFollowees(userId));
+export function useGetUserFollowees(userId: number, cursor: number = 0) {
+  const res = useSuspenseQuery(queryOptions.getUserFollowees(userId, cursor));
   return selectData<GetUserFollowRes>(res);
 }
 
 /**
  * 유저를 팔로우한 유저 조회(팔로워)
+ * @param userId require;  \number
+ * @param cursor optional; \number 기본값0
 }
  */
-export function useGetUserFollowers(userId: number) {
-  const res = useSuspenseQuery(queryOptions.getUserFollowers(userId));
+export function useGetUserFollowers(userId: number, cursor: number = 0) {
+  const res = useSuspenseQuery(queryOptions.getUserFollowers(userId, cursor));
   return selectData<GetUserFollowRes>(res);
 }
