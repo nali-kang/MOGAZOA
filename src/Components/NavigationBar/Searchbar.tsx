@@ -1,10 +1,11 @@
 import { SetStateAction, useContext, useState } from 'react';
 import Image from 'next/image';
 import SearchContext from '@/app/SearchContext';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 function Searchbar() {
   const url = usePathname();
+  const router = useRouter();
   const { setSearchValue } = useContext(SearchContext);
   const [tempValue, setTempValue] = useState('');
 
@@ -16,9 +17,7 @@ function Searchbar() {
     event.preventDefault();
     setSearchValue(tempValue);
     if (url !== '/') {
-      window.location.href = '/';
-      console.log('여긴 홈페이지가아닙니다');
-      // Todo : 홈페이지 이동시 searchvalue값 전달..
+      router.push('/');
     }
   };
 
