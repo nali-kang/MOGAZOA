@@ -30,7 +30,7 @@ export default function Home() {
         <Sidemenu onSelectCategory={setSelectedCategory} />
         <div className="flex flex-col lg:flex-row-reverse lg:gap-[60px]">
           <ReviewRank />
-          <div className="">
+          <div className="w-[750px]">
             {selectedCategory === null && !searchValue ? (
               <div>
                 <div className="mb-[60px] lg:mb-[80px]">
