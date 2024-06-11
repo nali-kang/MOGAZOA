@@ -4,13 +4,9 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Searchbar from './Searchbar';
 
-interface MyComponentProps {
-  firstTitle: string;
-  secondTitle: string;
-}
-
-function NavigationBar({ firstTitle, secondTitle }: MyComponentProps) {
+function NavigationBar() {
   const [isSearchClicked, setIsSearchClicked] = useState(false);
+  const [isAuthorized, setIsAuthorized] = useState(false);
 
   const handleSearchClick = () => {
     setIsSearchClicked(!isSearchClicked);
@@ -28,6 +24,14 @@ function NavigationBar({ firstTitle, secondTitle }: MyComponentProps) {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
+  }, []);
+  useEffect(() => {
+    const token = localStorage.getItem('authToken');
+    if (token) {
+      setIsAuthorized(true);
+    } else {
+      setIsAuthorized(false);
+    }
   }, []);
 
   return (
@@ -49,15 +53,19 @@ function NavigationBar({ firstTitle, secondTitle }: MyComponentProps) {
         )}
         {isSearchClicked && <Searchbar />}
       </nav>
-      <nav className="hidden md:flex items-center bg-bgblack h-[80px] px-[30px] xl:h-[100px] xl:px-[120px]">
+      <nav className="hidden md:flex items-center bg-bgblack h-[80px] px-[30px] xl:h-[100px] xl:px-[120px] ">
         <div
           className="w-[138px] h-[24px] xl:w-[166px] xl:h-[28px] bg-cover bg-center"
           style={{ backgroundImage: 'url(/icons/large-logo-icon.svg)' }}
         />
         <div className="flex items-center ml-auto gap-[30px] xl:gap-[60px]">
           <Searchbar />
-          <p className="text-white text-sm xl:text-base font-nomal font-['Pretendard']">{firstTitle}</p>
-          <p className="text-white text-sm xl:text-base font-nomal font-['Pretendard']">{secondTitle}</p>
+          <p className="text-white text-sm xl:text-base font-normal font-['Pretendard']">
+            {isAuthorized ? '비교하기' : '로그인'}
+          </p>
+          <p className="text-white text-sm xl:text-base font-normal font-['Pretendard']">
+            {isAuthorized ? '내 프로필' : '회원가입'}
+          </p>
         </div>
       </nav>
     </>

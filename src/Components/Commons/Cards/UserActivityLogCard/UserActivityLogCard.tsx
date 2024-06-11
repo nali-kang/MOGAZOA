@@ -1,52 +1,60 @@
 'use client';
 
+import { useGetUserMe, useGetUserInfo } from '@/Apis/User/useUserService';
 import CategoryChip from '../../Chip/CategoryChip';
 
 function UserActivityLogCard() {
+  const params = {};
+  const userId = 192;
+  const usersInfo = useGetUserInfo(userId, params);
   return (
-    <article className="flex justify-center mx-[20px] lg:ml-[60px] ">
-      <div className="flex flex-col mt-[60px] w-[335px] md:w-[509px] lg:w-[940px]">
-        <h2 className="font-['Pretendard'] text-white text-[18px] lg:text-[20px] font-semibold mb-[30px] ">
+    <div className="flex justify-center mx-[1.25rem] xl:ml-[3.75rem] xl:mx-[0]">
+      <div className="flex flex-col mt-[3.75rem] xl:mt-[0] w-[20.9375rem] md:w-[31.8125rem] xl:w-[58.75rem] ">
+        <h2 className="font-['Pretendard'] text-white text-[1.125rem] xl:text-[1.25rem] font-semibold mb-[1.875rem]">
           활동 내역
         </h2>
-        <div className="flex gap-[10px] lg:gap-[20px]">
-          <div className="flex flex-col justify-center items-center gap-[15px] px-[26.5px] py-[20px] lg:px-[96px] lg:py-[30px] w-[105px] h-[119px] lg:h-[128px] md:w-[163px] lg:w-[300px] rounded-[12px] bg-scblack  ">
-            <p className="font-['Pretendard'] text-center text-gray2 text-[14px] lg:text-[16px] font-[500] leading-[20px] lg:leading-normal  ">
-              <span className="block md:inline-block">남긴 </span>{' '}
+        <div className="flex gap-[0.625rem] xl:gap-[1.25rem]">
+          <div className="flex flex-col justify-center items-center gap-[0.9375rem] px-[1.65625rem] py-[1.25rem] xl:px-[6rem] xl:py-[1.875rem] w-[6.5625rem] h-[7.4375rem] xl:h-[8rem] md:w-[10.1875rem] xl:w-[18.75rem] rounded-[0.75rem] bg-scblack">
+            <p className="font-['Pretendard'] text-center text-gray2 text-[0.875rem] xl:text-[1rem] font-[500] leading-[1.25rem] xl:leading-normal">
+              <span className="block md:inline-block">남긴 </span>
               <span className="block md:inline-block whitespace-nowrap"> 별점 평균</span>
             </p>
-            <div className="flex items-center gap-[5px]">
+            <div className="flex items-center gap-[0.3125rem]">
               <div
-                className="w-[20px] h-[20px] lg:w-[24px] lg:h-[24px] bg-cover bg-center"
+                className="w-[1.25rem] h-[1.25rem] xl:w-[1.5rem] xl:h-[1.5rem] bg-cover bg-center"
                 style={{ backgroundImage: 'url(/icons/star-icon.svg)' }}
               />
-              <p className="font-['Pretendard'] text-white text-[20px] lg:text-[24px] font-[400] leading-nomal ">4.8</p>
+              <p className="font-['Pretendard'] text-white text-[1.25rem] xl:text-[1.5rem] font-[400] leading-nomal">
+                {usersInfo.data.averageRating}
+              </p>
             </div>
           </div>
-          <div className="flex flex-col justify-center items-center gap-[15px] px-[23.5px] py-[30px] lg:px-[115px] lg:py-[30px] w-[105px] h-[119px] md:w-[163px] lg:w-[300px] lg:h-[128px] rounded-[12px] bg-scblack ">
-            <p className="font-['Pretendard'] text-center text-gray2 text-[14px] lg:text-[16px] font-[500] lg:font-[400] leading-[20px] lg:leading-normal whitespace-nowrap ">
+          <div className="flex flex-col justify-center items-center gap-[0.9375rem] px-[1.46875rem] py-[1.875rem] xl:px-[7.1875rem] xl:py-[1.875rem] w-[6.5625rem] h-[7.4375rem] md:w-[10.1875rem] xl:w-[18.75rem] xl:h-[8rem] rounded-[0.75rem] bg-scblack">
+            <p className="font-['Pretendard'] text-center text-gray2 text-[0.875rem] xl:text-[1rem] font-[500] xl:font-[400] leading-[1.25rem] xl:leading-normal whitespace-nowrap">
               남긴 리뷰
             </p>
-            <div className="flex items-center gap-[5px]">
+            <div className="flex items-center gap-[0.3125rem]">
               <div
-                className="w-[20px] h-[20px] lg:w-[24px] lg:h-[24px] bg-cover bg-center"
+                className="w-[1.25rem] h-[1.25rem] xl:w-[1.5rem] xl:h-[1.5rem] bg-cover bg-center"
                 style={{ backgroundImage: 'url(/icons/bubble-icon.svg)' }}
               />
-              <p className="font-['Pretendard'] text-white text-[20px] lg:text-[24px] font-[400] leading-nomal ">125</p>
+              <p className="font-['Pretendard'] text-white text-[1.25rem] xl:text-[1.5rem] font-[400] leading-nomal">
+                {usersInfo.data.reviewCount}
+              </p>
             </div>
           </div>
-          <div className="flex flex-col justify-center items-center gap-[15px] px-[23.5px] py-[21px] w-[105px] lg:px-[88px] lg:py-[30px] h-[119px] md:w-[163px] lg:w-[300px] lg:h-[128px] rounded-[12px] bg-scblack ">
-            <p className="font-['Pretendard'] text-center text-gray2 text-[14px] lg:text-[16px] font-[500] lg:font-[400] leading-[20px] lg:leading-normal ">
-              <span className="block md:inline-block">관심</span>{' '}
+          <div className="flex flex-col justify-center items-center gap-[0.9375rem] px-[0.5rem] py-[1.3125rem] w-[6.5625rem] xl:px-[5rem] xl:py-[1.875rem] h-[7.4375rem] md:w-[10.1875rem] xl:w-[18.75rem] xl:h-[8rem] rounded-[0.75rem] bg-scblack">
+            <p className="font-['Pretendard'] text-center text-gray2 text-[0.875rem] xl:text-[1rem] font-[500] xl:font-[400] leading-[1.25rem] xl:leading-normal">
+              <span className="block md:inline-block">관심</span>
               <span className="block md:inline-block">카테고리</span>
             </p>
             <div>
-              <CategoryChip category="의류/악세서리" />
+              <CategoryChip category={usersInfo.data.mostFavoriteCategory} />
             </div>
           </div>
         </div>
       </div>
-    </article>
+    </div>
   );
 }
 export default UserActivityLogCard;

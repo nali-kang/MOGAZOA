@@ -1,38 +1,62 @@
+import { useGetUserMe, useGetUserInfo } from '@/Apis/User/useUserService';
+
 import Button from '../../Button';
+import { useContext } from 'react';
+import { ModalSetterContext } from '@/Context/ModalContext';
 
 function UserProfileCard() {
+  const params = {};
+  const userId = 192;
+  // const userMeInfo = useGetUserMe(params);
+  const usersInfo = useGetUserInfo(userId, params);
+  const setModalState = useContext(ModalSetterContext);
+  function handleOnClick() {
+    setModalState({ isOpen: true, type: 'followee' });
+  }
+
   return (
-    <article className="flex justify-center mx-[20px] ">
-      <div className="flex flex-col  items-center gap-[30px] lg:gap-[40px]  px-[20px] md:px-[30px] lg:px-[20px] py-[30px] lg:pt-[40px] lg:pb-[30px] w-[335px] h-[466px] md:w-[509px] md:h-[451px] lg:w-[340px] lg:h-[603px] bg-scblack border-black4 rounded-[12px] ">
+    <article className="flex justify-center mx-[1.25rem] xl:mx-[0] mt-[30px] md:mt-[40px] xl:mt-[0] xl:row-span-3">
+      <div className="flex flex-col items-center gap-[1.875rem] xl:gap-[2.5rem] px-[1.25rem] md:px-[1.875rem] xl:px-[1.25rem] py-[1.875rem] xl:pt-[2.5rem] xl:pb-[1.875rem] w-[20.9375rem] md:w-[31.8125rem]  xl:w-[21.25rem] xl:h-[603px] bg-scblack border-black4 rounded-[0.75rem]">
         <div
-          className="w-[120px] h-[120px] lg:w-[180px] lg:h-[180px] bg-center"
+          className="w-[7.5rem] h-[7.5rem] xl:w-[11.25rem] xl:h-[11.25rem] bg-center"
           style={{
-            backgroundImage: 'url(/images/img-profile1.svg)',
+            backgroundImage: usersInfo.data.image ? `url(${usersInfo.data.image})` : 'url(/images/img-profile1.svg)',
             backgroundSize: 'contain',
             backgroundRepeat: 'no-repeat',
           }}
         />
-        <div className="flex flex-col items-center gap-[10px] lg-gap-[20px]">
-          <h1 className="font-['Pretendard'] text-white text-[20px] lg:text-[24px] font-semibold leading-[28px] lg:leading-normal">
-            surisuri마수리
+        <div className="flex flex-col items-center gap-[0.625rem] xl:gap-[1.25rem]">
+          <h1 className="font-['Pretendard'] text-white text-[1.25rem] xl:text-[1.5rem] font-semibold leading-[1.75rem] xl:leading-normal">
+            {usersInfo.data.nickname}
           </h1>
-          <p className="font-['Pretendard'] text-gray1 text-[14px] lg:text-[16px] font-normal leading-[20px] lg:leading-[22px] ">
-            세상에 리뷰 못할 제품은 없다. surisuri마수리와 함께라면 당신도 프로쇼핑러! 안녕하세요, 별점의 화신
-            surisuri마수리입니다!
+          <p className="font-['Pretendard'] text-gray1 text-[0.875rem] xl:text-[1rem] font-normal leading-[1.25rem] xl:leading-[1.375rem]">
+            {usersInfo.data.description}
           </p>
         </div>
-        <div className="flex ">
-          <div className="flex flex-col items-center gap-[10px] pr-[60px] md:pr-[80px] lg:pr-[50px] border-r border-black4">
-            <p className="font-['Pretendard'] text-white text-[18px] lg:text-[20px] font-semibold  ">762</p>
-            <p className="font-['Pretendard'] text-gray2 text-[14px] lg:text-[16px] font-normal  ">팔로워</p>
+        <div className="flex">
+          <div className="flex flex-col items-center gap-[0.625rem] pr-[3.75rem] md:pr-[5rem] xl:pr-[3.125rem] border-r border-black4">
+            <button
+              onClick={handleOnClick}
+              className="font-['Pretendard'] text-white text-[1.125rem] xl:text-[1.25rem] font-semibold bg-transparent border-none p-0 cursor-pointer"
+              type="button"
+            >
+              {usersInfo.data.followersCount}
+            </button>
+            <p className="font-['Pretendard'] text-gray2 text-[0.875rem] xl:text-[1rem] font-normal">팔로워</p>
           </div>
-          <div className="flex flex-col items-center gap-[10px] pl-[60px] md:pl-[80px] lg:pl-[50px] ">
-            <p className="font-['Pretendard'] text-white text-[18px] lg:text-[20px] font-semibold  ">102</p>
-            <p className="font-['Pretendard'] text-gray2 text-[14px] lg:text-[16px] font-normal  ">팔로잉</p>
+          <div className="flex flex-col items-center gap-[0.625rem] pl-[3.75rem] md:pl-[5rem] xl:pl-[3.125rem]">
+            <button
+              onClick={handleOnClick}
+              className="font-['Pretendard'] text-white text-[1.125rem] xl:text-[1.25rem] font-semibold bg-transparent border-none p-0 cursor-pointer"
+              type="button"
+            >
+              {usersInfo.data.followeesCount}
+            </button>
+            <p className="font-['Pretendard'] text-gray2 text-[0.875rem] xl:text-[1rem] font-normal">팔로잉</p>
           </div>
         </div>
         <Button
-          className="w-[295px] h-[50px] md:w-[449px] md:h-[55px] lg:w-[300px] lg:h-[65px] font-['Pretendard'] text-md lg-text-[18px]"
+          className="w-[18.4375rem] h-[3.125rem] md:w-[28.0625rem] md:h-[3.4375rem] xl:w-[18.75rem] xl:h-[4.0625rem] font-['Pretendard'] text-md xl-text-[1.125rem]"
           color="primary"
         >
           팔로우

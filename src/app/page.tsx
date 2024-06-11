@@ -7,7 +7,7 @@ import { Dropdown, Option } from '@/Components/Commons/Dropdown/DropdownComponen
 import ProductsCategory from '@/Components/HomeComponents/Products/ProductsCategory';
 import ReveiwRank from '@/Components/HomeComponents/ReviewRank';
 import Sidemenu from '@/Components/HomeComponents/Sidemenu';
-import NavigationBar from '@/Components/NavigationBar/Navigationbar';
+import NavigationBar from '@/Components/Commons/NavigationBar/Navigationbar';
 import { categories } from '@/Constant/Categories';
 
 export default function Home() {
