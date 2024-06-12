@@ -5,7 +5,7 @@ import CategoryChip from '../../Chip/CategoryChip';
 
 function UserActivityLogCard() {
   const params = {};
-  const userId = 192;
+  const userId = 1;
   const usersInfo = useGetUserInfo(userId, params);
   return (
     <div className="flex justify-center mx-[1.25rem] xl:ml-[3.75rem] xl:mx-[0]">

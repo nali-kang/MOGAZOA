@@ -8,13 +8,13 @@ import {
 import ProductCard from './ProductCard';
 
 interface ProductsCategoryProps {
-  category: string | 'review' | 'created' | 'favorite';
+  category: 'review' | 'created' | 'favorite';
 }
 
 export default function ProductsCategory({ category }: ProductsCategoryProps) {
   let SelectProductData: ProductType[] = [];
   const params = {};
-  const userId = 192;
+  const userId = 1;
   const usersReviewProductInfo = useGetUserReviewedProduct(userId, params);
   const usersCreatedProductInfo = useGetUserCreatedProduct(userId, params);
   const usersFavoriteProductInfo = useGetUserFavoriteProduct(userId, params);

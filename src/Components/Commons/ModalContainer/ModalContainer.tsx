@@ -6,6 +6,7 @@ import Modal from 'react-modal';
 // import FollowersModal from '../Cards/UserprofileCard/FollowerModal';
 import FolloweesModal from '../Cards/UserprofileCard/FolloweeModal';
 import FollowersModal from '../Cards/UserprofileCard/FollowerModal';
+import ProfileEditModal from '../Cards/UserprofileCard/ProfileEditModal';
 
 const modalStyles: ReactModal.Styles = {
   overlay: {
@@ -41,6 +42,7 @@ type ModalComponents = {
 const MODAL_COMPONENTS: ModalComponents = {
   followee: FolloweesModal,
   follower: FollowersModal,
+  profileEdit: ProfileEditModal,
 };
 
 export default function ModalContainer() {

@@ -6,7 +6,7 @@ import { ModalSetterContext } from '@/Context/ModalContext';
 
 function UserProfileCard() {
   const params = {};
-  const userId = 192;
+  const userId = 1;
   // const userMeInfo = useGetUserMe(params);
   const usersInfo = useGetUserInfo(userId, params);
   const FolloweesInfo = useGetUserFollowees(userId, params);
@@ -29,6 +29,13 @@ function UserProfileCard() {
       FollowersInfo: FollowersInfo,
       userId: userId,
       nickName: usersInfo.data.nickname,
+    });
+  }
+  function handleProfileEditOnClick() {
+    setModalState({
+      isOpen: true,
+      type: 'profileEdit',
+      userId: userId,
     });
   }
   return (
@@ -73,8 +80,9 @@ function UserProfileCard() {
           </div>
         </div>
         <Button
+          onClick={handleProfileEditOnClick}
           className="w-[18.4375rem] h-[3.125rem] md:w-[28.0625rem] md:h-[3.4375rem] xl:w-[18.75rem] xl:h-[4.0625rem] font-['Pretendard'] text-md xl-text-[1.125rem]"
-          color="primary"
+          color="tertiary"
         >
           팔로우
         </Button>

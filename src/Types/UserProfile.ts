@@ -10,10 +10,10 @@ export interface UserProfile {
   followersCount: number;
 }
 export interface UserFollowee {
-  followee: Follow;
+  followee: Follow | undefined;
 }
 export interface UserFollower {
-  follower: Follow;
+  follower: Follow | undefined;
 }
 export interface Follow {
   updatedAt: string;
