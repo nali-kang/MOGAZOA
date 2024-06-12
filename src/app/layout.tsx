@@ -3,9 +3,9 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import ModalProvider from '@/Context/ModalContext';
 import ModalContainer from '@/Components/Commons/ModalContainer/ModalContainer';
-import Providers from './Providers';
 import NavigationBar from '@/Components/NavigationBar/Navigationbar';
 import { SearchProvider } from './SearchContext';
+import QueryProvider from './Providers';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -22,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={`${inter.className} bg-bgblack`}>
-        <Providers>
+        <QueryProvider>
           <ModalProvider>
             <ModalContainer />
             <SearchProvider>
@@ -30,7 +30,7 @@ export default function RootLayout({
               {children}
             </SearchProvider>
           </ModalProvider>
-        </Providers>
+        </QueryProvider>
       </body>
     </html>
   );
