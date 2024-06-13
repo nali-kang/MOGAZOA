@@ -1,5 +1,6 @@
 'use client';
 
+import CompareModal from '@/Components/Compare/CompareModal';
 import { ModalSetterContext, ModalStateContext } from '@/Context/ModalContext';
 import { FunctionComponent, useContext } from 'react';
 import Modal from 'react-modal';
@@ -36,6 +37,7 @@ type ModalComponents = {
 };
 
 const MODAL_COMPONENTS: ModalComponents = {
+  compare: CompareModal,
   // test: TestModal, 이런식으로 추가
 };
 

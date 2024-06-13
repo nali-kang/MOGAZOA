@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useContext, useEffect, useMemo, useState } from 'react';
 import Image from 'next/image';
 import { DropdownSearch, Option } from '../Commons/Dropdown/DropdownComponent';
 import Button from '../Commons/Button';
@@ -8,6 +8,7 @@ import { useCustomParam } from '@/Hooks/useCustomParams';
 import CompareTable from './CompareTable';
 import { useGetProductItems } from '@/Apis/Product/useProduct.Service';
 import { Compare } from '@/Types/CompareType';
+import { ModalSetterContext } from '@/Context/ModalContext';
 
 /**
  * @type compareFirst 비교하기 첫번째 상품
@@ -77,6 +78,12 @@ function CompareComponent({ compareFirst, compareSecond }: Props) {
     return 0;
   }, [compareFirst, compareSecond, params]);
 
+  const setModalState = useContext(ModalSetterContext);
+
+  const handleFloatingButtonClick = () => {
+    setModalState({ isOpen: true, type: 'compare' });
+  };
+
   return (
     <main className="pt-[1.88rem] md:pt-[2.5rem] lg:pt-[3.75rem]">
       <section className="mx-auto flex flex-col w-fit">
@@ -122,6 +129,16 @@ function CompareComponent({ compareFirst, compareSecond }: Props) {
             }}
           >
             비교하기
+          </Button>
+
+          <Button
+            color="primary"
+            className="w-[20.9375rem] md:w-[10.25rem] lg:w-[12.5rem] h-[3.175rem] md:h-[3.4375rem] lg:h-[4.375rem] flex items-center justify-center font-base font-normal leading-[normal] !px-0 !py-0"
+            onClick={() => {
+              handleFloatingButtonClick();
+            }}
+          >
+            모달 테스트
           </Button>
         </article>
         <article className="w-full flex items-center justify-center">
