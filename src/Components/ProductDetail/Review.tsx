@@ -2,75 +2,32 @@
 
 import Image from 'next/image';
 import { useState } from 'react';
+import { Dropdown, Option } from '../Commons/Dropdown/DropdownComponent';
 
 export default function ProductReview() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [sort, setSort] = useState('최신순');
+  const [sorting, setSorting] = useState<'latest' | 'upstar' | 'downstar' | 'like'>('latest');
 
-  function handleSort(event: any) {
-    const value = event.currentTarget.innerText;
-    console.log(value);
-    // setSort(e.target.value());
-    setIsOpen(false);
-    setSort(value);
-  }
+  const sort: Option[] = [
+    { label: '최신순', value: 'latest' },
+    { label: '별점 높은순', value: 'upstar' },
+    { label: '별점 낮은순', value: 'downstar' },
+    { label: '좋아요순', value: 'like' },
+  ];
 
   return (
     <div className="flex-col ">
-      <div className="w-[375px] md:w-[726px] xl:w-[980px] flex justify-between items-center">
+      <div className="w-[375px] md:w-[726px] xl:w-[980px] flex justify-between items-center mb-7">
         <div className=" font-semibold text-lg px-5 xl:text-2xl w-30 h-auto">상품 리뷰</div>
-        <button
-          type="button"
-          className="flex justify-end items-center w-32 h-full rounded-md px-3 py-1 bg-black1 text-sm font-medium text-gray-300"
-          id="options-menu"
-          aria-haspopup="true"
-          aria-expanded="true"
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          {sort}
-          {isOpen ? (
-            <Image alt="화살표 선택" src="/icons/drop-up-icon.svg" width={30} height={30} />
-          ) : (
-            <Image alt="화살표 선택" src="/icons/drop-down-icon.svg" width={30} height={30} />
-          )}
-        </button>
+        <Dropdown
+          option={sort}
+          value={sorting}
+          onChange={(value: any) => {
+            setSorting(value);
+          }}
+          type="sort"
+        />
       </div>
-      <div className="relative inline-block text-left">
-        {isOpen && (
-          <div className="absolute right-[-365px] top-[-25px] md:right-[-716px] xl:right-[-970px] mt-2 w-50 rounded-md shadow-lg bg-scblack ring-1 ring-black ring-opacity-5">
-            <ul className="py-1 rounded-md p-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-              <li
-                onClick={handleSort}
-                role="menuitem"
-                className="block rounded-md px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-gray-200"
-              >
-                최신순
-              </li>
-              <li
-                onClick={handleSort}
-                role="menuitem"
-                className="block px-4  rounded-md py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-gray-200"
-              >
-                별점 높은순
-              </li>
-              <li
-                onClick={handleSort}
-                role="menuitem"
-                className="block px-4 py-2  rounded-md text-sm text-gray-300 hover:bg-gray-700 hover:text-gray-200"
-              >
-                별점 낮은순
-              </li>
-              <li
-                onClick={handleSort}
-                role="menuitem"
-                className="block px-4 py-2 rounded-md text-sm text-gray-300 hover:bg-gray-700 hover:text-gray-200"
-              >
-                좋아요순
-              </li>
-            </ul>
-          </div>
-        )}
-      </div>
+
       <div className="w-[335px] md:w-[684px] xl:w-[940px] bg-scblack rounded-xl border border-zinc-700 justify-center mx-auto p-5 md:flex">
         <div className="w-32 h-9 justify-start items-center gap-2.5 inline-flex md:w-[159px] xl:mr-20">
           <div className="w-9 h-9 relative">
