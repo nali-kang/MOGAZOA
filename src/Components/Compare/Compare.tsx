@@ -47,15 +47,16 @@ function CompareComponent({ compareFirst, compareSecond }: Props) {
   const params = useCustomParam();
 
   // 선택한 상품내용을 담기 위한 state
-  const [selectOption1, setSelectOption1] = useState<number | undefined>();
-  const [selectOption2, setSelectOption2] = useState<number | undefined>();
+  const [selectOption1, setSelectOption1] = useState<Option | undefined>();
+  const [selectOption2, setSelectOption2] = useState<Option | undefined>();
 
   useEffect(() => {
     // SSR 방식으로 localStorage 접근 시 오류 발생
     // window 객체를 직접 호출하면 오류 발생
     // 두 상황을 타개하기 위해 useMemo를 쓰지 않고 state, effect 활용 -> 랜더된 후 localStroage 접근
-    setSelectOption1(Number(localStorage.getItem('compare1')));
-    setSelectOption2(Number(localStorage.getItem('compare2')));
+    const compareItem = localStorage.getItem('compare') && JSON.parse(localStorage.getItem('compare') ?? '[]');
+    setSelectOption1(compareItem?.[0]);
+    setSelectOption2(compareItem?.[1]);
   }, []);
 
   const productOption = useGetProductItems({});
@@ -81,7 +82,11 @@ function CompareComponent({ compareFirst, compareSecond }: Props) {
   const setModalState = useContext(ModalSetterContext);
 
   const handleFloatingButtonClick = () => {
-    setModalState({ isOpen: true, type: 'compare', productId: 363 });
+    setModalState({
+      isOpen: true,
+      type: 'compare',
+      productInfo: { value: 363, label: 'etjawkeltjwkletjwelktjwkeljtklewjtewlkj' },
+    });
   };
 
   return (
@@ -94,10 +99,13 @@ function CompareComponent({ compareFirst, compareSecond }: Props) {
             </strong>
             <DropdownSearch
               option={option}
-              value={selectOption1}
-              onChange={(value: number) => {
-                setSelectOption1(value);
-                localStorage.setItem('compare1', `${value}`);
+              value={selectOption1?.value}
+              onChange={(value: any) => {
+                const selectValue = value
+                  ? { label: option.find((e) => e.value === value)?.label ?? '', value }
+                  : undefined;
+                setSelectOption1(selectValue);
+                localStorage.setItem('compare', JSON.stringify([selectValue, selectOption2]));
                 params.reset();
               }}
               type="tag_first"
@@ -109,10 +117,13 @@ function CompareComponent({ compareFirst, compareSecond }: Props) {
             </strong>
             <DropdownSearch
               option={option}
-              value={selectOption2}
+              value={selectOption2?.value}
               onChange={(value: number) => {
-                setSelectOption2(value);
-                localStorage.setItem('compare2', `${value}`);
+                const selectValue = value
+                  ? { label: option.find((e) => e.value === value)?.label ?? '', value }
+                  : undefined;
+                setSelectOption2(selectValue);
+                localStorage.setItem('compare', JSON.stringify([selectOption1, selectValue]));
                 params.reset();
               }}
               type="tag_second"
@@ -121,10 +132,10 @@ function CompareComponent({ compareFirst, compareSecond }: Props) {
           <Button
             color="primary"
             className="w-[20.9375rem] md:w-[10.25rem] lg:w-[12.5rem] h-[3.175rem] md:h-[3.4375rem] lg:h-[4.375rem] flex items-center justify-center font-base font-normal leading-[normal] !px-0 !py-0"
-            disabled={!(selectOption1 && selectOption2)}
+            disabled={!(selectOption1?.value && selectOption2?.value)}
             onClick={() => {
-              if (selectOption1 && selectOption2) {
-                params.set('compare1', selectOption1).set('compare2', selectOption2).push();
+              if (selectOption1?.value && selectOption2?.value) {
+                params.set('compare1', selectOption1.value).set('compare2', selectOption2.value).push();
               }
             }}
           >
@@ -148,9 +159,7 @@ function CompareComponent({ compareFirst, compareSecond }: Props) {
                 {compareState > 0 && (
                   <div className="flex flex-col gap-5 items-center">
                     <div>
-                      <span className="text-[#05D58B]">
-                        {`${option.find((op) => op.value === Number(params.get('compare1')))?.label} `}
-                      </span>
+                      <span className="text-[#05D58B]">{`${selectOption1?.label} `}</span>
                       상품이 <br className="block lg:hidden" />
                       승리하였습니다!
                     </div>
@@ -162,9 +171,7 @@ function CompareComponent({ compareFirst, compareSecond }: Props) {
                 {compareState < 0 && (
                   <div className="flex flex-col gap-5 items-center">
                     <div>
-                      <span className="text-[#FF2F9F]">
-                        {`${option.find((op) => op.value === Number(params.get('compare2')))?.label} `}
-                      </span>
+                      <span className="text-[#FF2F9F]">{`${selectOption2?.label} `}</span>
                       상품이
                       <br className="block lg:hidden" /> 승리하였습니다!
                     </div>
