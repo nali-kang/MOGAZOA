@@ -81,7 +81,7 @@ function CompareComponent({ compareFirst, compareSecond }: Props) {
   const setModalState = useContext(ModalSetterContext);
 
   const handleFloatingButtonClick = () => {
-    setModalState({ isOpen: true, type: 'compare' });
+    setModalState({ isOpen: true, type: 'compare', productId: 363 });
   };
 
   return (

@@ -1,8 +1,8 @@
 'use client';
 
-import CompareModal from '@/Components/Compare/CompareModal';
 import { FunctionComponent } from 'react';
 import Modal from 'react-modal';
+import CompareModal from '@/Components/Compare/CompareModal';
 
 const modalStyles: ReactModal.Styles = {
   overlay: {
