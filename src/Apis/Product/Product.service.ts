@@ -23,8 +23,8 @@ class ProductService {
   }
 
   // 상품 수정
-  patchProductModify(productId: number) {
-    return apiRequestorToken.patch(`/products/${productId}`);
+  patchProductModify(productId: number, payload: PostProductItems) {
+    return apiRequestorToken.patch(`/products/${productId}`, payload);
   }
 
   // 상품 리뷰 목록 조회

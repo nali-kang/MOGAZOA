@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import ModalProvider from '@/Context/ModalContext';
 import ModalContainer from '@/Components/Commons/ModalContainer/ModalContainer';
+import QueryProvider from './Providers';
 import Providers from './Providers';
 import ClientSessionProvider from '@/Components/Auth/ClientSessionProvider';
 
@@ -21,6 +22,12 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={`${inter.className} bg-black1`}>
+        <QueryProvider>
+          <ModalProvider>
+            <ModalContainer />
+            {children}
+          </ModalProvider>
+        </QueryProvider>
         <ClientSessionProvider>
           <Providers>
             <ModalProvider>
