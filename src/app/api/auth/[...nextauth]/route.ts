@@ -20,7 +20,6 @@ const authOptions: AuthOptions = {
           return null;
         }
         try {
-          // 실제 API 호출을 사용하여 사용자 인증
           const response = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/signIn`, {
             email: credentials.email,
             password: credentials.password,

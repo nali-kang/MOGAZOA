@@ -1,7 +1,9 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 import NavigationBar from '@/Components/NavigationBar/Navigationbar';
 import Button from '@/Components/Commons/Button';
@@ -10,6 +12,16 @@ import { IFormInput, defaultLoginFormValues, validate } from '@/Constant/AuthFor
 import AuthService from '@/Apis/Auth/Auth.service';
 
 export default function SignUpPage() {
+  const { data: session } = useSession();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (session) {
+      // 세션이 있으면 홈 페이지로 리디렉션
+      router.push('/');
+    }
+  }, [session, router]);
+
   const {
     handleSubmit,
     register,
