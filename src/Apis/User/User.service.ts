@@ -2,52 +2,43 @@
 
 import { AxiosRequestConfig } from 'axios';
 import { apiRequestor, apiRequestorToken } from '../requestor';
-import { PatchUserProps, UserId } from './User.type';
-import { BaseQuery } from '../common.type';
+import { PatchUserProps } from './User.type';
 
 class UserService {
-  getUserMe(params: BaseQuery) {
-    const config: AxiosRequestConfig = { params };
-    return apiRequestorToken.get(`/users/me`, config);
+  getUserMe() {
+    return apiRequestorToken.get(`/users/me`);
   }
 
   patchUserMe(payload: PatchUserProps) {
     return apiRequestorToken.patch(`/users/me`, payload);
   }
 
-  getUserRanking(params: BaseQuery) {
-    const config: AxiosRequestConfig = { params };
-    return apiRequestor.get(`/users/ranking`, config);
+  getUserRanking() {
+    return apiRequestor.get(`/users/ranking`);
   }
 
-  getUserInfo(userID: UserId, params: BaseQuery) {
-    const config: AxiosRequestConfig = { params };
-    return apiRequestor.get(`/users/${userID}`, config);
+  getUserInfo(userID: number) {
+    return apiRequestor.get(`/users/${userID}`);
   }
 
-  getUserCreatedProduct(userID: UserId, params: BaseQuery) {
-    const config: AxiosRequestConfig = { params };
-    return apiRequestor.get(`/users/${userID}/created-products`, config);
+  getUserCreatedProduct(userID: number, cursor: number) {
+    return apiRequestor.get(`/users/${userID}/created-products?cursor=${cursor}`);
   }
 
-  getUserReviewedProduct(userID: UserId, params: BaseQuery) {
-    const config: AxiosRequestConfig = { params };
-    return apiRequestor.get(`/users/${userID}/reviewed-products`, config);
+  getUserReviewedProduct(userID: number, cursor: number) {
+    return apiRequestor.get(`/users/${userID}/reviewed-products?cursor=${cursor}`);
   }
 
-  getUserFavoriteProduct(userID: UserId, params: BaseQuery) {
-    const config: AxiosRequestConfig = { params };
-    return apiRequestor.get(`/users/${userID}/favorite-products`, config);
+  getUserFavoriteProduct(userID: number, cursor: number) {
+    return apiRequestor.get(`/users/${userID}/favorite-products?cursor=${cursor}`);
   }
 
-  getUserFollowees(userID: UserId, params: BaseQuery) {
-    const config: AxiosRequestConfig = { params };
-    return apiRequestor.get(`/users/${userID}/followees`, config);
+  getUserFollowees(userID: number, cursor: number) {
+    return apiRequestor.get(`/users/${userID}/followees?cursor=${cursor}`);
   }
 
-  getUserFollowers(userID: UserId, params: BaseQuery) {
-    const config: AxiosRequestConfig = { params };
-    return apiRequestor.get(`/users/${userID}/followers`, config);
+  getUserFollowers(userID: number, cursor: number) {
+    return apiRequestor.get(`/users/${userID}/followers?cursor=${cursor}`);
   }
 }
 

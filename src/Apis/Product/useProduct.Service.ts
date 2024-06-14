@@ -54,9 +54,15 @@ export function useGetProductDetail(productId: number) {
 /**
  * 상품 수정
  * @param productId require number;
+ * @param payload required; {
+  categoryId: number;
+  image: null | string;
+  description: string;
+  name: string;
+}
  */
-export function usePatchProductModify(productId: number) {
-  const res = useMutation(queryOptions.patchProductModify(productId));
+export function usePatchProductModify(productId: number, payload: PostProductItems) {
+  const res = useMutation(queryOptions.patchProductModify(productId, payload));
   return selectData<ProductDetailRes>(res);
 }
 

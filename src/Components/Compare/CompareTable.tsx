@@ -21,19 +21,22 @@ const COMPARE_LIST = [
  */
 function CompareTable({ compareFirst, compareSecond }: Props) {
   return (
-    <div className="w-full h-[18.5625rem] mt-20 bg-[#252530] border-2 border-[#353542] rounded-xl">
-      <div className="h-[3.75rem] border-b-2 border-[#353542] grid grid-cols-4 content-center justify-items-center text-[#9FA6B2] text-base font-normal leading-normal">
+    <div className="w-full h-[11.625rem] md:h-[18.5625rem] mt-10 md:mt-20 bg-[#252530] border-2 border-[#353542] rounded-xl">
+      <div className="h-[2.75rem] md:h-[3.75rem] border-b-2 border-[#353542] grid grid-cols-4 content-center justify-items-center text-[#9FA6B2] text-sm lg:text-base font-normal leading-normal">
         <p>기준</p>
         <p>상품1</p>
         <p>상품2</p>
         <p>결과</p>
       </div>
-      <div className="grid grid-rows-3 text-[#9FA6B2] text-base font-normal leading-normal">
+      <div className="grid grid-rows-3 text-[#9FA6B2] text-sm lg:text-base font-normal leading-normal">
         {COMPARE_LIST.map((compare: any) => {
           const first = compareFirst?.[compare.dataIndex as 'rating' | 'reviewCount' | 'favoriteCount'] ?? 0;
           const second = compareSecond?.[compare.dataIndex as 'rating' | 'reviewCount' | 'favoriteCount'] ?? 0;
           return (
-            <div key={compare.dataIndex} className="h-[5rem] grid grid-cols-4 content-center justify-items-center">
+            <div
+              key={compare.dataIndex}
+              className="h-[2.96rem] md:h-[5rem] grid grid-cols-4 content-center justify-items-center"
+            >
               <p>{compare.label}</p>
               <p className="text-white">{first}</p>
               <p className="text-white">{second}</p>

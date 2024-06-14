@@ -3,10 +3,10 @@
 import { ModalSetterContext, ModalStateContext } from '@/Context/ModalContext';
 import { FunctionComponent, useContext } from 'react';
 import Modal from 'react-modal';
-// import FollowersModal from '../Cards/UserprofileCard/FollowerModal';
 import FolloweesModal from '../Cards/UserprofileCard/FolloweeModal';
 import FollowersModal from '../Cards/UserprofileCard/FollowerModal';
 import ProfileEditModal from '../Cards/UserprofileCard/ProfileEditModal';
+import AddProductModal from '../Button/FloatingButton/AddProductModal';
 
 const modalStyles: ReactModal.Styles = {
   overlay: {
@@ -43,6 +43,8 @@ const MODAL_COMPONENTS: ModalComponents = {
   followee: FolloweesModal,
   follower: FollowersModal,
   profileEdit: ProfileEditModal,
+  // test: TestModal, 이런식으로 추가
+  addProduct: AddProductModal,
 };
 
 export default function ModalContainer() {

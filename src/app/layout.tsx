@@ -3,7 +3,9 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import ModalProvider from '@/Context/ModalContext';
 import ModalContainer from '@/Components/Commons/ModalContainer/ModalContainer';
-import Providers from './Providers';
+import NavigationBar from '@/Components/NavigationBar/Navigationbar';
+import { SearchProvider } from './SearchContext';
+import QueryProvider from './Providers';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -19,13 +21,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className={`${inter.className} bg-black1`}>
-        <Providers>
+      <body className={`${inter.className} bg-bgblack`}>
+        <QueryProvider>
           <ModalProvider>
             <ModalContainer />
-            {children}
+            <SearchProvider>
+              <NavigationBar firstTitle="비교하기" secondTitle="내 프로필" />
+              {children}
+            </SearchProvider>
           </ModalProvider>
-        </Providers>
+        </QueryProvider>
       </body>
     </html>
   );
