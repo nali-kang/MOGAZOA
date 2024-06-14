@@ -182,7 +182,7 @@ export function Dropdown({ option, value, onChange, type = 'category' }: Dropdow
   const widthSize = useMemo(() => {
     switch (type) {
       case 'sort':
-        return 'w-[8.375rem] md:w-[11.25rem] lg:w-[12.5rem]';
+        return 'w-[10.375rem] md:w-[11.25rem] lg:w-[12.5rem]';
       default:
         return 'w-[18.4375rem] md:w-[22.5rem]';
     }
