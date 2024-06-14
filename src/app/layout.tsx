@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import ModalProvider from '@/Context/ModalContext';
-import ModalContainer from '@/Components/Commons/ModalContainer/ModalContainer';
 import NavigationBar from '@/Components/NavigationBar/Navigationbar';
 import { SearchProvider } from './SearchContext';
 import QueryProvider from './Providers';
@@ -24,7 +23,6 @@ export default function RootLayout({
       <body className={`${inter.className} bg-bgblack`}>
         <QueryProvider>
           <ModalProvider>
-            <ModalContainer />
             <SearchProvider>
               <NavigationBar firstTitle="비교하기" secondTitle="내 프로필" />
               {children}
