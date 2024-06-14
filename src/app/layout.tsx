@@ -21,17 +21,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className={`${inter.className} bg-bgblack`}>
-        <QueryProvider>
-          <ClientSessionProvider>
-          <ModalProvider>
-            <SearchProvider>
-              <NavigationBar />
-              {children}
-            </SearchProvider>
-          </ModalProvider>
-          </ClientSessionProvider>
-        </QueryProvider>
+      <body className={`${inter.className} bg-black1`}>
+        <ClientSessionProvider>
+          <QueryProvider>
+            <ModalProvider>
+              <SearchProvider>
+                <NavigationBar />
+                {children}
+              </SearchProvider>
+            </ModalProvider>
+          </QueryProvider>
+        </ClientSessionProvider>
       </body>
     </html>
   );
