@@ -1,21 +1,32 @@
+import { useGetUserRanking } from '@/Apis/User/useUserService';
 import RankProfile from './RankProfile';
-import mockData from './mockData.json';
 
-export default function ReveiwRank() {
-  const sortedReviewData = mockData.sort((a, b) => b.reviewCount - a.reviewCount);
+interface UserProfile {
+  updatedAt: string;
+  createdAt: string;
+  teamId: string;
+  image: string;
+  description: string;
+  nickname: string;
+  id: number;
+  reviewCount: number;
+  followersCount: number;
+}
+
+export default function ReviewRank() {
+  const params = {};
+  const { data } = useGetUserRanking(params);
+  const sortedReviewData = data.sort((a: UserProfile, b: UserProfile) => b.followersCount - a.followersCount);
 
   return (
-    <div className="flex mb-[60px] gap-[30px] lg:border-l lg:border-scblack ">
-      {/* <hr className="hidden w-[1px] h-full border border-scblack lg:block" /> */}
-      <div className="lg:pl-[30px] lg:pr-[46px] ">
-        <p className="text-white mb-[20px] lg:mb-[30px]">리뷰어 랭킹</p>
-        <div className="flex overflow-x-auto gap-[15px] max-w-[530px]  md:max-w-[550px] lg:overflow-hidden lg:flex-col">
-          {sortedReviewData.slice(0, 5).map((profile, ranking) => (
-            <div className="w-[300px] h-[36px] lg:h-[42px] lg:mb-[30px]">
-              <RankProfile key={profile.id} profile={profile} rank={ranking + 1} />
-            </div>
-          ))}
-        </div>
+    <div className="flex flex-col mb-[60px] lg:border-l lg:border-scblack lg:pl-[30px] w-[530px] md:w-[550px] lg:w-[300px]">
+      <p className="text-white mb-[20px] lg:mb-[30px]">리뷰어 랭킹</p>
+      <div className="flex overflow-x-auto gap-[15px]  lg:flex-col lg:overflow-hidden">
+        {sortedReviewData.slice(0, 5).map((profile: UserProfile, ranking: number) => (
+          <div className="w-[300px] h-[36px] lg:h-[42px] lg:mb-[30px]">
+            <RankProfile key={profile.id} profile={profile} rank={ranking + 1} />
+          </div>
+        ))}
       </div>
     </div>
   );
