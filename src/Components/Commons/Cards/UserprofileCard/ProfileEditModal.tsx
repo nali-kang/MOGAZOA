@@ -1,10 +1,9 @@
 import { SetStateAction, useContext, useState } from 'react';
-import { ModalSetterContext, ModalStateContext } from '@/Context/ModalContext';
+import { ModalSetterContext } from '@/Context/ModalContext';
 import Button from '../../Button';
 import ImageUpload from './ImgUpload';
 
 export default function ProfileEditModal() {
-  const modalState = useContext(ModalStateContext);
   const setModalState = useContext(ModalSetterContext);
   const [nickNameValue, setNickNameValue] = useState('');
   const [textValue, setTextValue] = useState('');
