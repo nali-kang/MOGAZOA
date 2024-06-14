@@ -4,6 +4,8 @@ import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 
 import Button from '@/Components/Commons/Button';
 import InputForm from '@/Components/Commons/Input/InputForm/InputForm';
@@ -11,6 +13,8 @@ import { IFormInput, defaultLoginFormValues, validate } from '@/Constant/AuthFor
 import AuthService from '@/Apis/Auth/Auth.service';
 import { ReactComponent as CloseIcon } from '@/public/Icons/close-icon.svg';
 import { ReactComponent as LargeLogoIcon } from '@/public/icons/large-logo-icon.svg';
+
+const MySwal = withReactContent(Swal);
 
 export default function SignUpPage() {
   const { data: session } = useSession();
@@ -30,11 +34,32 @@ export default function SignUpPage() {
     formState: { errors },
   } = useForm<IFormInput>({ defaultValues: defaultLoginFormValues, mode: 'onTouched' });
 
+  const showToast = (type: 'success' | 'error', title: string, text: string) => {
+    MySwal.fire({
+      toast: true,
+      position: 'top',
+      icon: type,
+      title,
+      text,
+      showConfirmButton: false,
+      timer: 3000,
+      background: '#22222c',
+      color: '#fff',
+      customClass: {
+        popup: 'custom-toast',
+      },
+    });
+  };
+
   const handleSignupSuccess = () => {
-    console.log('성공');
+    showToast('success', '회원가입 성공', '회원가입이 성공적으로 완료되었습니다.');
+    setTimeout(() => {
+      router.push('/login');
+    }, 3000); // 3초 후에 로그인 페이지로 리디렉션
   };
 
   const handleSignupError = (error: any) => {
+    showToast('error', '회원가입 실패', '회원가입 중 문제가 발생했습니다. 다시 시도해 주세요.');
     console.error('회원가입 실패:', error);
   };
 
@@ -88,47 +113,47 @@ export default function SignUpPage() {
           <div>
             <InputForm
               label="이메일"
-              placeholder="이메일을 입력해 주세요"
               className="w-[400px] h-[55px]"
               basicMessage="이메일 형식을 지켜주세요"
               errorMessage={errors.email?.message}
               type="email"
               {...registerList.email}
               name="email"
+              id="email"
             />
           </div>
           <div>
             <InputForm
               label="닉네임"
-              placeholder="닉네임을 입력해 주세요"
               className="w-[400px] h-[55px]"
               basicMessage="최대 10글자 가능"
               errorMessage={errors.nickname?.message}
               type="text"
               {...registerList.nickname}
               name="nickname"
+              id="nickname"
             />
           </div>
           <div>
             <InputForm
               label="비밀번호"
-              placeholder="비밀번호를 입력해 주세요"
               className="w-[400px] h-[55px]"
               basicMessage="최소 8글자"
               errorMessage={errors.password?.message}
               type="password"
               {...registerList.password}
               name="password"
+              id="password"
             />
           </div>
           <div>
             <InputForm
               label="비밀번호 확인"
-              placeholder="비밀번호를 확인해 주세요"
               className="w-[400px] h-[55px]"
               errorMessage={errors.passwordConfirm?.message}
               type="password"
               {...passwordConfirmRegister}
+              id='passwordConfirm'
             />
           </div>
           <Button type="submit" color="primary" className="w-[400px] h-[50px] mt-[50px] text-[16px]">
@@ -137,23 +162,23 @@ export default function SignUpPage() {
         </form>
       </div>
       <div className="flex justify-center mt-[40px]">
-            <p className="text-gray1 text-center font-normal text-[14px]">
-              간편하게 로그인을 하고 싶으신가요?
-              <span
-                role="button"
-                tabIndex={0}
-                className="text-gradient cursor-pointer ml-2"
-                onClick={() => router.push('/signup')}
-                onKeyDown={(event) => {
-                  if (event.key === 'Enter' || event.key === ' ') {
-                    router.push('/signup');
-                  }
-                }}
-              >
-                SNS로 로그인
-              </span>
-            </p>
-          </div>
+        <p className="text-gray1 text-center font-normal text-[14px]">
+          간편하게 로그인을 하고 싶으신가요?
+          <span
+            role="button"
+            tabIndex={0}
+            className="text-gradient cursor-pointer ml-2"
+            onClick={() => router.push('/login')}
+            onKeyDown={(event) => {
+              if (event.key === 'Enter' || event.key === ' ') {
+                router.push('/login');
+              }
+            }}
+          >
+            SNS로 로그인
+          </span>
+        </p>
+      </div>
     </div>
   );
 }

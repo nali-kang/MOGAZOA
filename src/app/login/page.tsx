@@ -104,7 +104,8 @@ export default function LoginPage() {
             <div className="flex flex-col gap-[40px]">
               <div>
                 <InputForm
-                  placeholder="아이디" 
+                  id="email"
+                  placeholder="아이디"
                   className="w-[400px] h-[55px]"
                   errorMessage={errors.email?.message}
                   type="email"
@@ -114,6 +115,7 @@ export default function LoginPage() {
               </div>
               <div>
                 <InputForm
+                  id="password"
                   placeholder="비밀번호"
                   className="w-[400px] h-[55px]"
                   errorMessage={errors.password?.message}
@@ -125,19 +127,18 @@ export default function LoginPage() {
               <Button type="submit" color="primary" className="w-[400px] h-[50px] mt-[10px] text-[16px]">
                 로그인
               </Button>
-              <div className="flex items-center gap-2 mt-[-15px]">
-                <button
-                  type="button"
-                  onClick={toggleRememberMe}
-                  aria-pressed={rememberMe}
-                  className="cursor-pointer"
-                >
-                  {rememberMe ? <CheckTrue className="w-[20px] h-[20px]" /> : <CheckNone className="w-[20px] h-[20px]" />}
+              <div className="flex items-center gap-2 mt-[-20px]">
+                <button type="button" onClick={toggleRememberMe} aria-pressed={rememberMe} className="cursor-pointer">
+                  {rememberMe ? (
+                    <CheckTrue className="w-[16px] h-[16px]" />
+                  ) : (
+                    <CheckNone className="w-[16px] h-[16px]" />
+                  )}
                 </button>
                 <button
                   type="button"
                   onClick={toggleRememberMe}
-                  className="ml-2 block	text-sm text-gray1 cursor-pointer"
+                  className="ml-1 block	text-base text-gray1 text-center cursor-pointer mt-[3px]"
                 >
                   로그인 상태 유지하기
                 </button>
@@ -145,7 +146,7 @@ export default function LoginPage() {
             </div>
           </form>
           <div className="flex justify-center mt-[20px]">
-            <p className="text-gray1 text-center font-normal text-[14px] font-semibold">
+            <p className="text-gray1 text-center font-normal text-[14px]">
               회원이 아니신가요?
               <span
                 role="button"
@@ -164,7 +165,7 @@ export default function LoginPage() {
           </div>
           <div className="flex justify-center content-center">
             <div className="flex flex-col gap-[20px] mt-[-35px]">
-              <p className="text-gray1 text-center font-semibold	 text-[14px]">SNS로 바로 시작하기</p>
+              <p className="text-gray1 font-normal text-[14px] text-center">SNS로 바로 시작하기</p>
               <div className="flex flex-row justify-center gap-[25px]">
                 <div
                   onClick={onKakaoLogin}
