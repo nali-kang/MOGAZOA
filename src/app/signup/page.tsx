@@ -5,11 +5,12 @@ import { useForm } from 'react-hook-form';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 
-import NavigationBar from '@/Components/NavigationBar/Navigationbar';
 import Button from '@/Components/Commons/Button';
 import InputForm from '@/Components/Commons/Input/InputForm/InputForm';
 import { IFormInput, defaultLoginFormValues, validate } from '@/Constant/AuthForm.type';
 import AuthService from '@/Apis/Auth/Auth.service';
+import { ReactComponent as CloseIcon } from '@/public/Icons/close-icon.svg';
+import { ReactComponent as LargeLogoIcon } from '@/public/icons/large-logo-icon.svg';
 
 export default function SignUpPage() {
   const { data: session } = useSession();
@@ -77,15 +78,19 @@ export default function SignUpPage() {
   console.log('NEXT_PUBLIC_API_BASE_URL:', process.env.NEXT_PUBLIC_API_BASE_URL);
 
   return (
-    <div>
-      <NavigationBar firstTitle="로그인" secondTitle="회원가입" />
+    <div className="flex flex-col justify-center items-center">
+      <div className="flex justify-between items-center w-[400px] mt-[40px]">
+        <CloseIcon />
+        <LargeLogoIcon />
+      </div>
       <div className="flex justify-center content-center">
-        <form className="flex flex-col gap-[35px] pt-[20px]" onSubmit={handleSubmit(onSubmit)}>
+        <form className="flex flex-col gap-[80px] pt-[20px] mt-[45px]" onSubmit={handleSubmit(onSubmit)}>
           <div>
             <InputForm
               label="이메일"
               placeholder="이메일을 입력해 주세요"
-              className="w-[335px] h-[55px]"
+              className="w-[400px] h-[55px]"
+              basicMessage="이메일 형식을 지켜주세요"
               errorMessage={errors.email?.message}
               type="email"
               {...registerList.email}
@@ -96,7 +101,7 @@ export default function SignUpPage() {
             <InputForm
               label="닉네임"
               placeholder="닉네임을 입력해 주세요"
-              className="w-[335px] h-[55px]"
+              className="w-[400px] h-[55px]"
               basicMessage="최대 10글자 가능"
               errorMessage={errors.nickname?.message}
               type="text"
@@ -108,7 +113,7 @@ export default function SignUpPage() {
             <InputForm
               label="비밀번호"
               placeholder="비밀번호를 입력해 주세요"
-              className="w-[335px] h-[55px]"
+              className="w-[400px] h-[55px]"
               basicMessage="최소 8글자"
               errorMessage={errors.password?.message}
               type="password"
@@ -120,17 +125,35 @@ export default function SignUpPage() {
             <InputForm
               label="비밀번호 확인"
               placeholder="비밀번호를 확인해 주세요"
-              className="w-[335px] h-[55px]"
+              className="w-[400px] h-[55px]"
               errorMessage={errors.passwordConfirm?.message}
               type="password"
               {...passwordConfirmRegister}
             />
           </div>
-          <Button type="submit" color="primary" className="w-[335px] h-[50px] mt-[150px] text-[16px]">
+          <Button type="submit" color="primary" className="w-[400px] h-[50px] mt-[50px] text-[16px]">
             가입하기
           </Button>
         </form>
       </div>
+      <div className="flex justify-center mt-[40px]">
+            <p className="text-gray1 text-center font-normal text-[14px]">
+              간편하게 로그인을 하고 싶으신가요?
+              <span
+                role="button"
+                tabIndex={0}
+                className="text-gradient cursor-pointer ml-2"
+                onClick={() => router.push('/signup')}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter' || event.key === ' ') {
+                    router.push('/signup');
+                  }
+                }}
+              >
+                SNS로 로그인
+              </span>
+            </p>
+          </div>
     </div>
   );
 }

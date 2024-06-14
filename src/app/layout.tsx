@@ -4,7 +4,6 @@ import './globals.css';
 import ModalProvider from '@/Context/ModalContext';
 import ModalContainer from '@/Components/Commons/ModalContainer/ModalContainer';
 import QueryProvider from './Providers';
-import Providers from './Providers';
 import ClientSessionProvider from '@/Components/Auth/ClientSessionProvider';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -22,19 +21,13 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={`${inter.className} bg-black1`}>
-        <QueryProvider>
-          <ModalProvider>
-            <ModalContainer />
-            {children}
-          </ModalProvider>
-        </QueryProvider>
         <ClientSessionProvider>
-          <Providers>
-            <ModalProvider>
-              <ModalContainer />
-              {children}
-            </ModalProvider>
-          </Providers>
+          <QueryProvider>
+              <ModalProvider>
+                <ModalContainer />
+                {children}
+              </ModalProvider>
+          </QueryProvider>
         </ClientSessionProvider>
       </body>
     </html>

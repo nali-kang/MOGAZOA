@@ -1,4 +1,5 @@
 import type { Config } from 'tailwindcss';
+import plugin from 'tailwindcss/plugin';
 
 const config: Config = {
   content: [
@@ -41,6 +42,7 @@ const config: Config = {
         'orange2-10': 'rgba(255, 126, 70, 0.10)',
         purple: '#A953FF',
         'purple-10': 'rgba(169, 83, 255, 0.10)',
+        'gradient-blue': 'linear-gradient(91.17deg, #5097FA 0%, #5363FF 100%)',
       },
       backgroundImage: {
         gradient: 'linear-gradient(102deg, rgba(80, 151, 250, 1) 4.11%, rgba(83, 99, 255, 1) 100%)',
@@ -55,6 +57,17 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    plugin(({ addUtilities }: { addUtilities: (utilities: Record<string, any>) => void }) => {
+      addUtilities({
+        '.text-gradient': {
+          'background-image': 'linear-gradient(91.17deg, #5097FA 0%, #5363FF 100%)',
+          '-webkit-background-clip': 'text',
+          '-webkit-text-fill-color': 'transparent',
+        },
+      });
+    }),
+  ],
 };
+
 export default config;
