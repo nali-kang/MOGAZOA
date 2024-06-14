@@ -182,7 +182,7 @@ export function Dropdown({ option, value, onChange, type = 'category' }: Dropdow
   const widthSize = useMemo(() => {
     switch (type) {
       case 'sort':
-        return 'w-[8.375rem] md:w-[11.25rem] lg:w-[12.5rem]';
+        return 'w-[10.375rem] md:w-[11.25rem] lg:w-[12.5rem]';
       default:
         return 'w-[18.4375rem] md:w-[22.5rem]';
     }
@@ -226,7 +226,7 @@ export function Dropdown({ option, value, onChange, type = 'category' }: Dropdow
 
       {isOpen && (
         <div className="relative">
-          <div className="absolute top-2">
+          <div className="absolute top-2 z-10">
             <div
               className={`${widthSize} state_menu__size_l flex flex-col items-start p-2 rounded-lg border border-[#353542] bg-[#252530]`}
             >
