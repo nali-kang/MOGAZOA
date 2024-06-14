@@ -81,18 +81,17 @@ export default function LoginPage() {
         onSuccess: async (result: any) => {
           console.log('Login successful:', result);
 
-          // NextAuth 세션을 업데이트하여 사용자의 인증 상태를 관리합니다.
+          // NextAuth 세션을 업데이트하여 사용자의 인증 상태를 관리
           await nextAuthSignIn('credentials', {
             redirect: false,
             email: data.email,
             password: data.password,
           });
 
-          // Get session to retrieve the token
           const token = result?.data?.accessToken;
           if (token) {
             console.log('Token set:', token);
-            Cookies.set('token', token, { expires: rememberMe ? 30 : 1 }); // 30 days if rememberMe is true, else 1 day
+            Cookies.set('token', token, { expires: rememberMe ? 30 : 1 });
           }
 
           showToast('success', '로그인 되었습니다', '서비스를 이용해 주세요.');
