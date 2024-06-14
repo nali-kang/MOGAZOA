@@ -3,6 +3,13 @@ import KakaoProvider from 'next-auth/providers/kakao';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import axios from 'axios';
 
+interface ExtendedUser extends Record<string, any> {
+  id: string;
+  name: string;
+  email: string;
+  accessToken: string;
+}
+
 const authOptions: AuthOptions = {
   providers: [
     KakaoProvider({
@@ -26,7 +33,13 @@ const authOptions: AuthOptions = {
           });
 
           if (response.data && response.data.user) {
-            return response.data.user;
+            const user: ExtendedUser = {
+              id: response.data.user.id,
+              name: response.data.user.name,
+              email: response.data.user.email,
+              accessToken: response.data.token,
+            };
+            return user;
           }
           return null;
         } catch (error) {
@@ -39,28 +52,29 @@ const authOptions: AuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   session: {
     strategy: 'jwt',
+    maxAge: 24 * 60 * 60, // 1 day
   },
   callbacks: {
     async session({ session, token }) {
-      if (token) {
-        return {
-          ...session,
-          user: {
-            ...session.user,
-            id: token.id as string,
-          },
-        };
-      }
-      return session;
+      const updatedSession = {
+        ...session,
+        user: {
+          ...session.user,
+          id: token.id as string,
+        },
+        accessToken: token.accessToken as string,
+        exp: token.exp as number,
+      };
+      return updatedSession;
     },
     async jwt({ token, user }) {
+      const updatedToken = { ...token };
       if (user) {
-        return {
-          ...token,
-          id: user.id,
-        };
+        updatedToken.id = (user as ExtendedUser).id;
+        updatedToken.accessToken = (user as ExtendedUser).accessToken;
+        updatedToken.exp = Math.floor(Date.now() / 1000) + 24 * 60 * 60; // 1 day in seconds
       }
-      return token;
+      return updatedToken;
     },
   },
 };

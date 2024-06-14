@@ -2,10 +2,11 @@
 
 import React, { useEffect, useState, KeyboardEvent } from 'react';
 import { useForm } from 'react-hook-form';
-import { signIn, useSession } from 'next-auth/react';
+import { useSession, signIn as nextAuthSignIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+import { usePostAuthSignIn } from '@/Apis/Auth/useAuthService';
 
 import Button from '@/Components/Commons/Button';
 import InputForm from '@/Components/Commons/Input/InputForm/InputForm';
@@ -16,6 +17,7 @@ import { ReactComponent as CloseIcon } from '@/public/Icons/close-icon.svg';
 import { ReactComponent as LargeLogoIcon } from '@/public/icons/large-logo-icon.svg';
 import { ReactComponent as CheckTrue } from '@/public/Icons/checkbox-true.svg';
 import { ReactComponent as CheckNone } from '@/public/Icons/checkbox-none.svg';
+import Cookies from 'js-cookie'; 
 
 const MySwal = withReactContent(Swal);
 
@@ -23,7 +25,10 @@ export default function LoginPage() {
   const { data: session } = useSession();
   const router = useRouter();
   const [rememberMe, setRememberMe] = useState<boolean>(true);
-  console.log('Session data:', session);
+  const signIn = usePostAuthSignIn({
+    email: '',
+    password: ''
+  });
 
   const showToast = (type: 'success' | 'error', title: string, text: string) => {
     MySwal.fire({
@@ -55,7 +60,7 @@ export default function LoginPage() {
   }, [session, router]);
 
   const onKakaoLogin = () => {
-    signIn('kakao', { callbackUrl: `${process.env.NEXT_PUBLIC_API_BASE_URL}` });
+    nextAuthSignIn('kakao', { callbackUrl: `${process.env.NEXT_PUBLIC_API_BASE_URL}` });
   };
 
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>, loginFunction: () => void) => {
@@ -69,23 +74,36 @@ export default function LoginPage() {
     password: register('password', validate.password),
   };
 
-  // sweet alert
   const onSubmit = async (data: IFormInput) => {
-    const result = await signIn('credentials', {
-      redirect: false,
-      email: data.email,
-      password: data.password,
-      maxAge: rememberMe ? 2592000 : undefined,
-    });
+    signIn.mutate(
+      { email: data.email, password: data.password },
+      {
+        onSuccess: async (result: any) => {
+          console.log('Login successful:', result);
 
-    if (result?.error) {
-      console.error('Login failed:', result.error);
-      showToast('error', '로그인 실패', '비밀번호를 확인해 주세요.');
-    } else {
-      console.log('Login successful:', result);
-      showToast('success', '로그인 되었습니다', '서비스를 이용해 주세요.');
-      router.push('/');
-    }
+          // NextAuth 세션을 업데이트하여 사용자의 인증 상태를 관리합니다.
+          await nextAuthSignIn('credentials', {
+            redirect: false,
+            email: data.email,
+            password: data.password,
+          });
+
+          // Get session to retrieve the token
+          const token = result?.data?.accessToken;
+          if (token) {
+            console.log('Token set:', token);
+            Cookies.set('token', token, { expires: rememberMe ? 30 : 1 }); // 30 days if rememberMe is true, else 1 day
+          }
+
+          showToast('success', '로그인 되었습니다', '서비스를 이용해 주세요.');
+          router.push('/');
+        },
+        onError: (error: any) => {
+          console.error('Login failed:', error);
+          showToast('error', '로그인 실패', '비밀번호를 확인해 주세요.');
+        }
+      }
+    );
   };
 
   const toggleRememberMe = () => {
@@ -138,7 +156,7 @@ export default function LoginPage() {
                 <button
                   type="button"
                   onClick={toggleRememberMe}
-                  className="ml-1 block	text-base text-gray1 text-center cursor-pointer mt-[3px]"
+                  className="ml-1 block text-base text-gray1 text-center cursor-pointer mt-[3px]"
                 >
                   로그인 상태 유지하기
                 </button>
