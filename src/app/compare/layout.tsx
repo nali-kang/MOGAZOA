@@ -1,4 +1,4 @@
-import NavigationBar from '@/Components/NavigationBar/Navigationbar';
+import NavigationBar from '@/Components/Commons/NavigationBar/Navigationbar';
 import { ReactNode } from 'react';
 
 interface Props {
@@ -8,7 +8,7 @@ interface Props {
 function Layout({ children }: Props) {
   return (
     <>
-      <NavigationBar firstTitle="비교하기" secondTitle="내프로필" />
+      <NavigationBar />
       {children}
     </>
   );
