@@ -9,7 +9,6 @@ interface ProductProps {
 
 function ProductCard({ product }: ProductProps) {
   const { reviewCount, favoriteCount, image, name, rating } = product;
-  console.log(product);
 
   return (
     <div className="flex flex-col p-[10px] justify-center relative bg-scblack border border-black3 min-w-[150px] lg:min-w-[250px] w-full rounded-[8px] ">
@@ -26,7 +25,9 @@ function ProductCard({ product }: ProductProps) {
           <div className="relative w-[12px] h-[12px]">
             <Image src="/Icons/star-icon.svg" alt="productGrade" fill />
           </div>
-          <p className="text-gray2 text-[12px] font-light md:text-[14px] lg:text-[16px]">{rating}</p>
+          <p className="text-gray2 text-[12px] font-light md:text-[14px] lg:text-[16px]">
+            {Math.round(rating * 10) / 10}
+          </p>
         </div>
       </div>
     </div>

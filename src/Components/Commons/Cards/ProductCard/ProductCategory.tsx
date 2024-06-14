@@ -9,12 +9,13 @@ import ProductCard from './ProductCard';
 
 interface ProductsCategoryProps {
   category: 'review' | 'created' | 'favorite';
+  id: number;
 }
 
-export default function ProductsCategory({ category }: ProductsCategoryProps) {
+export default function ProductsCategory({ category, id }: ProductsCategoryProps) {
   let SelectProductData: ProductType[] = [];
-  const params = {};
-  const userId = 1;
+  const params = 0;
+  const userId = id;
   const usersReviewProductInfo = useGetUserReviewedProduct(userId, params);
   const usersCreatedProductInfo = useGetUserCreatedProduct(userId, params);
   const usersFavoriteProductInfo = useGetUserFavoriteProduct(userId, params);
@@ -32,7 +33,7 @@ export default function ProductsCategory({ category }: ProductsCategoryProps) {
       break;
   }
   return Array.isArray(SelectProductData) && SelectProductData.length > 0 ? (
-    <div className="grid grid-cols-2 gap-[15px] xl:grid-cols-3 xl:gap-[20px]">
+    <div className="grid grid-cols-2 gap-[15px] xl:grid-cols-3 xl:gap-[20px] mb-[40px]">
       {SelectProductData.map((product: ProductType) => (
         <ProductCard key={product.id} product={product} />
       ))}

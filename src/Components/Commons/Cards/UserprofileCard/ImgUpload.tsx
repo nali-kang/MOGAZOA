@@ -1,4 +1,3 @@
-import { usePostImage } from '@/Apis/Image/useImageService';
 import React, { useRef, useState } from 'react';
 
 function ImageUpload() {
@@ -14,7 +13,6 @@ function ImageUpload() {
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       setUploadImage(imageUrl);
-      usePostImage((image = imageUrl));
     }
   };
 
