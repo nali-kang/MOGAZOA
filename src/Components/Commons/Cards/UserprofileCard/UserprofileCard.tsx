@@ -49,7 +49,7 @@ function UserProfileCard({ id }: UserProfileCardProps) {
     <article className="flex justify-center mx-[1.25rem] xl:mx-[0] mt-[30px] md:mt-[40px] xl:mt-[0] xl:row-span-3">
       <div className="flex flex-col items-center gap-[1.875rem] xl:gap-[2.5rem] px-[1.25rem] md:px-[1.875rem] xl:px-[1.25rem] py-[1.875rem] xl:pt-[2.5rem] xl:pb-[1.875rem] w-[20.9375rem] md:w-[31.8125rem]  xl:w-[21.25rem] xl:h-[603px] bg-scblack border-black4 rounded-[0.75rem]">
         <div
-          className="w-[7.5rem] h-[7.5rem] xl:w-[11.25rem] xl:h-[11.25rem] bg-center rounded-[60px] xl:rounded-[90px] "
+          className="w-[7.5rem] h-[7.5rem] xl:w-[11.25rem] xl:h-[11.25rem] bg-center rounded-[60px] xl:rounded-[120px] "
           style={{
             backgroundImage: image ? `url(${image})` : 'url(/images/img-profile1.svg)',
             backgroundSize: 'cover',
