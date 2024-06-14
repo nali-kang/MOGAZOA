@@ -22,7 +22,8 @@
     "no-console": "off",
     "jsx-a11y/label-has-associated-control": "off",
     "react-hooks/exhaustive-deps": "off",
-    "import/order": "off"
+    "import/order": "off",
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }]
   },
   "settings": {
     "import/resolver": {

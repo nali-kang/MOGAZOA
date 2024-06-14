@@ -61,7 +61,7 @@ const FileInputForm = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputFo
         {inputId && (
           <label
             htmlFor={inputId}
-            className="relative cursor-pointer rounded-lg border border-black4 bg-black3 aspect-video hover:border-blue w-full h-full"
+            className="relative cursor-pointer rounded-lg border border-black4 bg-scblack aspect-video hover:border-blue"
           >
             <div
               className={inputFieldContainerClasses}
@@ -73,7 +73,7 @@ const FileInputForm = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputFo
               }}
             />
             {!backgroundImage && (
-              <div className="flex flex-col items-center gap-4 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-0">
+              <div className="flex flex-col items-center gap-4 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-0 ml-[5px] mt-[2px]">
                 <ImageIconSvg className="w-8 h-8" />
               </div>
             )}

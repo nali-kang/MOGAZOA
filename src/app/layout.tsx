@@ -2,9 +2,10 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import ModalProvider from '@/Context/ModalContext';
-import NavigationBar from '@/Components/NavigationBar/Navigationbar';
+import NavigationBar from '@/Components/Commons/NavigationBar/Navigationbar';
 import { SearchProvider } from './SearchContext';
 import QueryProvider from './Providers';
+import ClientSessionProvider from '@/Components/Auth/ClientSessionProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -20,15 +21,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className={`${inter.className} bg-bgblack`}>
-        <QueryProvider>
-          <ModalProvider>
-            <SearchProvider>
-              <NavigationBar firstTitle="비교하기" secondTitle="내 프로필" />
-              {children}
-            </SearchProvider>
-          </ModalProvider>
-        </QueryProvider>
+      <body className={`${inter.className} bg-black1`}>
+        <ClientSessionProvider>
+          <QueryProvider>
+            <ModalProvider>
+              <SearchProvider>
+                <NavigationBar />
+                {children}
+              </SearchProvider>
+            </ModalProvider>
+          </QueryProvider>
+        </ClientSessionProvider>
       </body>
     </html>
   );

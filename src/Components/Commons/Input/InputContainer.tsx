@@ -1,6 +1,8 @@
 import classNames from 'classnames';
 
 import ErrorMessage from './ErrorMessage';
+import BasicMessage from './BasicMessage';
+
 import Label from './Label';
 
 export interface InputContainerProps {
@@ -8,6 +10,7 @@ export interface InputContainerProps {
   children?: React.ReactNode;
   label?: string;
   required?: boolean;
+  basicMessage?: string | undefined | null;
   errorMessage?: string | undefined | null;
 }
 
@@ -15,12 +18,14 @@ export default function InputContainer({
   className = '',
   label = '',
   required = false,
+  basicMessage = '',
   errorMessage = '',
   children,
 }: InputContainerProps) {
   const inputFormContainer = classNames('flex flex-col', className);
   const inputFormLabel = 'mb-2.5';
   const inputFormErrorMessage = 'mt-2.5';
+  const inputFormBasicMessage = 'mt-2.5';
 
   return (
     <div className={inputFormContainer}>
@@ -29,6 +34,7 @@ export default function InputContainer({
       </Label>
       {children}
       <ErrorMessage className={inputFormErrorMessage}>{errorMessage}</ErrorMessage>
+      <BasicMessage className={inputFormBasicMessage}>{basicMessage}</BasicMessage>
     </div>
   );
 }
