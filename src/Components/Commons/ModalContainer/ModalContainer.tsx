@@ -3,6 +3,7 @@
 import { ModalSetterContext, ModalStateContext } from '@/Context/ModalContext';
 import { FunctionComponent, useContext } from 'react';
 import Modal from 'react-modal';
+import AddProductModal from '../Button/FloatingButton/AddProductModal';
 
 const modalStyles: ReactModal.Styles = {
   overlay: {
@@ -37,6 +38,7 @@ type ModalComponents = {
 
 const MODAL_COMPONENTS: ModalComponents = {
   // test: TestModal, 이런식으로 추가
+  addProduct: AddProductModal,
 };
 
 export default function ModalContainer() {
