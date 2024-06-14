@@ -24,7 +24,6 @@ export default function RootLayout({
       <body className={`${inter.className} bg-bgblack`}>
         <QueryProvider>
           <ModalProvider>
-            <ModalContainer />
             <SearchProvider>
               <NavigationBar />
               {children}
