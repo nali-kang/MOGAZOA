@@ -3,6 +3,9 @@
 import { FunctionComponent } from 'react';
 import Modal from 'react-modal';
 import CompareModal from '@/Components/Compare/CompareModal';
+import FolloweesModal from '../Cards/UserprofileCard/FolloweeModal';
+import FollowersModal from '../Cards/UserprofileCard/FollowerModal';
+import ProfileEditModal from '../Cards/UserprofileCard/ProfileEditModal';
 import AddProductModal from '../Button/FloatingButton/AddProductModal';
 
 const modalStyles: ReactModal.Styles = {
@@ -38,6 +41,9 @@ type ModalComponents = {
 
 const MODAL_COMPONENTS: ModalComponents = {
   // test: TestModal, 이런식으로 추가
+  followee: FolloweesModal,
+  follower: FollowersModal,
+  profileEdit: ProfileEditModal,
   compare: CompareModal,
   addProduct: AddProductModal,
 };
