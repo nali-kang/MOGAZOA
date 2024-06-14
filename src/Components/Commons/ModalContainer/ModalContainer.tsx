@@ -3,6 +3,7 @@
 import { FunctionComponent } from 'react';
 import Modal from 'react-modal';
 import CompareModal from '@/Components/Compare/CompareModal';
+import AddProductModal from '../Button/FloatingButton/AddProductModal';
 
 const modalStyles: ReactModal.Styles = {
   overlay: {
@@ -36,8 +37,9 @@ type ModalComponents = {
 };
 
 const MODAL_COMPONENTS: ModalComponents = {
-  compare: CompareModal,
   // test: TestModal, 이런식으로 추가
+  compare: CompareModal,
+  addProduct: AddProductModal,
 };
 
 export default function ModalContainer(props: any) {
