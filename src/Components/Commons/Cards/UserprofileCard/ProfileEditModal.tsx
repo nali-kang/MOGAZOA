@@ -1,6 +1,7 @@
 import { SetStateAction, useContext, useState } from 'react';
 import { ModalSetterContext, ModalStateContext } from '@/Context/ModalContext';
 import Button from '../../Button';
+import ImageUpload from './ImgUpload';
 
 export default function ProfileEditModal() {
   const modalState = useContext(ModalStateContext);
@@ -38,15 +39,8 @@ export default function ProfileEditModal() {
         <h1 className="font-['Pretendard'] text-white text-[20px] xl:text-[24px] font-semibold leading-[28px] xl:leading-normal ">
           프로필 편집
         </h1>
-        <div className="w-[140px] h-[140px] md:w-[135px] md:h-[135px] xl:w-[160px] xl:h-[160px] p-[58px] md:p-[55px] xl:p-[63px] rounded-[8px] border-[1px] border-[#353542] mt-[20px] md:mt-[40px] bg-scblack">
-          <div
-            className="w-[24px] h-[24px] xl:w-[34px] xl:h-[34px] bg-center "
-            style={{
-              backgroundImage: 'url(/icons/img-icon.svg)',
-              backgroundSize: 'contain',
-              backgroundRepeat: 'no-repeat',
-            }}
-          />
+        <div className="flex justify-center items-center w-[140px] h-[140px] md:w-[135px] md:h-[135px] xl:w-[160px] xl:h-[160px]  rounded-[8px] border-[1px] border-[#353542] mt-[20px] md:mt-[40px] bg-scblack">
+          <ImageUpload />
         </div>
         <form className="flex items-center w-[295px] h-[55px] md:w-[510px] md:h-[60px] xl:w-[540px] xl:h-[70px] px-[20px] py-[23px] rounded-[8px] border-[1px] border-[#353542] mt-[10px] md:mt-[15px] bg-scblack focus-within:border-[#3B82F6]">
           <input

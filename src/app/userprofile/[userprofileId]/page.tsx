@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import NavigationBar from '@/Components/Commons/NavigationBar/Navigationbar';
 import UserProfileCard from '@/Components/Commons/Cards/UserprofileCard/UserprofileCard';
 import UserActivityLogCard from '@/Components/Commons/Cards/UserActivityLogCard/UserActivityLogCard';
-import ProductCard from '@/Components/Commons/Cards/ProductCard/ProductCard';
 import { Dropdown, Option } from '@/Components/Commons/Dropdown/DropdownComponent';
 import ProductsCategory from '@/Components/Commons/Cards/ProductCard/ProductCategory';
 
