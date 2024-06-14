@@ -3,7 +3,7 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import ModalProvider from '@/Context/ModalContext';
 import ModalContainer from '@/Components/Commons/ModalContainer/ModalContainer';
-import NavigationBar from '@/Components/NavigationBar/Navigationbar';
+import NavigationBar from '@/Components/Commons/NavigationBar/Navigationbar';
 import { SearchProvider } from './SearchContext';
 import QueryProvider from './Providers';
 
@@ -26,7 +26,7 @@ export default function RootLayout({
           <ModalProvider>
             <ModalContainer />
             <SearchProvider>
-              <NavigationBar firstTitle="비교하기" secondTitle="내 프로필" />
+              <NavigationBar />
               {children}
             </SearchProvider>
           </ModalProvider>
