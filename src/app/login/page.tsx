@@ -23,6 +23,7 @@ const MySwal = withReactContent(Swal);
 
 export default function LoginPage() {
   const { data: session } = useSession();
+  console.log('session:', session);
   const router = useRouter();
   const [rememberMe, setRememberMe] = useState<boolean>(true);
   const signIn = usePostAuthSignIn({
@@ -108,7 +109,6 @@ export default function LoginPage() {
   const toggleRememberMe = () => {
     setRememberMe(!rememberMe);
   };
-
   return (
     <div className="flex flex-col justify-center items-center">
       <div className="flex justify-between items-center w-[400px] mt-[70px]">
