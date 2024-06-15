@@ -3,9 +3,13 @@
 import { useGetUserMe, useGetUserInfo } from '@/Apis/User/useUserService';
 import CategoryChip from '../../Chip/CategoryChip';
 
-function UserActivityLogCard() {
-  const params = {};
-  const userId = 1;
+interface UserActivityLogCardProps {
+  id: number;
+}
+
+function UserActivityLogCard({ id }: UserActivityLogCardProps) {
+  const params = 0;
+  const userId = id;
   const usersInfo = useGetUserInfo(userId, params);
   return (
     <div className="flex justify-center mx-[1.25rem] xl:ml-[3.75rem] xl:mx-[0]">
@@ -49,7 +53,11 @@ function UserActivityLogCard() {
               <span className="block md:inline-block">카테고리</span>
             </p>
             <div>
-              <CategoryChip category={usersInfo.data.mostFavoriteCategory} />
+              {usersInfo.data.mostFavoriteCategory ? (
+                <CategoryChip category={usersInfo.data.mostFavoriteCategory.name} />
+              ) : (
+                <div className="text-white xl:text-[20px]">없음</div>
+              )}
             </div>
           </div>
         </div>
