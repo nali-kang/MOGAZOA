@@ -8,7 +8,7 @@ const queryKeys = {
   getProductDetail: (productId: number) => ['getProductDetail', productId] as const,
   patchProductModify: (productId: number, payload: PostProductItems) =>
     ['patchProductModify', { productId, payload }] as const,
-  getProductReviewList: (productId: number, params: GetProductReviewList) =>
+  getProductReviewList: (productId: number, params?: GetProductReviewList) =>
     ['getProductReviewList', { productId, params }] as const,
   postProductFavorite: (productId: number) => ['postProductFavorite', productId] as const,
   deleteProductFavorite: (productId: number) => ['deleteProductFavorite', productId] as const,
@@ -31,7 +31,7 @@ const queryOptions = {
     mutationKey: queryKeys.patchProductModify(productId, payload),
     mutationFn: () => ProductService.patchProductModify(productId, payload),
   }),
-  getProductReviewList: (productId: number, params: GetProductReviewList) => ({
+  getProductReviewList: (productId: number, params?: GetProductReviewList) => ({
     queryKey: queryKeys.getProductReviewList(productId, params),
     queryFn: () => ProductService.getProductReviewList(productId, params),
   }),

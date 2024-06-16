@@ -74,7 +74,7 @@ export function usePatchProductModify(productId: number, payload: PostProductIte
   cursor?: number;
 }
  */
-export function useGetProductReviewList(productId: number, params: GetProductReviewList) {
+export function useGetProductReviewList(productId: number, params?: GetProductReviewList) {
   const res = useSuspenseQuery(queryOptions.getProductReviewList(productId, params));
   return selectData<GetProductReviewListRes>(res);
 }
@@ -89,7 +89,7 @@ export function usePostProductFavorite(productId: number) {
 }
 
 /**
- * 유저가 찜한 상품 조회
+ * 찜한 상품 취소
  * @param productId require number;
  */
 export function useDeleteProductFavorite(productId: number) {
