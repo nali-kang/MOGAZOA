@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import NavigationBar from '@/Components/NavigationBar/Navigationbar';
 
 export const metadata: Metadata = {
   title: 'MOGAZOA-상품디테일',
@@ -11,10 +10,5 @@ export default function ProductLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <>
-      <NavigationBar firstTitle="비교하기" secondTitle="내프로필" />
-      {children}
-    </>
-  );
+  return <div>{children}</div>;
 }
