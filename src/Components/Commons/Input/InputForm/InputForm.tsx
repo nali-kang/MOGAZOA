@@ -12,6 +12,7 @@ interface InputFormProps extends React.InputHTMLAttributes<HTMLInputElement | HT
   label?: string;
   fieldLabel?: string;
   errorMessage?: string | undefined | null;
+  basicMessage?: string | undefined | null;
   textarea?: boolean;
   rows?: number;
   register?: UseFormRegisterReturn;
@@ -26,6 +27,7 @@ interface InputFormProps extends React.InputHTMLAttributes<HTMLInputElement | HT
  * @param className string; InputForm 커스텀 스타일; 컨테이너의 스타일을 주입할 수 있습니다.
  * @param label string; input과 연결된 label입니다.
  * @param errorMessage string; 에러 메세지; react-hook-form의 errors.{form}.message에 대응됩니다.
+ * @param errorMessage string; 기본 메세지;
  * @param type string; input의 타입; type=number의 경우 01234 -> 1,234 형태로 포맷팅됩니다. 금액/시간 등에는 number를 사용해주세요.
  * @param textarea boolean; textarea; input을 textarea로 변경합니다.
  * @param rows number; textarea의 줄 수; textarea의 높이를 지정합니다. 기본값=5
@@ -42,6 +44,7 @@ const InputForm = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputFormPr
       label = '',
       fieldLabel = '',
       errorMessage = '',
+      basicMessage = '',
       textarea = false,
       rows = 5,
       required = false,
@@ -65,8 +68,11 @@ const InputForm = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputFormPr
       inputField: classNames(fieldLabel),
     };
 
+    const basicMessageOutput = errorMessage ? null : basicMessage;
+
+
     return (
-      <InputContainer className={className} label={label} required={required} errorMessage={errorMessage}>
+      <InputContainer className={className} label={label} required={required} basicMessage={basicMessageOutput} errorMessage={errorMessage}>
         <div className={classes.inputFieldContainer}>
           <Input
             className={className}
