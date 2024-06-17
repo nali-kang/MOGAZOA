@@ -1,11 +1,15 @@
 import Image from 'next/image';
 
 export default function ProductStat() {
+  // console.log(data.categoryMetric);
   const maps = [1, 2, 3];
   return (
     <div className="mb-14 md:flex md:items-center md:justify-center">
-      {maps.map(() => (
-        <div className=" w-[335px] h-[82px] md:w-[218px] md:h-[169px] xl:w-[300px] xl:h-[190px] xl:p-6 p-4 bg-scblack rounded-xl border border-zinc-700 flex-col gap-2.5 mx-auto mb-2 md:mx-3">
+      {maps.map((s) => (
+        <div
+          key={s}
+          className=" w-[335px] h-[82px] md:w-[218px] md:h-[169px] xl:w-[300px] xl:h-[190px] xl:p-6 p-4 bg-scblack rounded-xl border border-zinc-700 flex-col gap-2.5 mx-auto mb-2 md:mx-3"
+        >
           <div className="h-[42px] flex-col justify-start items-start gap-[5px] flex md:items-center md:gap-4">
             <div className="flex justify-center items-center gap-2.5 md:gap-4 md:flex-col">
               <div className="text-gray-100 text-sm font-medium font-['Pretendard'] md:text-base xl:text-lg">
