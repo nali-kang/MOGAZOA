@@ -28,9 +28,9 @@ class ProductService {
   }
 
   // 상품 리뷰 목록 조회
-  getProductReviewList(productId: number, params: GetProductReviewList) {
+  getProductReviewList(productId: number, params?: GetProductReviewList) {
     const config: AxiosRequestConfig = { params };
-    return apiRequestor.get(`/products/${productId}/reviews`, config);
+    return apiRequestor.get(`products/${productId}/reviews`, config);
   }
 
   // 상품 찜하기(토큰)
@@ -40,7 +40,7 @@ class ProductService {
 
   // 상품 찜하기 취소(토큰)
   deleteProductFavorite(productId: number) {
-    return apiRequestor.delete(`/products/${productId}/favorite`);
+    return apiRequestorToken.delete(`/products/${productId}/favorite`);
   }
 }
 
