@@ -1,6 +1,5 @@
 /* eslint-disable class-methods-use-this */
 
-import { AxiosRequestConfig } from 'axios';
 import { apiRequestor, apiRequestorToken } from '../requestor';
 import { PatchUserProps } from './User.type';
 
