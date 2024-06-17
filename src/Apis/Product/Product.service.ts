@@ -40,7 +40,7 @@ class ProductService {
 
   // 상품 찜하기 취소(토큰)
   deleteProductFavorite(productId: number) {
-    return apiRequestor.delete(`/products/${productId}/favorite`);
+    return apiRequestorToken.delete(`/products/${productId}/favorite`);
   }
 }
 
