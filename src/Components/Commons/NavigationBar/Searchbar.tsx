@@ -1,3 +1,5 @@
+'use client';
+
 import { SetStateAction, useContext, useState } from 'react';
 import Image from 'next/image';
 import SearchContext from '@/app/SearchContext';

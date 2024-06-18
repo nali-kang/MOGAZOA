@@ -87,11 +87,12 @@ export function useGetUserFavoriteProduct(userId: number, cursor: number = 0) {
 /**
  * 유저가 팔로우한 유저 조회(팔로잉)
  * @param userId require;  \number
+ * @param userMeId require;  \number
  * @param cursor optional; \number 기본값0
 }
  */
-export function useGetUserFollowees(userId: number, cursor: number = 0) {
-  const res = useSuspenseQuery(queryOptions.getUserFollowees(userId, cursor));
+export function useGetUserFollowees(userId: number, userMeId: number, cursor: number = 0) {
+  const res = useSuspenseQuery(queryOptions.getUserFollowees(userId, userMeId, cursor));
   return selectData<GetUserFollowRes>(res);
 }
 
