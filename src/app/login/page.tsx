@@ -7,17 +7,17 @@ import { useRouter } from 'next/navigation';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { usePostAuthSignIn } from '@/Apis/Auth/useAuthService';
-
 import Button from '@/Components/Commons/Button';
 import InputForm from '@/Components/Commons/Input/InputForm/InputForm';
 import { IFormInput, defaultLoginFormValues, validate } from '@/Constant/AuthForm.type';
+
 import { ReactComponent as KaKaoIcon } from '@/public/Icons/kakao-icon.svg';
 import { ReactComponent as GoogleIcon } from '@/public/Icons/google-icon.svg';
 import { ReactComponent as CloseIcon } from '@/public/Icons/close-icon.svg';
 import { ReactComponent as LargeLogoIcon } from '@/public/icons/large-logo-icon.svg';
 import { ReactComponent as CheckTrue } from '@/public/Icons/checkbox-true.svg';
 import { ReactComponent as CheckNone } from '@/public/Icons/checkbox-none.svg';
-import Cookies from 'js-cookie'; 
+import Cookies from 'js-cookie';
 
 const MySwal = withReactContent(Swal);
 
@@ -28,7 +28,7 @@ export default function LoginPage() {
   const [rememberMe, setRememberMe] = useState<boolean>(true);
   const signIn = usePostAuthSignIn({
     email: '',
-    password: ''
+    password: '',
   });
 
   const showToast = (type: 'success' | 'error', title: string, text: string) => {
@@ -61,7 +61,7 @@ export default function LoginPage() {
   }, [session, router]);
 
   const onKakaoLogin = () => {
-    nextAuthSignIn('kakao', { callbackUrl: `${process.env.NEXT_PUBLIC_API_BASE_URL}` });
+    nextAuthSignIn('kakao', { redirect: true, callbackUrl: `http://localhost:3000/` });
   };
 
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>, loginFunction: () => void) => {
@@ -101,7 +101,7 @@ export default function LoginPage() {
         onError: (error: any) => {
           console.error('Login failed:', error);
           showToast('error', '로그인 실패', '비밀번호를 확인해 주세요.');
-        }
+        },
       }
     );
   };
@@ -109,6 +109,7 @@ export default function LoginPage() {
   const toggleRememberMe = () => {
     setRememberMe(!rememberMe);
   };
+
   return (
     <div className="flex flex-col justify-center items-center">
       <div className="flex justify-between items-center w-[400px] mt-[70px]">

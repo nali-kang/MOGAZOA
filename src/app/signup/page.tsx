@@ -55,7 +55,7 @@ export default function SignUpPage() {
     showToast('success', '회원가입 성공', '회원가입이 성공적으로 완료되었습니다.');
     setTimeout(() => {
       router.push('/login');
-    }, 3000); // 3초 후에 로그인 페이지로 리디렉션
+    }, 2000); // 3초 후에 로그인 페이지로 리디렉션
   };
 
   const handleSignupError = (error: any) => {
