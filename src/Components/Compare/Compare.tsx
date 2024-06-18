@@ -79,16 +79,6 @@ function CompareComponent({ compareFirst, compareSecond }: Props) {
     return 0;
   }, [compareFirst, compareSecond, params]);
 
-  const setModalState = useContext(ModalSetterContext);
-
-  const handleFloatingButtonClick = () => {
-    setModalState({
-      isOpen: true,
-      type: 'compare',
-      productInfo: { value: 363, label: 'etjawkeltjwkletjwelktjwkeljtklewjtewlkj' },
-    });
-  };
-
   return (
     <main className="pt-[1.88rem] md:pt-[2.5rem] lg:pt-[3.75rem]">
       <section className="mx-auto flex flex-col w-fit">
@@ -141,16 +131,6 @@ function CompareComponent({ compareFirst, compareSecond }: Props) {
           >
             비교하기
           </Button>
-
-          <Button
-            color="primary"
-            className="w-[20.9375rem] md:w-[10.25rem] lg:w-[12.5rem] h-[3.175rem] md:h-[3.4375rem] lg:h-[4.375rem] flex items-center justify-center font-base font-normal leading-[normal] !px-0 !py-0"
-            onClick={() => {
-              handleFloatingButtonClick();
-            }}
-          >
-            모달 테스트
-          </Button>
         </article>
         <article className="w-full flex items-center justify-center">
           {params.getData('compare1') && params.getData('compare2') ? (
@@ -185,9 +165,7 @@ function CompareComponent({ compareFirst, compareSecond }: Props) {
               <CompareTable compareFirst={compareFirst} compareSecond={compareSecond} />
             </div>
           ) : (
-            <div className="py-40">
-              <Image src="/Icons/large-loading-icon.svg" alt="loading_icon" width={87} height={84} />
-            </div>
+            <div className="py-40"></div>
           )}
         </article>
       </section>
