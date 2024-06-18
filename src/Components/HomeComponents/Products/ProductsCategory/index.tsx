@@ -35,7 +35,7 @@ export default function ProductsCategory({ category, order, sortingOption, searc
   return (
     <div className="grid grid-cols-2 gap-[15px] lg:grid-cols-3 lg:gap-[20px] lg:w-full">
       {sortedProductData.map((product: ProductType) => (
-        <Link href={`prdouct/${product.id}`}>
+        <Link href={`product/${product.id}`}>
           <Products key={product.id} product={product} />
         </Link>
       ))}
