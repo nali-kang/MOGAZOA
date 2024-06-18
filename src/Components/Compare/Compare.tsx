@@ -1,14 +1,12 @@
 'use client';
 
-import { useContext, useEffect, useMemo, useState } from 'react';
-import Image from 'next/image';
+import { useEffect, useMemo, useState, useCallback } from 'react';
 import { DropdownSearch, Option } from '../Commons/Dropdown/DropdownComponent';
 import Button from '../Commons/Button';
 import { useCustomParam } from '@/Hooks/useCustomParams';
 import CompareTable from './CompareTable';
 import { useGetProductItems } from '@/Apis/Product/useProduct.Service';
 import { Compare } from '@/Types/CompareType';
-import { ModalSetterContext } from '@/Context/ModalContext';
 
 /**
  * @type compareFirst 비교하기 첫번째 상품
@@ -79,6 +77,22 @@ function CompareComponent({ compareFirst, compareSecond }: Props) {
     return 0;
   }, [compareFirst, compareSecond, params]);
 
+  const changeDropdownValue = useCallback(
+    (value: any, index: number) => {
+      console.log(selectOption1, selectOption2);
+      const selectValue = value ? { label: option.find((e) => e.value === value)?.label ?? '', value } : undefined;
+      if (index === 0) {
+        setSelectOption1(selectValue);
+        localStorage.setItem('compare', JSON.stringify([selectValue, selectOption2]));
+      } else {
+        setSelectOption2(selectValue);
+        localStorage.setItem('compare', JSON.stringify([selectOption1, selectValue]));
+      }
+      params.reset();
+    },
+    [selectOption1, selectOption2]
+  );
+
   return (
     <main className="pt-[1.88rem] md:pt-[2.5rem] lg:pt-[3.75rem]">
       <section className="mx-auto flex flex-col w-fit">
@@ -90,14 +104,7 @@ function CompareComponent({ compareFirst, compareSecond }: Props) {
             <DropdownSearch
               option={option}
               value={selectOption1?.value}
-              onChange={(value: any) => {
-                const selectValue = value
-                  ? { label: option.find((e) => e.value === value)?.label ?? '', value }
-                  : undefined;
-                setSelectOption1(selectValue);
-                localStorage.setItem('compare', JSON.stringify([selectValue, selectOption2]));
-                params.reset();
-              }}
+              onChange={(value: any) => changeDropdownValue(value, 0)}
               type="tag_first"
             />
           </div>
@@ -109,12 +116,7 @@ function CompareComponent({ compareFirst, compareSecond }: Props) {
               option={option}
               value={selectOption2?.value}
               onChange={(value: number) => {
-                const selectValue = value
-                  ? { label: option.find((e) => e.value === value)?.label ?? '', value }
-                  : undefined;
-                setSelectOption2(selectValue);
-                localStorage.setItem('compare', JSON.stringify([selectOption1, selectValue]));
-                params.reset();
+                changeDropdownValue(value, 1);
               }}
               type="tag_second"
             />
