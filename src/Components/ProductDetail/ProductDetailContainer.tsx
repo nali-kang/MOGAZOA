@@ -19,7 +19,7 @@ export default function ProductDetailContainer() {
     <div className=" text-white flex-col justify-center">
       <Detail data={data} />
       <div className=" font-semibold text-lg p-5 mt-4 xl:text-2xl">상품 통계</div>
-      <ProductStat />
+      <ProductStat data={data} />
       <ProductReview productId={numberProductId} />
     </div>
   );
