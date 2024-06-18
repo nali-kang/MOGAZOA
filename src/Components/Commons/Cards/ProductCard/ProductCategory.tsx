@@ -33,13 +33,13 @@ export default function ProductsCategory({ category, id }: ProductsCategoryProps
       break;
   }
   return Array.isArray(SelectProductData) && SelectProductData.length > 0 ? (
-    <div className="grid grid-cols-2 gap-[15px] xl:grid-cols-3 xl:gap-[20px] mb-[40px]">
+    <div className="grid grid-cols-2 gap-[15px] desktop:grid-cols-3 desktop:gap-[20px] mb-[40px]">
       {SelectProductData.map((product: ProductType) => (
         <ProductCard key={product.id} product={product} />
       ))}
     </div>
   ) : (
-    <div className="flex justify-center items-center text-[15px] md:text-[20px] text-white w-[100%] md:h-[80px] xl:h-[266px]">
+    <div className="flex justify-center items-center text-[15px] md:text-[20px] text-white w-[100%] md:h-[80px] desktop:h-[305px]">
       상품이 없습니다.
     </div>
   );

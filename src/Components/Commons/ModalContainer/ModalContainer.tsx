@@ -1,11 +1,11 @@
 'use client';
 
-import CreateReviewModal from '@/Components/Modal/CreateReviewModal';
-import EditProductModal from '@/Components/Modal/EditProductModal';
+// import CreateReviewModal from '@/Components/Modal/CreateReviewModal';
+// import EditProductModal from '@/Components/Modal/EditProductModal';
 import { FunctionComponent } from 'react';
 
 import Modal from 'react-modal';
-import CompareModal from '@/Components/Compare/CompareModal';
+import CompareModal from '../../Compare/CompareModal';
 import FolloweesModal from '../Cards/UserprofileCard/FolloweeModal';
 import FollowersModal from '../Cards/UserprofileCard/FollowerModal';
 import ProfileEditModal from '../Cards/UserprofileCard/ProfileEditModal';
@@ -49,8 +49,8 @@ const MODAL_COMPONENTS: ModalComponents = {
   profileEdit: ProfileEditModal,
   compare: CompareModal,
   addProduct: AddProductModal,
-  createReview: CreateReviewModal,
-  editProduct: EditProductModal,
+  // createReview: CreateReviewModal,
+  // editProduct: EditProductModal,
 };
 
 export default function ModalContainer(props: any) {

@@ -42,9 +42,9 @@ const queryOptions = {
     queryKey: queryKeys.getUserFavoriteProduct(userId, cursor),
     queryFn: () => UserService.getUserFavoriteProduct(userId, cursor),
   }),
-  getUserFollowees: (userId: number, cursor: number) => ({
-    queryKey: queryKeys.getUserFollowees(userId, cursor),
-    queryFn: () => UserService.getUserFollowees(userId, cursor),
+  getUserFollowees: (userId: number, userMeId: number, cursor: number) => ({
+    queryKey: queryKeys.getUserFollowees(userId || userMeId, cursor),
+    queryFn: () => UserService.getUserFollowees(userId, userMeId, cursor),
   }),
   getUserFollowers: (userId: number, cursor: number) => ({
     queryKey: queryKeys.getUserFollowers(userId, cursor),
