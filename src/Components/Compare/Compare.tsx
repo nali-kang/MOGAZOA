@@ -77,6 +77,20 @@ function CompareComponent({ compareFirst, compareSecond }: Props) {
     return 0;
   }, [compareFirst, compareSecond, params]);
 
+  // 우세 점수 비교
+  const compareWin = useMemo(() => {
+    if (compareFirst && compareSecond) {
+      const rating = compareNumber(compareFirst.rating, compareSecond.rating);
+      const review = compareNumber(compareFirst.reviewCount, compareSecond.reviewCount);
+      const favorite = compareNumber(compareFirst.favoriteCount, compareSecond.favoriteCount);
+      if (compareState > 0) {
+        return (rating > 0 ? rating : 0) + (review > 0 ? review : 0) + (favorite > 0 ? favorite : 0);
+      } else {
+        return (rating < 0 ? rating : 0) + (review < 0 ? review : 0) + (favorite < 0 ? favorite : 0);
+      }
+    }
+    return 0;
+  }, [compareFirst, compareSecond, params, compareState]);
   const changeDropdownValue = useCallback(
     (value: any, index: number) => {
       console.log(selectOption1, selectOption2);
@@ -146,7 +160,7 @@ function CompareComponent({ compareFirst, compareSecond }: Props) {
                       승리하였습니다!
                     </div>
                     <p className="text-xs lg:text-base font-normal leading-normal text-[#9FA6B2]">
-                      3가지 항목 중 {Math.abs(compareState) + 1}가지 항목에서 우세합니다.
+                      3가지 항목 중 {Math.abs(compareWin)}가지 항목에서 우세합니다.
                     </p>
                   </div>
                 )}
@@ -158,7 +172,7 @@ function CompareComponent({ compareFirst, compareSecond }: Props) {
                       <br className="block lg:hidden" /> 승리하였습니다!
                     </div>
                     <p className="text-xs lg:text-base font-normal leading-normal text-[#9FA6B2]">
-                      3가지 항목 중 {Math.abs(compareState) + 1}가지 항목에서 우세합니다.
+                      3가지 항목 중 {Math.abs(compareWin)}가지 항목에서 우세합니다.
                     </p>
                   </div>
                 )}
