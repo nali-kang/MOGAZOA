@@ -11,12 +11,12 @@ import Button from '@/Components/Commons/Button';
 import InputForm from '@/Components/Commons/Input/InputForm/InputForm';
 import { IFormInput, defaultLoginFormValues, validate } from '@/Constant/AuthForm.type';
 import AuthService from '@/Apis/Auth/Auth.service';
-import { ReactComponent as CloseIcon } from '@/public/Icons/close-icon.svg';
 import { ReactComponent as LargeLogoIcon } from '@/public/icons/large-logo-icon.svg';
+import Link from 'next/link';
 
 const MySwal = withReactContent(Swal);
 
-export default function SignUpPage() {
+export default function SignUpForm() {
   const { data: session } = useSession();
   const router = useRouter();
 
@@ -103,29 +103,30 @@ export default function SignUpPage() {
   console.log('NEXT_PUBLIC_API_BASE_URL:', process.env.NEXT_PUBLIC_API_BASE_URL);
 
   return (
-    <div className="flex flex-col justify-center items-center">
-      <div className="flex justify-between items-center w-[400px] mt-[40px]">
-        <CloseIcon />
-        <LargeLogoIcon />
+    <div className="flex flex-col justify-center items-center h-screen">
+      <div className="flex justify-center items-center w-[300px] sm:w-[400px] mt-[10px] sm:mt-[70px] mb-[70px] sm:mb-[90px]">
+        <Link href="/">
+          <LargeLogoIcon className="cursor-pointer" />
+        </Link>
       </div>
-      <div className="flex justify-center content-center">
-        <form className="flex flex-col gap-[80px] pt-[20px] mt-[45px]" onSubmit={handleSubmit(onSubmit)}>
+      <div className="p-4 sm:p-8 w-[350px] sm:w-[500px]">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-12">
           <div>
             <InputForm
-              label="이메일"
-              className="w-[400px] h-[55px]"
+              id="email"
+              placeholder="이메일"
+              className="w-full h-12 bg-transparent border-0 border-b-[1.5px] border-gray1 rounded-none pl-0"
               basicMessage="이메일 형식을 지켜주세요"
               errorMessage={errors.email?.message}
               type="email"
               {...registerList.email}
               name="email"
-              id="email"
             />
           </div>
           <div>
             <InputForm
-              label="닉네임"
-              className="w-[400px] h-[55px]"
+              placeholder="닉네임"
+              className="w-full h-12 bg-transparent border-0 border-b-[1.5px] border-gray1 rounded-none pl-0"
               basicMessage="최대 10글자 가능"
               errorMessage={errors.nickname?.message}
               type="text"
@@ -136,8 +137,8 @@ export default function SignUpPage() {
           </div>
           <div>
             <InputForm
-              label="비밀번호"
-              className="w-[400px] h-[55px]"
+              placeholder="비밀번호"
+              className="w-full h-12 bg-transparent border-0 border-b-[1.5px] border-gray1 rounded-none pl-0"
               basicMessage="최소 8글자"
               errorMessage={errors.password?.message}
               type="password"
@@ -148,36 +149,43 @@ export default function SignUpPage() {
           </div>
           <div>
             <InputForm
-              label="비밀번호 확인"
-              className="w-[400px] h-[55px]"
+              placeholder="비밀번호 확인"
+              className="w-full h-12 bg-transparent border-0 border-b-[1.5px] border-gray1 rounded-none pl-0"
               errorMessage={errors.passwordConfirm?.message}
               type="password"
               {...passwordConfirmRegister}
-              id='passwordConfirm'
+              id="passwordConfirm"
             />
           </div>
-          <Button type="submit" color="primary" className="w-[400px] h-[50px] mt-[50px] text-[16px]">
+          <Button type="submit" color="primary" className="w-full h-12">
             가입하기
           </Button>
         </form>
-      </div>
-      <div className="flex justify-center mt-[40px]">
-        <p className="text-gray1 text-center font-normal text-[14px]">
-          간편하게 로그인을 하고 싶으신가요?
-          <span
-            role="button"
-            tabIndex={0}
-            className="text-gradient cursor-pointer ml-2"
-            onClick={() => router.push('/login')}
-            onKeyDown={(event) => {
-              if (event.key === 'Enter' || event.key === ' ') {
-                router.push('/login');
-              }
-            }}
-          >
-            SNS로 로그인
-          </span>
-        </p>
+        <div className="flex flex-col space-y-4 mt-6">
+          <div className="relative flex items-center justify-center mt-[60px] mb-[60px]">
+            <div className="flex-grow border-t border-gray1" />
+            <span className="mx-2 text-gray1 text-[12px] font-semibold">또는</span>
+            <div className="flex-grow border-t border-gray1" />
+          </div>
+        </div>
+        <div className="flex justify-center mt-8">
+          <p className="text-gray1 text-center font-semibold text-[14px]">
+            간편하게 회원가입을 하고 싶으신가요?
+            <span
+              role="button"
+              tabIndex={0}
+              className="text-gradient cursor-pointer ml-2"
+              onClick={() => router.push('/login')}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                  router.push('/login');
+                }
+              }}
+            >
+              SNS로 로그인
+            </span>
+          </p>
+        </div>
       </div>
     </div>
   );
