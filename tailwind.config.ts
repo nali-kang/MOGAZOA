@@ -54,6 +54,7 @@ const config: Config = {
       },
       screens: {
         mobile: { max: '767px' },
+        desktop: '1400px',
       },
     },
   },

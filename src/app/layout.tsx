@@ -2,10 +2,12 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import ModalProvider from '@/Context/ModalContext';
-import NavigationBar from '@/Components/Commons/NavigationBar/Navigationbar';
+import ModalContainer from '@/Components/Commons/ModalContainer/ModalContainer';
 import { SearchProvider } from './SearchContext';
 import QueryProvider from './Providers';
 import ClientSessionProvider from '@/Components/Auth/ClientSessionProvider';
+import ClientNavigationBar from '@/Components/Commons/NavigationBar/ClientNavigationBar';
+import ServerNavigationBar from '@/Components/Commons/NavigationBar/NavigationBar';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -26,7 +28,8 @@ export default function RootLayout({
           <QueryProvider>
             <ModalProvider>
               <SearchProvider>
-                <NavigationBar />
+                <ClientNavigationBar />
+                <ServerNavigationBar />
                 {children}
               </SearchProvider>
             </ModalProvider>

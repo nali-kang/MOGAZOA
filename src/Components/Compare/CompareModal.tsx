@@ -39,7 +39,14 @@ function CompareModal() {
             이미 추가된 상품입니다.
             <br /> 비교하기 페이지로 이동하시겠어요?
           </div>
-          <Button color="primary" className={buttonSize} onClick={() => router.push('/compare')}>
+          <Button
+            color="primary"
+            className={buttonSize}
+            onClick={() => {
+              setModalState({ isOpen: false, type: '' });
+              router.push('/compare');
+            }}
+          >
             바로가기
           </Button>
         </main>
@@ -89,6 +96,7 @@ function CompareModal() {
               } else {
                 localStorage.setItem('compare', JSON.stringify([compare2, productInfo]));
               }
+              setModalState({ isOpen: false, type: '' });
               router.push('/compare');
             }}
           >
@@ -113,7 +121,14 @@ function CompareModal() {
             비교 상품이 추가되었습니다.
             <br /> 바로 확인해 보시겠어요?
           </div>
-          <Button color="primary" className={buttonSize} onClick={() => router.push('/compare')}>
+          <Button
+            color="primary"
+            className={buttonSize}
+            onClick={() => {
+              setModalState({ isOpen: false, type: '' });
+              router.push('/compare');
+            }}
+          >
             바로가기
           </Button>
         </main>

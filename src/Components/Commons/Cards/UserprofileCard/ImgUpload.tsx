@@ -3,7 +3,10 @@ import React, { useRef, useState } from 'react';
 
 function ImageUpload() {
   const [uploadImage, setUploadImage] = useState('');
+  const image = uploadImage;
   const fileInputRef = useRef('');
+  const postImage = usePostImage(image);
+  postImage.mutate(image);
 
   const handleImageClick = () => {
     fileInputRef.current.click();
@@ -14,7 +17,6 @@ function ImageUpload() {
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       setUploadImage(imageUrl);
-      usePostImage((image = imageUrl));
     }
   };
 
@@ -24,8 +26,8 @@ function ImageUpload() {
         type="button"
         className={`${
           uploadImage
-            ? 'w-[130px] h-[130px] md:w-[125px] md:h-[125px] xl:w-[150px] xl:h-[150px] p-[30px] bg-center cursor-pointer'
-            : 'w-[24px] h-[24px] xl:w-[34px] xl:h-[34px] bg-center cursor-pointer'
+            ? 'w-[130px] h-[130px] md:w-[125px] md:h-[125px] desktop:w-[150px] desktop:h-[150px] p-[30px] bg-center cursor-pointer'
+            : 'w-[24px] h-[24px] desktop:w-[34px] desktop:h-[34px] bg-center cursor-pointer'
         }`}
         style={{
           backgroundImage: uploadImage ? `url(${uploadImage})` : 'url(/icons/img-icon.svg)',

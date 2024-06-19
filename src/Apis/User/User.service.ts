@@ -1,6 +1,5 @@
 /* eslint-disable class-methods-use-this */
 
-import { AxiosRequestConfig } from 'axios';
 import { apiRequestor, apiRequestorToken } from '../requestor';
 import { PatchUserProps } from './User.type';
 
@@ -33,8 +32,8 @@ class UserService {
     return apiRequestor.get(`/users/${userID}/favorite-products?cursor=${cursor}`);
   }
 
-  getUserFollowees(userID: number, cursor: number) {
-    return apiRequestor.get(`/users/${userID}/followees?cursor=${cursor}`);
+  getUserFollowees(userID: number, userMeId: number, cursor: number) {
+    return apiRequestor.get(`/users/${userID || userMeId}/followees?cursor=${cursor}`);
   }
 
   getUserFollowers(userID: number, cursor: number) {

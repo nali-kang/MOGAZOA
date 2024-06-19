@@ -1,14 +1,15 @@
 'use client';
 
 // QueryClientProvider는 내부적으로 useContext를 사용하므로 'use client'를 맨 위에 놓아야 합니다.
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { isServer, QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { ReactNode } from 'react';
 
 function makeQueryClient() {
   return new QueryClient({
     defaultOptions: {
       queries: {
-        // 클라이언트에서 즉시 다시 가져오는 것을 방지
+        // SSR에서 사용시 바로 클라이언트에서 가져오는것을 방지하기위해 staleTime설정
         staleTime: 60 * 1000,
       },
     },
@@ -18,8 +19,8 @@ function makeQueryClient() {
 let browserQueryClient: QueryClient | undefined;
 
 function getQueryClient() {
-  if (typeof window === 'undefined') {
-    // 서버: 항상 새로운 쿼리 클라이언트를 만듭니다
+  if (isServer) {
+    // 서버: 항상 새로운 쿼리 클라이언트를 만듭니다.
     return makeQueryClient();
   }
   // 브라우저: 아직 클라이언트가 없으면 새 쿼리 클라이언트를 만듭니다.
@@ -37,5 +38,10 @@ export default function QueryProvider({ children }: { children: ReactNode }) {
   // 정지되고 경계가 없으면 렌더링됩니다.
   const queryClient = getQueryClient();
 
-  return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>;
+  return (
+    <QueryClientProvider client={queryClient}>
+      {children}
+      <ReactQueryDevtools initialIsOpen />
+    </QueryClientProvider>
+  );
 }

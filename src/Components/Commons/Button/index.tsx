@@ -37,7 +37,7 @@ export default function Button({ children, color, className, variant, ...rest }:
         type="button"
         onClick={handleClick}
         disabled={disabled}
-        className={`flex justify-center px-24 py-288 items-center rounded-lg font-semibold text-[16px] lg:text-[18px] ${colorClassName} ${className}`}
+        className={`flex justify-center py-288 items-center rounded-lg font-semibold text-[16px] lg:text-[18px] ${colorClassName} ${className}`}
         {...restProps}
       >
         {children}

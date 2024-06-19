@@ -33,13 +33,14 @@ const axiosFileRequestConfig: AxiosRequestConfig = {
 
 const apiRequestor: AxiosInstance = axios.create(axiosRequestConfig); // Token 필요 X
 const apiRequestorNoBaseUrl: AxiosInstance = axios.create(axiosRequestNoBaseUrlConfig); // Token 필요 X
-const apiFileRequestor: AxiosInstance = axios.create(axiosFileRequestConfig); // Token 필요 X, File 업로드
+const apiFileRequestor: AxiosInstance = axios.create(axiosFileRequestConfig); // Token 필요 O, File 업로드
 const apiRequestorToken: AxiosInstance = axios.create(axiosRequestConfig); // Token 필요 O
 
 apiRequestorToken.interceptors.request.use(requestInterceptor);
+apiFileRequestor.interceptors.request.use(requestInterceptor);
 
 apiRequestor.interceptors.response.use(successInterceptor, errorInterceptor);
-apiFileRequestor.interceptors.response.use(successInterceptor, errorInterceptor);
+// apiFileRequestor.interceptors.response.use(successInterceptor, errorInterceptor);
 apiRequestorToken.interceptors.response.use(successInterceptor, errorInterceptor);
 
 export { apiRequestor, apiRequestorNoBaseUrl, apiFileRequestor, apiRequestorToken };
