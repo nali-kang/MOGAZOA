@@ -7,7 +7,7 @@ import Image from 'next/image';
 import { ModalSetterContext } from '@/Context/ModalContext';
 import { useForm } from 'react-hook-form';
 import { usePostProductItems } from '@/Apis/Product/useProduct.Service';
-// import { usePostImage } from '@/Apis/Image/useImageService';
+import { usePostImage } from '@/Apis/Image/useImageService';
 
 interface ProductFormInput {
   productName: string;
@@ -27,9 +27,9 @@ export default function AddProductModal() {
       categoryId: 1,
     },
   });
-  // const watchProductName = watch('productName');
-  // const watchProductDescription = watch('productDescription');
-  // const watchImgUrl = watch('imgUrl');
+  const watchProductName = watch('productName');
+  const watchProductDescription = watch('productDescription');
+  const watchImgUrl = watch('imgUrl');
   const watchCategoryId = watch('categoryId');
   const postProduct = usePostProductItems({
     categoryId: 1,
@@ -37,7 +37,7 @@ export default function AddProductModal() {
     description: '',
     image: '',
   });
-  // const postImgUrl = usePostImage({ image: '' });
+  const postImgUrl = usePostImage({ image: '' });
 
   const option: Option[] = [
     { label: '음악', value: 1 },
@@ -61,22 +61,32 @@ export default function AddProductModal() {
       description: data.productDescription,
       image: 'https://example.com',
     };
-    // const file = watchImgUrl[0]; 이미지 fromdata변경
+    // const file = watchImgUrl[0];
     // if (file) {
     //   const formData = new FormData();
     //   formData.append('image', file);
-    //   console.log(formData);
-    // }
-    // postImgUrl.mutate(
-    //   {
-    //     image: 'formdata',
-    //   },
-    //   {
+    //   // console.log(formData);
+    //   postImgUrl.mutate(formData, {
     //     onSuccess: async (result: any) => {
     //       console.log('result입니다.:', result);
     //     },
-    //   }
-    // );
+    //     onError: () => {
+    //       console.log('여기서 문제');
+    //     },
+    //   });
+    // }
+    console.log(watchImgUrl);
+    const formData = new FormData();
+    const file = watchImgUrl[0];
+    if (file) {
+      formData.append('image', file);
+      console.log(formData);
+    }
+    postImgUrl.mutate(formData, {
+      onSuccess: () => {
+        console.log('이미지성공');
+      },
+    });
     postProduct.mutate(payload, {
       onSuccess: () => {
         setModalState({ isOpen: false, type: 'addProduct' });
