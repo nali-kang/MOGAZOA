@@ -2,7 +2,7 @@
 
 import classNames from 'classnames';
 import React, { forwardRef } from 'react';
-import { UseFormRegisterReturn } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 
 import Input from '@/Components/Commons/Input/Input';
 import InputContainer from '@/Components/Commons/Input/InputContainer';
@@ -15,9 +15,8 @@ interface InputFormProps extends React.InputHTMLAttributes<HTMLInputElement | HT
   basicMessage?: string | undefined | null;
   textarea?: boolean;
   rows?: number;
-  register?: UseFormRegisterReturn;
+  register?: any; // UseFormRegisterReturn를 사용하지 않고 any로 설정
   maxLength?: number;
-  // eslint-disable-next-line no-unused-vars
   formatter?: (value: string) => string;
 }
 
@@ -35,17 +34,9 @@ const InputForm = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputFormPr
       maxLength = 300,
       ...rest
     }: InputFormProps,
-    ref
   ) => {
-    // const [inputValue, setInputValue] = useState('');
-    const { register, ...restProps } = rest;
-
-    // const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    //   const { value } = event.target;
-    //   if (value.length <= maxLength) {
-    //     setInputValue(value);
-    //   }
-    // };
+    const { register, watch } = useFormContext();
+    const watchValue = watch(rest.name as string, '');
 
     const classes = {
       inputFieldContainer: classNames('relative'),
@@ -61,8 +52,6 @@ const InputForm = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputFormPr
         required={required}
         basicMessage={basicMessageOutput}
         errorMessage={errorMessage}
-        {...register}
-        {...register}
       >
         <div className={classes.inputFieldContainer}>
           <Input
@@ -72,18 +61,14 @@ const InputForm = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputFormPr
             rows={rows}
             maxLength={maxLength}
             invalid={!!errorMessage}
-            ref={ref as React.Ref<HTMLInputElement>}
-            // onChange={handleInputChange}
-            {...register}
-            {...restProps}
+            {...register(rest.name as string)}
+            {...rest}
           />
-          {/* {textarea && (
-            <div
-              className="text-gray1 text-sm font-normal absolute text-black right-[23px] bottom-[20px]"
-            >
-              {inputValue.length} / {maxLength}
+          {textarea && (
+            <div className="text-gray1 text-sm font-normal absolute text-black right-[23px] bottom-[20px]">
+              {watchValue.length} / {maxLength}
             </div>
-          )} */}
+          )}
         </div>
       </InputContainer>
     );

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, FormProvider } from 'react-hook-form';
 import { useSession, signIn as nextAuthSignIn, getSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import Swal from 'sweetalert2';
@@ -21,6 +21,11 @@ import Link from 'next/link';
 const MySwal = withReactContent(Swal);
 
 export default function LoginForm() {
+  const methods = useForm<IFormInput>({
+    defaultValues: defaultLoginFormValues,
+    mode: 'onTouched',
+  });
+
   const { data: userSession } = useSession();
   const router = useRouter();
   const [rememberMe, setRememberMe] = useState<boolean>(true);
@@ -46,15 +51,6 @@ export default function LoginForm() {
       },
     });
   };
-
-  const {
-    handleSubmit,
-    register,
-    formState: { errors },
-  } = useForm<IFormInput>({
-    defaultValues: defaultLoginFormValues,
-    mode: 'onTouched',
-  });
 
   useEffect(() => {
     if (userSession) {
@@ -97,8 +93,8 @@ export default function LoginForm() {
   };
 
   const registerList = {
-    email: register('email', validate.email),
-    password: register('password', validate.password),
+    email: methods.register('email', validate.email),
+    password: methods.register('password', validate.password),
   };
 
   const onSubmit = async (data: IFormInput) => {
@@ -133,96 +129,98 @@ export default function LoginForm() {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center h-screen">
-      <div className="flex justify-center items-center w-[300px] sm:w-[400px] mt-[10px] sm:mt-[70px] mb-[70px] sm:mb-[90px]">
-        <Link href="/">
-          <LargeLogoIcon className="cursor-pointer" />
-        </Link>
-      </div>
-      <div className="p-4 sm:p-8 w-[350px] sm:w-[500px]">
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-          <div>
-            <InputForm
-              id="email"
-              placeholder="아이디"
-              className="w-full h-12 bg-transparent border-0 border-b-[1.5px] border-gray1 rounded-none pl-0"
-              errorMessage={errors.email?.message}
-              type="email"
-              {...registerList.email}
-              name="email"
-            />
-          </div>
-          <div>
-            <InputForm
-              id="password"
-              placeholder="비밀번호"
-              className="w-full h-12 bg-transparent border-0 border-b-[1.5px] border-gray1 rounded-none pl-0"
-              errorMessage={errors.password?.message}
-              type="password"
-              {...registerList.password}
-              name="password"
-            />
-          </div>
-          <div className="flex items-center justify-between">
-            <div className="flex items-center mt-3 mb-3">
-              <button type="button" onClick={toggleRememberMe} aria-pressed={rememberMe} className="cursor-pointer">
-                {rememberMe ? <CheckTrue className="w-[18px] h-[18px]" /> : <CheckNone className="w-[18px] h-[18px]" />}
-              </button>
-              <button
-                type="button"
-                onClick={toggleRememberMe}
-                className="flex ml-3 mt-[2.5px] block text-base text-gray1 text-center cursor-pointer"
-              >
-                로그인 상태 유지
-              </button>
+    <FormProvider {...methods}>
+      <div className="flex flex-col justify-center items-center h-screen">
+        <div className="flex justify-center items-center w-[300px] sm:w-[400px] mt-[10px] sm:mt-[70px] mb-[70px] sm:mb-[90px]">
+          <Link href="/">
+            <LargeLogoIcon className="cursor-pointer" />
+          </Link>
+        </div>
+        <div className="p-4 sm:p-8 w-[350px] sm:w-[500px]">
+          <form onSubmit={methods.handleSubmit(onSubmit)} className="space-y-6">
+            <div>
+              <InputForm
+                id="email"
+                placeholder="아이디"
+                className="w-full h-12 bg-transparent border-0 border-b-[1.5px] border-gray1 rounded-none pl-0"
+                errorMessage={methods.formState.errors.email?.message}
+                type="email"
+                {...registerList.email}
+                name="email"
+              />
             </div>
-          </div>
-          <Button type="submit" color="primary" className="w-full h-12">
-            로그인
-          </Button>
-        </form>
-        <div className="flex flex-col space-y-4 mt-6">
-          <div className="relative flex items-center justify-center mt-[60px] mb-[60px]">
-            <div className="flex-grow border-t border-gray1" />
-            <span className="mx-2 text-gray1 text-[12px] font-semibold">또는</span>
-            <div className="flex-grow border-t border-gray1" />
-          </div>
-          <button
-            type="button"
-            onClick={() => onOAuthLogin('kakao')}
-            className="flex items-center justify-center w-full h-12 rounded-lg bg-[#ffe600] font-semibold	text-[14px]"
-          >
-            <KaKaoIcon className="w-6 h-6 mr-2" />
-            <span className="text-gray-600">카카오 로그인</span>
-          </button>
-          <button
-            type="button"
-            onClick={() => onOAuthLogin('google')}
-            className="flex items-center justify-center w-full h-12 rounded-lg bg-white font-semibold text-[14px]"
-          >
-            <GoogleIcon className="w-6 h-6 mr-2" />
-            <span className="text-gray-600">구글 로그인</span>
-          </button>
-        </div>
-        <div className="flex justify-center mt-8">
-          <p className="text-gray1 text-center font-semibold text-[14px]">
-            회원이 아니신가요?
-            <span
-              role="button"
-              tabIndex={0}
-              className="text-gradient cursor-pointer ml-2"
-              onClick={() => router.push('/signup')}
-              onKeyDown={(event) => {
-                if (event.key === 'Enter' || event.key === ' ') {
-                  router.push('/signup');
-                }
-              }}
+            <div>
+              <InputForm
+                id="password"
+                placeholder="비밀번호"
+                className="w-full h-12 bg-transparent border-0 border-b-[1.5px] border-gray1 rounded-none pl-0"
+                errorMessage={methods.formState.errors.password?.message}
+                type="password"
+                {...registerList.password}
+                name="password"
+              />
+            </div>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center mt-3 mb-3">
+                <button type="button" onClick={toggleRememberMe} aria-pressed={rememberMe} className="cursor-pointer">
+                  {rememberMe ? <CheckTrue className="w-[18px] h-[18px]" /> : <CheckNone className="w-[18px] h-[18px]" />}
+                </button>
+                <button
+                  type="button"
+                  onClick={toggleRememberMe}
+                  className="flex ml-3 mt-[2.5px] block text-base text-gray1 text-center cursor-pointer"
+                >
+                  로그인 상태 유지
+                </button>
+              </div>
+            </div>
+            <Button type="submit" color="primary" className="w-full h-12">
+              로그인
+            </Button>
+          </form>
+          <div className="flex flex-col space-y-4 mt-6">
+            <div className="relative flex items-center justify-center mt-[60px] mb-[60px]">
+              <div className="flex-grow border-t border-gray1" />
+              <span className="mx-2 text-gray1 text-[12px] font-semibold">또는</span>
+              <div className="flex-grow border-t border-gray1" />
+            </div>
+            <button
+              type="button"
+              onClick={() => onOAuthLogin('kakao')}
+              className="flex items-center justify-center w-full h-12 rounded-lg bg-[#ffe600] font-semibold	text-[14px]"
             >
-              회원가입 하기
-            </span>
-          </p>
+              <KaKaoIcon className="w-6 h-6 mr-2" />
+              <span className="text-gray-600">카카오 로그인</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => onOAuthLogin('google')}
+              className="flex items-center justify-center w-full h-12 rounded-lg bg-white font-semibold text-[14px]"
+            >
+              <GoogleIcon className="w-6 h-6 mr-2" />
+              <span className="text-gray-600">구글 로그인</span>
+            </button>
+          </div>
+          <div className="flex justify-center mt-8">
+            <p className="text-gray1 text-center font-semibold text-[14px]">
+              회원이 아니신가요?
+              <span
+                role="button"
+                tabIndex={0}
+                className="text-gradient cursor-pointer ml-2"
+                onClick={() => router.push('/signup')}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter' || event.key === ' ') {
+                    router.push('/signup');
+                  }
+                }}
+              >
+                회원가입 하기
+              </span>
+            </p>
+          </div>
         </div>
       </div>
-    </div>
+    </FormProvider>
   );
 }
