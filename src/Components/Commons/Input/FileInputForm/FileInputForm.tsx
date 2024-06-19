@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import React, { forwardRef, useEffect, useState } from 'react';
+import axios from 'axios';
 import { UseFormRegisterReturn } from 'react-hook-form';
 import InputContainer from '@/Components/Commons/Input/InputContainer';
 import { ReactComponent as ImageIconSvg } from '@/public/Icons/img-icon.svg';
@@ -27,9 +28,10 @@ const FileInputForm = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputFo
   ) => {
     const [backgroundImage, setBackgroundImage] = useState<string | null>(backgroundImageUrl || null);
     const [inputId, setInputId] = useState<string | null>(null);
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
     useEffect(() => {
-      setInputId(label || `file-input-${Math.random().toString(36)}`);
+      setInputId(label || `file-input-${Math.random().toString(36).substr(2, 9)}`);
     }, [label]);
 
     const { onChange: registerOnChange, ...restProps } = rest;
@@ -42,6 +44,7 @@ const FileInputForm = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputFo
       if (file) {
         const fileURL = URL.createObjectURL(file);
         setBackgroundImage(fileURL);
+        setSelectedFile(file); // 파일을 선택 상태로 설정
       }
     };
 
@@ -55,6 +58,27 @@ const FileInputForm = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputFo
     );
 
     const inputFieldContainerClasses = classNames('inset-0 rounded-lg overflow-hidden', className);
+
+    const handleUpload = async () => {
+      if (!selectedFile) {
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append('image', selectedFile);
+      formData.append('teamId', 'YOUR_TEAM_ID'); // 여기에 teamId를 추가합니다.
+
+      try {
+        const response = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/YOUR_TEAM_ID/images/upload`, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+        console.log('이미지 업로드 성공:', response.data);
+      } catch (error) {
+        console.error('이미지 업로드 실패:', error);
+      }
+    };
 
     return (
       <InputContainer className={className} label={label} required={required} errorMessage={errorMessage}>
@@ -88,6 +112,9 @@ const FileInputForm = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputFo
             />
           </label>
         )}
+        <button type="button" onClick={handleUpload} className="mt-2 p-2 bg-blue-500 text-white rounded">
+          업로드
+        </button>
       </InputContainer>
     );
   }

@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState, KeyboardEvent } from 'react';
 import { useForm } from 'react-hook-form';
-import { useSession, signIn as nextAuthSignIn } from 'next-auth/react';
+import { useSession, signIn as nextAuthSignIn, getSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
@@ -22,8 +22,7 @@ import Cookies from 'js-cookie';
 const MySwal = withReactContent(Swal);
 
 export default function LoginPage() {
-  const { data: session } = useSession();
-  console.log('session:', session);
+  const { data: userSession } = useSession();
   const router = useRouter();
   const [rememberMe, setRememberMe] = useState<boolean>(true);
   const signIn = usePostAuthSignIn({
@@ -55,13 +54,66 @@ export default function LoginPage() {
   } = useForm<IFormInput>({ defaultValues: defaultLoginFormValues, mode: 'onTouched' });
 
   useEffect(() => {
-    if (session) {
+    if (userSession) {
       router.push('/');
     }
-  }, [session, router]);
+  }, [userSession, router]);
 
-  const onKakaoLogin = () => {
-    nextAuthSignIn('kakao', { redirect: true, callbackUrl: `http://localhost:3000/` });
+  const onKakaoLogin = async () => {
+    console.log('onKakaoLogin called');
+    try {
+      const result = await nextAuthSignIn('kakao', { redirect: false, callbackUrl: `http://localhost:3000/` });
+      console.log('Kakao signIn result:', result);
+
+      if (result?.error) {
+        console.error('Kakao login failed:', result.error);
+        showToast('error', '카카오 로그인 실패', '다시 시도해 주세요.');
+      } else {
+        const session = await getSession();
+        console.log('Current session:', session);
+
+        if (session) {
+          const { accessToken } = session;
+          console.log('Access Token:', accessToken);
+
+          if (accessToken) {
+            // 백엔드에 토큰 요청
+            const response = await fetch('https://mogazoa-api.vercel.app/4-18/oauth/kakao', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                redirectUri: 'http://localhost:3000/oauth/kakao',
+                token: accessToken,
+              }),
+            });
+
+            console.log('Token request sent');
+
+            const data = await response.json();
+            console.log('Backend token response:', data);
+
+            if (response.ok) {
+              const backendToken = data.accessToken;
+              console.log('Backend Access Token:', backendToken);
+              Cookies.set('token', backendToken, { expires: rememberMe ? 30 : 1 });
+              showToast('success', '로그인 되었습니다', '서비스를 이용해 주세요.');
+              router.push('/');
+            } else {
+              console.error('Backend token request failed:', data);
+              showToast('error', '토큰 요청 실패', '다시 시도해 주세요.');
+            }
+          } else {
+            console.error('No access token found in session');
+            showToast('error', '로그인 실패', '다시 시도해 주세요.');
+          }
+        }
+      }
+    } catch (error) {
+      console.error('An error occurred during Kakao login:', error);
+      showToast('error', '로그인 실패', '다시 시도해 주세요.');
+    }
   };
 
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>, loginFunction: () => void) => {
