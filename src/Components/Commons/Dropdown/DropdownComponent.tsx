@@ -96,7 +96,7 @@ export function DropdownSearch({ option, value, onChange, type = 'search' }: Sea
         검색 결과가 없습니다.
       </div>
     );
-  }, [search]);
+  }, [search, onChange]);
 
   return (
     <div>
