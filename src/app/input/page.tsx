@@ -83,7 +83,9 @@ export default function InputPage() {
       </div>
       <div>
         <form>
-          <InputForm className="w-[512px] h-[170px] text-xs" placeholder="설명을 입력해주세요." textarea />
+          <InputForm className="w-[512px] h-[170px] text-xs" placeholder="설명을 입력해주세요." textarea   {...register('bio', {
+                onChange: handleInputChange,
+              })}/>
         </form>
       </div>
     </div>
