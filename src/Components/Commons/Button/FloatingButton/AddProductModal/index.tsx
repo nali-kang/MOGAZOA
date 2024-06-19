@@ -27,10 +27,9 @@ export default function AddProductModal() {
       categoryId: 1,
     },
   });
-  const watchProductName = watch('productName');
-  const watchProductDescription = watch('productDescription');
-  const watchImgUrl = watch('imgUrl');
+
   const watchCategoryId = watch('categoryId');
+
   const postProduct = usePostProductItems({
     categoryId: 1,
     name: '',
@@ -46,55 +45,46 @@ export default function AddProductModal() {
     { label: '호텔', value: 4 },
     { label: '가구/인테리어', value: 5 },
     { label: '식당', value: 6 },
+    { label: '전자기기', value: 7 },
+    { label: '화장품', value: 8 },
+    { label: '의류/악세서리', value: 9 },
+    { label: '앱', value: 10 },
   ];
 
   const handleCloseClick = () => {
     setModalState({ isOpen: false, type: 'addProduct' });
   };
 
-  // 임시
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const onSubmit = async (data: ProductFormInput) => {
-    const payload = {
-      categoryId: data.categoryId,
-      name: data.productName,
-      description: data.productDescription,
-      image: 'https://example.com',
-    };
-    // const file = watchImgUrl[0];
-    // if (file) {
-    //   const formData = new FormData();
-    //   formData.append('image', file);
-    //   // console.log(formData);
-    //   postImgUrl.mutate(formData, {
-    //     onSuccess: async (result: any) => {
-    //       console.log('result입니다.:', result);
-    //     },
-    //     onError: () => {
-    //       console.log('여기서 문제');
-    //     },
-    //   });
-    // }
-    console.log(watchImgUrl);
     const formData = new FormData();
-    const file = watchImgUrl[0];
+    const file = data.imgUrl[0];
     if (file) {
       formData.append('image', file);
-      console.log(formData);
+      postImgUrl.mutate(formData, {
+        // 이미지 업로드
+        onSuccess: (result: any) => {
+          const ImageUrl = result.data.url;
+          const payload = {
+            categoryId: data.categoryId,
+            name: data.productName,
+            description: data.productDescription,
+            image: ImageUrl,
+          };
+          postProduct.mutate(payload, {
+            // 상품 추가
+            onSuccess: () => {
+              setModalState({ isOpen: false, type: 'addProduct' });
+            },
+            onError: (error: any) => {
+              console.error(error);
+            },
+          });
+        },
+        onError: (error: any) => {
+          console.error(error);
+        },
+      });
     }
-    postImgUrl.mutate(formData, {
-      onSuccess: () => {
-        console.log('이미지성공');
-      },
-    });
-    postProduct.mutate(payload, {
-      onSuccess: () => {
-        setModalState({ isOpen: false, type: 'addProduct' });
-      },
-      onError: (error: any) => {
-        console.error(error);
-      },
-    });
   };
 
   return (
