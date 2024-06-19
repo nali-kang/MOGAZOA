@@ -1,14 +1,12 @@
 'use client';
 
-import { useContext, useEffect, useMemo, useState } from 'react';
-import Image from 'next/image';
+import { useEffect, useMemo, useState, useCallback } from 'react';
 import { DropdownSearch, Option } from '../Commons/Dropdown/DropdownComponent';
 import Button from '../Commons/Button';
 import { useCustomParam } from '@/Hooks/useCustomParams';
 import CompareTable from './CompareTable';
 import { useGetProductItems } from '@/Apis/Product/useProduct.Service';
 import { Compare } from '@/Types/CompareType';
-import { ModalSetterContext } from '@/Context/ModalContext';
 
 /**
  * @type compareFirst 비교하기 첫번째 상품
@@ -79,15 +77,35 @@ function CompareComponent({ compareFirst, compareSecond }: Props) {
     return 0;
   }, [compareFirst, compareSecond, params]);
 
-  const setModalState = useContext(ModalSetterContext);
-
-  const handleFloatingButtonClick = () => {
-    setModalState({
-      isOpen: true,
-      type: 'compare',
-      productInfo: { value: 363, label: 'etjawkeltjwkletjwelktjwkeljtklewjtewlkj' },
-    });
-  };
+  // 우세 점수 비교
+  const compareWin = useMemo(() => {
+    if (compareFirst && compareSecond) {
+      const rating = compareNumber(compareFirst.rating, compareSecond.rating);
+      const review = compareNumber(compareFirst.reviewCount, compareSecond.reviewCount);
+      const favorite = compareNumber(compareFirst.favoriteCount, compareSecond.favoriteCount);
+      if (compareState > 0) {
+        return (rating > 0 ? rating : 0) + (review > 0 ? review : 0) + (favorite > 0 ? favorite : 0);
+      } else {
+        return (rating < 0 ? rating : 0) + (review < 0 ? review : 0) + (favorite < 0 ? favorite : 0);
+      }
+    }
+    return 0;
+  }, [compareFirst, compareSecond, params, compareState]);
+  const changeDropdownValue = useCallback(
+    (value: any, index: number) => {
+      console.log(selectOption1, selectOption2);
+      const selectValue = value ? { label: option.find((e) => e.value === value)?.label ?? '', value } : undefined;
+      if (index === 0) {
+        setSelectOption1(selectValue);
+        localStorage.setItem('compare', JSON.stringify([selectValue, selectOption2]));
+      } else {
+        setSelectOption2(selectValue);
+        localStorage.setItem('compare', JSON.stringify([selectOption1, selectValue]));
+      }
+      params.reset();
+    },
+    [selectOption1, selectOption2]
+  );
 
   return (
     <main className="pt-[1.88rem] md:pt-[2.5rem] lg:pt-[3.75rem]">
@@ -100,14 +118,7 @@ function CompareComponent({ compareFirst, compareSecond }: Props) {
             <DropdownSearch
               option={option}
               value={selectOption1?.value}
-              onChange={(value: any) => {
-                const selectValue = value
-                  ? { label: option.find((e) => e.value === value)?.label ?? '', value }
-                  : undefined;
-                setSelectOption1(selectValue);
-                localStorage.setItem('compare', JSON.stringify([selectValue, selectOption2]));
-                params.reset();
-              }}
+              onChange={(value: any) => changeDropdownValue(value, 0)}
               type="tag_first"
             />
           </div>
@@ -119,12 +130,7 @@ function CompareComponent({ compareFirst, compareSecond }: Props) {
               option={option}
               value={selectOption2?.value}
               onChange={(value: number) => {
-                const selectValue = value
-                  ? { label: option.find((e) => e.value === value)?.label ?? '', value }
-                  : undefined;
-                setSelectOption2(selectValue);
-                localStorage.setItem('compare', JSON.stringify([selectOption1, selectValue]));
-                params.reset();
+                changeDropdownValue(value, 1);
               }}
               type="tag_second"
             />
@@ -141,16 +147,6 @@ function CompareComponent({ compareFirst, compareSecond }: Props) {
           >
             비교하기
           </Button>
-
-          <Button
-            color="primary"
-            className="w-[20.9375rem] md:w-[10.25rem] lg:w-[12.5rem] h-[3.175rem] md:h-[3.4375rem] lg:h-[4.375rem] flex items-center justify-center font-base font-normal leading-[normal] !px-0 !py-0"
-            onClick={() => {
-              handleFloatingButtonClick();
-            }}
-          >
-            모달 테스트
-          </Button>
         </article>
         <article className="w-full flex items-center justify-center">
           {params.getData('compare1') && params.getData('compare2') ? (
@@ -164,7 +160,7 @@ function CompareComponent({ compareFirst, compareSecond }: Props) {
                       승리하였습니다!
                     </div>
                     <p className="text-xs lg:text-base font-normal leading-normal text-[#9FA6B2]">
-                      3가지 항목 중 {Math.abs(compareState) + 1}가지 항목에서 우세합니다.
+                      3가지 항목 중 {Math.abs(compareWin)}가지 항목에서 우세합니다.
                     </p>
                   </div>
                 )}
@@ -176,7 +172,7 @@ function CompareComponent({ compareFirst, compareSecond }: Props) {
                       <br className="block lg:hidden" /> 승리하였습니다!
                     </div>
                     <p className="text-xs lg:text-base font-normal leading-normal text-[#9FA6B2]">
-                      3가지 항목 중 {Math.abs(compareState) + 1}가지 항목에서 우세합니다.
+                      3가지 항목 중 {Math.abs(compareWin)}가지 항목에서 우세합니다.
                     </p>
                   </div>
                 )}
@@ -185,9 +181,7 @@ function CompareComponent({ compareFirst, compareSecond }: Props) {
               <CompareTable compareFirst={compareFirst} compareSecond={compareSecond} />
             </div>
           ) : (
-            <div className="py-40">
-              <Image src="/Icons/large-loading-icon.svg" alt="loading_icon" width={87} height={84} />
-            </div>
+            <div className="py-40"></div>
           )}
         </article>
       </section>

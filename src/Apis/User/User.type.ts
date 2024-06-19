@@ -6,6 +6,9 @@ export type PatchUserProps = {
 export type UserId = {
   userId: number;
 };
+export type UserMeId = {
+  userMeId: number;
+};
 export type RankingInfo = {
   id: number;
   nickname: string;
