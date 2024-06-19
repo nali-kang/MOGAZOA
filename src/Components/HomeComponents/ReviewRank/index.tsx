@@ -1,5 +1,6 @@
 import { useGetUserRanking } from '@/Apis/User/useUserService';
 import RankProfile from './RankProfile';
+import Link from 'next/link';
 
 interface UserProfile {
   updatedAt: string;
@@ -14,8 +15,7 @@ interface UserProfile {
 }
 
 export default function ReviewRank() {
-  const params = {};
-  const { data } = useGetUserRanking(params);
+  const { data } = useGetUserRanking();
   const sortedReviewData = data.sort((a: UserProfile, b: UserProfile) => b.followersCount - a.followersCount);
 
   return (
@@ -24,7 +24,9 @@ export default function ReviewRank() {
       <div className="flex overflow-x-auto gap-[15px]  lg:flex-col lg:overflow-hidden">
         {sortedReviewData.slice(0, 5).map((profile: UserProfile, ranking: number) => (
           <div className="w-[300px] h-[36px] lg:h-[42px] lg:mb-[30px]">
-            <RankProfile key={profile.id} profile={profile} rank={ranking + 1} />
+            <Link href={`/userprofile/${profile.id}`}>
+              <RankProfile key={profile.id} profile={profile} rank={ranking + 1} />
+            </Link>
           </div>
         ))}
       </div>
