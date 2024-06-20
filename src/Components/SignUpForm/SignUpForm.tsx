@@ -193,7 +193,7 @@ export default function SignUpForm() {
                   className="absolute top-1/2 right-2 transform -translate-y-1/2 text-gray-500 p-1"
                   aria-label="Clear input"
                 >
-                  <CloseIcon/>
+                  <CloseIcon />
                 </button>
               )}
             </div>
@@ -203,9 +203,9 @@ export default function SignUpForm() {
           </form>
           <div className="flex flex-col space-y-4 mt-6">
             <div className="relative flex items-center justify-center mt-[60px] mb-[60px]">
-              <div className="flex-grow border-t border-gray1" />
+              <div className="flex-grow border-0 border-b-[1px] border-[#443f3f]" />
               <span className="mx-2 text-gray1 text-[12px] font-semibold">또는</span>
-              <div className="flex-grow border-t border-gray1" />
+              <div className="flex-grow border-0 border-b-[1px] border-[#443f3f]" />
             </div>
           </div>
           <div className="flex justify-center mt-8">
