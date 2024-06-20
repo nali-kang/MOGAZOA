@@ -6,10 +6,6 @@ export default function FloatingButton() {
   const setModalState = useContext(ModalSetterContext);
 
   const handleFloatingButtonClick = () => {
-    /* 
-        TODO : 클릭 시 모달 open
-    */
-    console.log('handleFloatingButtonClick');
     setModalState({ isOpen: true, type: 'addProduct' });
   };
   return (

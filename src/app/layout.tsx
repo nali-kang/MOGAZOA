@@ -7,7 +7,8 @@ import { SearchProvider } from './SearchContext';
 import QueryProvider from './Providers';
 import ClientSessionProvider from '@/Components/Auth/ClientSessionProvider';
 import ClientNavigationBar from '@/Components/Commons/NavigationBar/ClientNavigationBar';
-import ServerNavigationBar from '@/Components/Commons/NavigationBar/Navigationbar';
+import ServerNavigationBar from '@/Components/Commons/NavigationBar/ServerNavigationBar';
+import { CategoryProvider } from './CategoryContext';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -16,11 +17,7 @@ export const metadata: Metadata = {
   description: 'MOGAZOA',
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ko">
       <body className={`${inter.className} bg-black1`}>
@@ -28,9 +25,11 @@ export default function RootLayout({
           <QueryProvider>
             <ModalProvider>
               <SearchProvider>
-                <ClientNavigationBar />
-                <ServerNavigationBar />
-                {children}
+                <CategoryProvider>
+                  <ClientNavigationBar />
+                  <ServerNavigationBar />
+                  {children}
+                </CategoryProvider>
               </SearchProvider>
             </ModalProvider>
           </QueryProvider>

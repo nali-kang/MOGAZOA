@@ -11,12 +11,13 @@ import ReviewRank from '@/Components/HomeComponents/ReviewRank';
 import Sidemenu from '@/Components/HomeComponents/Sidemenu';
 import { categories } from '@/Constant/Categories';
 import SearchContext from './SearchContext';
+import { useCategory } from './CategoryContext';
 
 export default function Home() {
-  const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
+  // const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
   const [sorting, setSorting] = useState<'latest' | 'upstar' | 'downstar' | 'like'>('latest');
   const { searchValue } = useContext(SearchContext);
-
+  const { selectedCategory, setSelectedCategory } = useCategory();
   const sort: Option[] = [
     { label: '최신순', value: 'latest' },
     { label: '별점 높은순', value: 'upstar' },

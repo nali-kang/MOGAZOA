@@ -22,7 +22,7 @@ const axiosRequestNoBaseUrlConfig: AxiosRequestConfig = {
 };
 
 const axiosFileRequestConfig: AxiosRequestConfig = {
-  baseURL: ``,
+  baseURL: `${process.env.NEXT_PUBLIC_API_BASE_URL}`,
   responseType: 'json',
   headers: {
     'Content-Type': 'multipart/form-data',
