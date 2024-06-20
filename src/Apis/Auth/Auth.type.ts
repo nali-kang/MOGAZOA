@@ -21,3 +21,8 @@ export type PostAuthRes = {
     createdAt: string; // iso문자열로?
   };
 };
+export type PostOAuthPayload = {
+  nickname?: string;
+  redirectUri: string;
+  token: string;
+};

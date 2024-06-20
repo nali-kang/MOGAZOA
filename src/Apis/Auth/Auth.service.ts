@@ -11,6 +11,14 @@ class AuthService {
   postAuthSignIn(payload: PostAuthPayload) {
     return apiRequestor.post(`/auth/signIn`, payload);
   }
+
+  postOAuthSignUp(provider: string, payload: { nickname: string; redirectUri: string; token: string }) {
+    return apiRequestor.post(`/auth/signUp/${provider}`, payload);
+  }
+
+  postOAuthSignIn(provider: string, payload: { redirectUri: string; token: string }) {
+    return apiRequestor.post(`/auth/signIn/${provider}`, payload);
+  }
 }
 /* 
   TODO: Oauth등록후 추가
