@@ -113,6 +113,8 @@ export default function AddProductModal() {
           showToast('error', '이미지 업로드 실패..', error.message || '잠시 후 다시 시도해주세요.');
         },
       });
+    } else {
+      showToast('error', '이미지가 없어요..', '상품 이미지를 업로드해주세요.');
     }
   };
 
