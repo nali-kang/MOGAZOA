@@ -1,3 +1,14 @@
+/* Tailwind base, components, utilities */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Custom autofill styles */
+.input-autocomplete:-webkit-autofill,
+.input-autocomplete:-webkit-autofill:hover,
+.input-autocomplete:-webkit-autofill:focus {
+  border: 0 none;
+  border-bottom: 1.5px solid #6E6E82;
+  -webkit-box-shadow: 0 0 0px 1000px #17171C inset;
+  -webkit-text-fill-color: #ffffff;
+}

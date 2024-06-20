@@ -12,6 +12,7 @@ import InputForm from '@/Components/Commons/Input/InputForm/InputForm';
 import { IFormInput, defaultLoginFormValues, validate } from '@/Constant/AuthForm.type';
 import AuthService from '@/Apis/Auth/Auth.service';
 import { ReactComponent as LargeLogoIcon } from '@/public/icons/large-logo-icon.svg';
+import { ReactComponent as CloseIcon } from '@/public/Icons/close-icon.svg';
 import Link from 'next/link';
 
 const MySwal = withReactContent(Swal);
@@ -110,22 +111,32 @@ export default function SignUpForm() {
         </div>
         <div className="p-4 sm:p-8 w-[350px] sm:w-[500px]">
           <form onSubmit={methods.handleSubmit(onSubmit)} className="space-y-12">
-            <div>
+            <div className="relative">
               <InputForm
                 id="email"
                 placeholder="이메일"
-                className="w-full h-12 bg-transparent border-0 border-b-[1.5px] border-gray1 rounded-none pl-0"
+                className="input-autocomplete w-full h-12 bg-transparent border-0 border-b-[1.5px] border-gray1 rounded-none pl-0"
                 basicMessage="이메일 형식을 지켜주세요"
                 errorMessage={methods.formState.errors.email?.message}
                 type="email"
                 {...registerList.email}
                 name="email"
               />
+              {methods.watch('email') && (
+                <button
+                  type="button"
+                  onClick={() => methods.setValue('email', '')}
+                  className="absolute top-1/2 right-2 transform -translate-y-1/2 text-gray-500 p-1"
+                  aria-label="Clear input"
+                >
+                  <CloseIcon />
+                </button>
+              )}
             </div>
-            <div>
+            <div className="relative">
               <InputForm
                 placeholder="닉네임"
-                className="w-full h-12 bg-transparent border-0 border-b-[1.5px] border-gray1 rounded-none pl-0"
+                className="input-autocomplete w-full h-12 bg-transparent border-0 border-b-[1.5px] border-gray1 rounded-none pl-0"
                 basicMessage="최대 10글자 가능"
                 errorMessage={methods.formState.errors.nickname?.message}
                 type="text"
@@ -133,11 +144,21 @@ export default function SignUpForm() {
                 name="nickname"
                 id="nickname"
               />
+              {methods.watch('nickname') && (
+                <button
+                  type="button"
+                  onClick={() => methods.setValue('nickname', '')}
+                  className="absolute top-1/2 right-2 transform -translate-y-1/2 text-gray-500 p-1"
+                  aria-label="Clear input"
+                >
+                  <CloseIcon />
+                </button>
+              )}
             </div>
-            <div>
+            <div className="relative">
               <InputForm
                 placeholder="비밀번호"
-                className="w-full h-12 bg-transparent border-0 border-b-[1.5px] border-gray1 rounded-none pl-0"
+                className="input-autocomplete w-full h-12 bg-transparent border-0 border-b-[1.5px] border-gray1 rounded-none pl-0"
                 basicMessage="최소 8글자"
                 errorMessage={methods.formState.errors.password?.message}
                 type="password"
@@ -145,16 +166,36 @@ export default function SignUpForm() {
                 name="password"
                 id="password"
               />
+              {methods.watch('password') && (
+                <button
+                  type="button"
+                  onClick={() => methods.setValue('password', '')}
+                  className="absolute top-1/2 right-2 transform -translate-y-1/2 text-gray-500 p-1"
+                  aria-label="Clear input"
+                >
+                  <CloseIcon />
+                </button>
+              )}
             </div>
-            <div>
+            <div className="relative">
               <InputForm
                 placeholder="비밀번호 확인"
-                className="w-full h-12 bg-transparent border-0 border-b-[1.5px] border-gray1 rounded-none pl-0"
+                className="input-autocomplete w-full h-12 bg-transparent border-0 border-b-[1.5px] border-gray1 rounded-none pl-0"
                 errorMessage={methods.formState.errors.passwordConfirm?.message}
                 type="password"
                 {...passwordConfirmRegister}
                 id="passwordConfirm"
               />
+              {methods.watch('passwordConfirm') && (
+                <button
+                  type="button"
+                  onClick={() => methods.setValue('passwordConfirm', '')}
+                  className="absolute top-1/2 right-2 transform -translate-y-1/2 text-gray-500 p-1"
+                  aria-label="Clear input"
+                >
+                  <CloseIcon/>
+                </button>
+              )}
             </div>
             <Button type="submit" color="primary" className="w-full h-12">
               가입하기

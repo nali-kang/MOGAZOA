@@ -129,9 +129,6 @@ export default function LoginForm() {
     setRememberMe(!rememberMe);
   };
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
   return (
     <FormProvider {...methods}>
       <div className="flex flex-col justify-center items-center h-screen">
@@ -146,38 +143,42 @@ export default function LoginForm() {
               <InputForm
                 id="email"
                 placeholder="아이디"
-                className="w-full h-12 bg-transparent border-0 border-b-[1.5px] border-gray1 rounded-none pl-0"
+                className="input-autocomplete w-full h-12 bg-transparent border-0 border-b-[1.5px] border-gray1 rounded-none pl-0"
                 errorMessage={methods.formState.errors.email?.message}
                 type="email"
                 {...registerList.email}
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
                 name="email"
               />
-              {email && (
-                <CloseIcon
-                  className="absolute right-2 top-1/2 transform -translate-y-1/2 cursor-pointer"
-                  onClick={() => setEmail('')}
-                />
+              {methods.watch('email') && (
+                <button
+                  type="button"
+                  onClick={() => methods.setValue('email', '')}
+                  aria-label="Clear email input"
+                  className="absolute top-1/2 right-2 transform -translate-y-1/2 text-gray-500"
+                >
+                  <CloseIcon />
+                </button>
               )}
             </div>
             <div className="relative">
               <InputForm
                 id="password"
                 placeholder="비밀번호"
-                className="w-full h-12 bg-transparent border-0 border-b-[1.5px] border-gray1 rounded-none pl-0"
+                className="input-autocomplete w-full h-12 bg-transparent border-0 border-b-[1.5px] border-gray1 rounded-none pl-0"
                 errorMessage={methods.formState.errors.password?.message}
                 type="password"
                 {...registerList.password}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
                 name="password"
               />
-              {password && (
-                <CloseIcon
-                  className="absolute right-2 top-1/2 transform -translate-y-1/2 cursor-pointer"
-                  onClick={() => setPassword('')}
-                />
+              {methods.watch('password') && (
+                <button
+                  type="button"
+                  onClick={() => methods.setValue('password', '')}
+                  aria-label="Clear password input"
+                  className="absolute top-1/2 right-2 transform -translate-y-1/2 text-gray-500"
+                >
+                  <CloseIcon />
+                </button>
               )}
             </div>
             <div className="flex items-center justify-between">
