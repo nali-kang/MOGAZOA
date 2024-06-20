@@ -1,36 +1,72 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+![header](https://capsule-render.vercel.app/api?type=waving&color=auto&height=300&section=header&text=MOGAZOA%204-18&fontSize=80)
 
-## Getting Started
 
-First, run the development server:
+# MOGAZOA 4기 18팀
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+### 팀원 소개
+
+|<img src="https://avatars.githubusercontent.com/u/155597214?v=4" width="150" height="150"/>|<img src="https://avatars.githubusercontent.com/u/110177217?v=4" width="150" height="150"/>|<img src="https://avatars.githubusercontent.com/u/54311686?v=4" width="150" height="150"/>|<img src="https://avatars.githubusercontent.com/u/103150252?v=4" width="150" height="150"/>|<img src="https://avatars.githubusercontent.com/u/155204900?v=4" width="150" height="150"/>|
+|:-:|:-:|:-:|:-:|:-:|
+|한진희<br/>[@hanjinhe](https://github.com/hanjinhe)|권민서<br/>[@min3eo](https://github.com/min3eo)|최희문<br/>[@ChoiHeeMoon99](https://github.com/ChoiHeeMoon99)|최민혁<br/>[@ChoiMHMH](https://github.com/ChoiMHMH)|강나리<br/>[@nali-kang](https://github.com/nali-kang)|
+|Navigation Bar<br/>프로필 화면<br/>팀장|Input Component<br/>로그인/회원가입 화면<br/>발표|Button Component<br/>홈 화면|Modal<br/>공통API<br/>상품상세 화면|Dropdown<br/>비교하기 화면<br/>배포/README|
+
+### 프로젝트 구성
+
+1. 기술 스택
+<div align=left>
+  <img src="https://img.shields.io/badge/Next.js-000000?style=flat&logo=Next.js&logoColor=white">
+  <img src="https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=black"> 
+  <img src="https://img.shields.io/badge/Typescript-3178C6?style=flat&logo=Typescript&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Tailwind CSS-06B6D4?style=flat&logo=Tailwind CSS&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Axios-5A29E4?style=flat&logo=Axios&logoColor=white"/>
+</div>  
+<br />
+
+2. 디렉토리 구조
+
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+📦src
+ ┣ 📂Apis
+ ┃ ┣ 📂Auth
+ ┃ ┣ 📂Category
+ ┃ ┣ 📂Follow
+ ┃ ┣ 📂Image
+ ┃ ┣ 📂Oauth
+ ┃ ┣ 📂Product
+ ┃ ┣ 📂Review
+ ┃ ┣ 📂User
+ ┣ 📂Components
+ ┃ ┣ 📂Auth
+ ┃ ┣ 📂Commons
+ ┃ ┃ ┣ 📂Button
+ ┃ ┃ ┣ 📂Cards
+ ┃ ┃ ┣ 📂Chip
+ ┃ ┃ ┣ 📂Dropdown
+ ┃ ┃ ┣ 📂Icon
+ ┃ ┃ ┣ 📂Input
+ ┃ ┃ ┣ 📂ModalContainer
+ ┃ ┃ ┣ 📂NavigationBar
+ ┃ ┃ ┗ 📂Profile
+ ┃ ┣ 📂Compare
+ ┃ ┗ 📂HomeComponents
+ ┣ 📂Constant
+ ┣ 📂Context
+ ┣ 📂Hooks
+ ┣ 📂Types
+ ┣ 📂Utils
+ ┗ 📂app
+ ┃ ┣ 📂api
+ ┃ ┃ ┗ 📂auth
+ ┃ ┃ ┃ ┗ 📂[...nextauth]
+ ┃ ┣ 📂compare
+ ┃ ┣ 📂input
+ ┃ ┣ 📂login
+ ┃ ┣ 📂signup
+ ┃ ┣ 📂userprofile
+ ┃ ┃ ┗ 📂[userprofileId]
+ ┃ ┣ 📜Providers.tsx
+ ┃ ┣ 📜SearchContext.tsx
+ ┃ ┣ 📜globals.css
+ ┃ ┣ 📜layout.tsx
+ ┃ ┗ 📜page.tsx
+```
