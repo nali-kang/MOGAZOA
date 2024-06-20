@@ -5,10 +5,12 @@ import Image from 'next/image';
 import Searchbar from './Searchbar';
 import Link from 'next/link';
 import Sidemenu from '@/Components/HomeComponents/Sidemenu';
+import { useCategory } from '@/app/CategoryContext';
 
 function ClientNavigationBar() {
   const [isSearchClicked, setIsSearchClicked] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { setSelectedCategory } = useCategory();
 
   const handleSearchClick = () => {
     setIsSearchClicked(!isSearchClicked);
@@ -16,6 +18,10 @@ function ClientNavigationBar() {
 
   const handleMenuClick = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleCategorySelect = (category: number | null) => {
+    setSelectedCategory(category);
   };
 
   useEffect(() => {
@@ -62,7 +68,7 @@ function ClientNavigationBar() {
       </nav>
       {isMenuOpen && (
         <div className="md:hidden">
-          <Sidemenu isMenuClick={isMenuOpen} onSelectCategory={(category) => console.log(category)} />
+          <Sidemenu isMenuClick={isMenuOpen} onSelectCategory={handleCategorySelect} />
         </div>
       )}
     </div>
