@@ -60,7 +60,11 @@ function ClientNavigationBar() {
         )}
         {isSearchClicked && <Searchbar />}
       </nav>
-      {isMenuOpen && <Sidemenu isMenuClick={isMenuOpen} onSelectCategory={(category) => console.log(category)} />}
+      {isMenuOpen && (
+        <div className="md:hidden">
+          <Sidemenu isMenuClick={isMenuOpen} onSelectCategory={(category) => console.log(category)} />
+        </div>
+      )}
     </div>
   );
 }
