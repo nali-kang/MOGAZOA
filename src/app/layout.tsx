@@ -1,13 +1,13 @@
+// src/app/layout.tsx
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import ModalProvider from '@/Context/ModalContext';
-import ModalContainer from '@/Components/Commons/ModalContainer/ModalContainer';
 import { SearchProvider } from './SearchContext';
 import QueryProvider from './Providers';
 import ClientSessionProvider from '@/Components/Auth/ClientSessionProvider';
 import ClientNavigationBar from '@/Components/Commons/NavigationBar/ClientNavigationBar';
-import ServerNavigationBar from '@/Components/Commons/NavigationBar/NavigationBar';
+import ServerNavigationBar from '@/Components/Commons/NavigationBar/Navigationbar';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -18,9 +18,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="ko">
       <body className={`${inter.className} bg-black1`}>

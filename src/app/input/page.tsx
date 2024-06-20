@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, FormProvider } from 'react-hook-form';
 import FileInputForm from '@/Components/Commons/Input/FileInputForm/FileInputForm';
 import InputForm from '@/Components/Commons/Input/InputForm/InputForm';
 
@@ -13,7 +13,7 @@ export interface IFormInputs {
 }
 
 export default function InputPage() {
-  const { register, watch } = useForm<IFormInputs>({
+  const methods = useForm<IFormInputs>({
     mode: 'onTouched',
     defaultValues: {
       review: '',
@@ -21,6 +21,8 @@ export default function InputPage() {
       bio: '',
     },
   });
+
+  const { register, watch } = methods;
 
   // 테스트: 입력 값이 변경될 때마다 콘솔에 로그를 찍는 함수
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -47,45 +49,54 @@ export default function InputPage() {
   }, [watchReview, watchCategory, watchBio, watchFile]);
 
   return (
-    <div className="flex flex-col bg-black2 p-3 gap-4">
-      <div className="flex gap-4">
-        <form>
-          <FileInputForm
-            className="w-[135px] h-[135px] "
-            register={register('file', { required: true })}
-            {...register('file', {
-              onChange: handleInputChange,
-            })}
-          />
-        </form>
-        <form className="flex flex-col justify-between w-[360px]">
-          <div>
-            <InputForm
-              className="w-[360px] h-[55px] text-xs"
-              placeholder="상품평 (상품 등록 여부를 확인해 주세요)"
-              type="text"
-              {...register('review', {
+    <FormProvider {...methods}>
+      <div className="flex flex-col bg-black2 p-3 gap-4">
+        <div className="flex gap-4">
+          <form>
+            <FileInputForm
+              className="w-[135px] h-[135px] "
+              register={register('file', { required: true })}
+              {...register('file', {
                 onChange: handleInputChange,
               })}
             />
-          </div>
-          <div>
+          </form>
+          <form className="flex flex-col justify-between w-[360px]">
+            <div>
+              <InputForm
+                className="w-[360px] h-[55px] text-xs"
+                placeholder="상품평 (상품 등록 여부를 확인해 주세요)"
+                type="text"
+                {...register('review', {
+                  onChange: handleInputChange,
+                })}
+              />
+            </div>
+            <div>
+              <InputForm
+                className="w-[360px] h-[55px] text-xs"
+                placeholder="카테고리 선택"
+                type="text"
+                {...register('category', {
+                  onChange: handleInputChange,
+                })}
+              />
+            </div>
+          </form>
+        </div>
+        <div>
+          <form>
             <InputForm
-              className="w-[360px] h-[55px] text-xs"
-              placeholder="카테고리 선택"
-              type="text"
-              {...register('category', {
+              className="w-[512px] h-[170px] text-xs"
+              placeholder="설명을 입력해주세요."
+              textarea
+              {...register('bio', {
                 onChange: handleInputChange,
               })}
             />
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
-      <div>
-        <form>
-          <InputForm className="w-[512px] h-[170px] text-xs" placeholder="설명을 입력해주세요." textarea />
-        </form>
-      </div>
-    </div>
+    </FormProvider>
   );
 }
