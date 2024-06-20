@@ -18,7 +18,6 @@ interface ProductFormInput {
 
 export default function AddProductModal() {
   const setModalState = useContext(ModalSetterContext);
-  // const { register, watch, setValue, handleSubmit } = useForm<ProductFormInput>({});
 
   const methods = useForm<ProductFormInput>({
     mode: 'onTouched',
