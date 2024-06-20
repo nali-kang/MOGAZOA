@@ -169,7 +169,7 @@ export default function SignUpForm() {
           </div>
           <div className="flex justify-center mt-8">
             <p className="text-gray1 text-center font-semibold text-[14px]">
-              간편하게 회원가입을 하고 싶으신가요?
+              간편하게
               <span
                 role="button"
                 tabIndex={0}

@@ -15,6 +15,7 @@ import { ReactComponent as GoogleIcon } from '@/public/Icons/google-icon.svg';
 import { ReactComponent as LargeLogoIcon } from '@/public/icons/large-logo-icon.svg';
 import { ReactComponent as CheckTrue } from '@/public/Icons/checkbox-true.svg';
 import { ReactComponent as CheckNone } from '@/public/Icons/checkbox-none.svg';
+import { ReactComponent as CloseIcon } from '@/public/Icons/close-icon.svg';
 import Cookies from 'js-cookie';
 import Link from 'next/link';
 
@@ -128,6 +129,9 @@ export default function LoginForm() {
     setRememberMe(!rememberMe);
   };
 
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   return (
     <FormProvider {...methods}>
       <div className="flex flex-col justify-center items-center h-screen">
@@ -138,7 +142,7 @@ export default function LoginForm() {
         </div>
         <div className="p-4 sm:p-8 w-[350px] sm:w-[500px]">
           <form onSubmit={methods.handleSubmit(onSubmit)} className="space-y-6">
-            <div>
+            <div className="relative">
               <InputForm
                 id="email"
                 placeholder="아이디"
@@ -146,10 +150,18 @@ export default function LoginForm() {
                 errorMessage={methods.formState.errors.email?.message}
                 type="email"
                 {...registerList.email}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 name="email"
               />
+              {email && (
+                <CloseIcon
+                  className="absolute right-2 top-1/2 transform -translate-y-1/2 cursor-pointer"
+                  onClick={() => setEmail('')}
+                />
+              )}
             </div>
-            <div>
+            <div className="relative">
               <InputForm
                 id="password"
                 placeholder="비밀번호"
@@ -157,8 +169,16 @@ export default function LoginForm() {
                 errorMessage={methods.formState.errors.password?.message}
                 type="password"
                 {...registerList.password}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 name="password"
               />
+              {password && (
+                <CloseIcon
+                  className="absolute right-2 top-1/2 transform -translate-y-1/2 cursor-pointer"
+                  onClick={() => setPassword('')}
+                />
+              )}
             </div>
             <div className="flex items-center justify-between">
               <div className="flex items-center mt-3 mb-3">
