@@ -5,7 +5,7 @@ import { useContext, useState } from 'react';
 import { ModalSetterContext } from '@/Context/ModalContext';
 import { useDeleteFollow, usePostFollow } from '@/Apis/Follow/useFollowService';
 import Link from 'next/link';
-import { QueryClient } from '@tanstack/react-query';
+import { QueryClient, useQueryClient } from '@tanstack/react-query';
 
 interface UserProfileCardProps {
   id: number;
@@ -14,26 +14,30 @@ interface UserProfileCardProps {
 function UserProfileCardLoggedIn({ id }: UserProfileCardProps) {
   const params = 0;
   const userId = id;
+  const cursor = 0;
   const payload = {
     userId: id,
   };
   const userMeInfo = useGetUserMe();
   const userMeId = userMeInfo.data.id;
   const usersInfo = useGetUserInfo(userId);
-  const FolloweesInfo = useGetUserFollowees(userId, params);
-  const FollowersInfo = useGetUserFollowers(userId, params);
-  const isFolloweesInfo = useGetUserFollowees(userMeId, params);
+  const FolloweesInfo = useGetUserFollowees(userId, cursor);
+  const FollowersInfo = useGetUserFollowers(userId, cursor);
+  const isFolloweesInfo = useGetUserFollowees(userMeId, cursor);
   const isCurrentUser = userMeInfo.data?.id == userId;
   const userInfo = isCurrentUser ? userMeInfo.data : usersInfo.data;
   const isFolloweeUser = isFolloweesInfo.data?.list.some(
     (followee: { followee: { id: number } }) => followee.followee.id == userId
   );
+
   const { image, nickname, description, followersCount, followeesCount } = userInfo;
   const [isFollower, setIsFollower] = useState<boolean>(isFolloweeUser);
-  const [Follower, setFollower] = useState<number>(followersCount);
   const setModalState = useContext(ModalSetterContext);
   const postFollow = usePostFollow(payload);
   const deleteFollow = useDeleteFollow(payload);
+  const queryClient = useQueryClient();
+  console.log(isFolloweesInfo);
+  console.log(isFollower);
 
   const deleteCookie = (name: string) => {
     document.cookie = `${name}=; Max-Age=-99999999; path=/`;
@@ -41,30 +45,31 @@ function UserProfileCardLoggedIn({ id }: UserProfileCardProps) {
 
   const handleLogout = () => {
     deleteCookie('token');
+    window.location.href = '/';
   };
-  const queryClient = new QueryClient();
 
   const handleDeleteFollow = () => {
     deleteFollow.mutate(payload);
     setIsFollower(false);
-    setFollower((prev) => prev - 1);
     queryClient.invalidateQueries({
-      queryKey: ['getUserFollowers'],
+      queryKey: ['getUserInfo', userId],
     });
   };
 
   const handlePostFollow = () => {
     postFollow.mutate(payload);
     setIsFollower(true);
-    setFollower((prev) => prev + 1);
     queryClient.invalidateQueries({
-      queryKey: ['getUserFollowers'],
+      queryKey: ['getUserInfo', userId],
     });
   };
 
   function handleFolloweeOnClick() {
     queryClient.invalidateQueries({
-      queryKey: ['getUserFollowees'],
+      queryKey: ['getUserFollowers', { userId, cursor }],
+    });
+    queryClient.invalidateQueries({
+      queryKey: ['getUserFollowees', { userId, cursor }],
     });
     setModalState({
       isOpen: true,
@@ -74,9 +79,13 @@ function UserProfileCardLoggedIn({ id }: UserProfileCardProps) {
       nickName: usersInfo.data.nickname,
     });
   }
+
   function handleFollowerOnClick() {
     queryClient.invalidateQueries({
-      queryKey: ['getUserFollowees'],
+      queryKey: ['getUserFollowees', { userId, cursor }],
+    });
+    queryClient.invalidateQueries({
+      queryKey: ['getUserFollowers', { userId, cursor }],
     });
     setModalState({
       isOpen: true,
@@ -126,7 +135,7 @@ function UserProfileCardLoggedIn({ id }: UserProfileCardProps) {
               className="font-['Pretendard'] text-white text-[1.125rem] desktop:text-[1.25rem] font-semibold bg-transparent border-none p-0 cursor-pointer"
               type="button"
             >
-              {Follower}
+              {followersCount}
             </button>
             <p className="font-['Pretendard'] text-gray2 text-[0.875rem] desktop:text-[1rem] font-normal">팔로워</p>
           </div>
@@ -151,15 +160,13 @@ function UserProfileCardLoggedIn({ id }: UserProfileCardProps) {
               >
                 프로필 편집
               </Button>
-              <Link href="/">
-                <Button
-                  onClick={handleLogout}
-                  className="w-[18.4375rem] h-[3.125rem] md:w-[28.0625rem] md:h-[3.4375rem] desktop:w-[18.75rem] desktop:h-[4.0625rem] font-['Pretendard'] text-md md:text-[1.125rem] leading-normal"
-                  color="tertiary"
-                >
-                  로그아웃
-                </Button>
-              </Link>
+              <Button
+                onClick={handleLogout}
+                className="w-[18.4375rem] h-[3.125rem] md:w-[28.0625rem] md:h-[3.4375rem] desktop:w-[18.75rem] desktop:h-[4.0625rem] font-['Pretendard'] text-md md:text-[1.125rem] leading-normal"
+                color="tertiary"
+              >
+                로그아웃
+              </Button>
             </>
           ) : (
             <div className="flex flex-col gap-[10px] md:gap-[15px] desktop:gap-[20px]">
