@@ -23,9 +23,9 @@ export default function ReviewRank() {
       <p className="text-white mb-[20px] lg:mb-[30px]">리뷰어 랭킹</p>
       <div className="flex overflow-x-auto gap-[15px]  lg:flex-col lg:overflow-hidden">
         {sortedReviewData.slice(0, 5).map((profile: UserProfile, ranking: number) => (
-          <div className="w-[300px] h-[36px] lg:h-[42px] lg:mb-[30px]">
+          <div key={profile.id} className="w-[300px] h-[36px] lg:h-[42px] lg:mb-[30px]">
             <Link href={`/userprofile/${profile.id}`}>
-              <RankProfile key={profile.id} profile={profile} rank={ranking + 1} />
+              <RankProfile profile={profile} rank={ranking + 1} />
             </Link>
           </div>
         ))}

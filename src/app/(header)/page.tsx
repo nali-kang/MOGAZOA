@@ -10,8 +10,8 @@ import ProductsCategory from '@/Components/HomeComponents/Products/ProductsCateg
 import ReviewRank from '@/Components/HomeComponents/ReviewRank';
 import Sidemenu from '@/Components/HomeComponents/Sidemenu';
 import { categories } from '@/Constant/Categories';
-import SearchContext from './SearchContext';
-import { useCategory } from './CategoryContext';
+import SearchContext from '../SearchContext';
+import { useCategory } from '../CategoryContext';
 
 export default function Home() {
   // const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
@@ -49,7 +49,7 @@ export default function Home() {
                 </div>
               </div>
             ) : selectedCategory !== null && !searchValue ? (
-              <div className="w-full ">
+              <div className="">
                 <div className="flex justify-between">
                   <h1 className="text-white text-[20px] font-semibold leading-7 mb-[30px] lg:text-[24px] lg:leading-none ">
                     {categories.find((category) => category.id === selectedCategory)?.name}의 모든상품
@@ -59,7 +59,7 @@ export default function Home() {
                 <ProductsCategory category={selectedCategory} sortingOption={sorting} />
               </div>
             ) : searchValue && selectedCategory === null ? (
-              <div className="w-full ">
+              <div className="">
                 <div className="flex justify-between">
                   <h1 className="text-white text-[20px] font-semibold leading-7 mb-[30px] lg:text-[24px] lg:leading-none ">
                     &quot;{searchValue}&quot;로 검색한 상품
@@ -69,7 +69,7 @@ export default function Home() {
                 <ProductsCategory searchValue={searchValue} sortingOption={sorting} />
               </div>
             ) : searchValue && selectedCategory !== null ? (
-              <div className="w-full ">
+              <div className="">
                 <div className="flex justify-between">
                   <h1 className="text-white text-[20px] font-semibold leading-7 mb-[30px] lg:text-[24px] lg:leading-none ">
                     {categories.find((category) => category.id === selectedCategory)?.name}의 &quot;{searchValue}
