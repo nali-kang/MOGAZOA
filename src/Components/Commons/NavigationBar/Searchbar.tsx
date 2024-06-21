@@ -33,7 +33,7 @@ function Searchbar() {
         className="w-[291px] h-[48px] md:w-[300px] md:h-[50px] xl:w-[400px] xl:h-[56px] pl-[54px] xl:pl-[64px] pr-3 border rounded-[28px] bg-scblack border-scblack focus:outline-none font-['Pretendard'] placeholder-gray1 text-sm xl:text-base font-normal text-white search"
       />
       <Image
-        src="/icons/search-icon.svg"
+        src="/Icons/search-icon.svg"
         alt="검색이미지"
         width={24}
         height={24}
