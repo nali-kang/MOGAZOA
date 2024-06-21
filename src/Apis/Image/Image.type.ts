@@ -1,7 +1,7 @@
 export type PostImagePayload = {
-  image: string;
+  image: any;
 };
 
 export type PostImageRes = {
-  url: string;
+  url: any;
 };

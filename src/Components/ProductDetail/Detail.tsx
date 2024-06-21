@@ -1,14 +1,23 @@
 import Image from 'next/image';
 import Button from '../Commons/Button';
 import CategoryChip from '../Commons/Chip/CategoryChip';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { ModalSetterContext } from '@/Context/ModalContext';
 import clip from '@/Utils/clip';
 import isMyProduct from '@/Utils/isMyProduct';
 import FavoriteProductButton from './FavoriteProductButton';
+import getUserInfoFromToken from '@/Utils/getUserInfoFromToken';
+import DetailSkeleton from '@/Utils/skeleton';
 
 export default function Detail({ data }: any) {
+  // 모달 상태
   const isOpenModal = useContext(ModalSetterContext);
+  // 내 정보
+  const [myInfo, setMyInfo] = useState<any>({ iat: 0, id: 0, iss: '', teamId: '' });
+
+  useEffect(() => {
+    setMyInfo(getUserInfoFromToken());
+  }, []);
 
   const handleReviewButton: React.MouseEventHandler<HTMLButtonElement> = () => {
     isOpenModal({ isOpen: true, type: 'createReview' });
@@ -26,7 +35,11 @@ export default function Detail({ data }: any) {
     });
   };
 
-  // console.log('바깥', data);
+  if (!myInfo) {
+    // 로딩 상태를 표시하거나 기본 UI를 반환
+    return <DetailSkeleton />;
+  }
+
   return (
     <div className="w-[335px] justify-center items-center gap-10 mt-[30px] mx-5 md:w-[684px] md:h-[285px] xl:w-[940px] md:flex">
       <Image
@@ -68,8 +81,7 @@ export default function Detail({ data }: any) {
             {data.description}
           </div>
         </div>
-        {/* {isMyProduct(data.writerId, 158) ? ( // TODO: 두번 째 파라미터값 내 아이디 넣기(쿠키로 내 아이디 저장해두고 가져올까?) */}
-        {true ? (
+        {isMyProduct(data.writerId, myInfo.id) ? (
           <div className="w-[335px] md:w-[384px] xl:w-[545px] gap-[15px] md:gap-2 md:flex">
             <Button
               onClick={handleReviewButton}

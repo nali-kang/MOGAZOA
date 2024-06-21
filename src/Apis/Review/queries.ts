@@ -12,11 +12,11 @@ const queryKeys = {
 const queryOptions = {
   postReview: (params: PostReview) => ({
     mutationKey: queryKeys.postReview(params),
-    mutationFn: () => ReviewService.postReview(params),
+    mutationFn: (prop: PostReview) => ReviewService.postReview(prop),
   }),
   deleteReview: (reviewId: number) => ({
     mutationKey: queryKeys.deleteReview(reviewId),
-    mutationFn: () => ReviewService.deleteReview(reviewId),
+    mutationFn: (prop: number) => ReviewService.deleteReview(prop),
   }),
   postReviewLike: (reviewId: number) => ({
     mutationKey: queryKeys.postReviewLike(reviewId),
