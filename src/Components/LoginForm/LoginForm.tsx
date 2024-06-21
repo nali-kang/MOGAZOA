@@ -115,7 +115,7 @@ export default function LoginForm() {
           }
 
           showToast('success', '로그인 되었습니다', '서비스를 이용해 주세요.');
-          router.push('/');
+          window.location.href = '/';
         },
         onError: (error: any) => {
           console.error('Login failed:', error);
@@ -184,7 +184,11 @@ export default function LoginForm() {
             <div className="flex items-center justify-between">
               <div className="flex items-center mt-3 mb-3">
                 <button type="button" onClick={toggleRememberMe} aria-pressed={rememberMe} className="cursor-pointer">
-                  {rememberMe ? <CheckTrue className="w-[18px] h-[18px]" /> : <CheckNone className="w-[18px] h-[18px]" />}
+                  {rememberMe ? (
+                    <CheckTrue className="w-[18px] h-[18px]" />
+                  ) : (
+                    <CheckNone className="w-[18px] h-[18px]" />
+                  )}
                 </button>
                 <button
                   type="button"
