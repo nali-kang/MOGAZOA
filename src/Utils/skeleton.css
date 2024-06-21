@@ -1,0 +1,16 @@
+@keyframes pulsate {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.skeleton-pulsate {
+  background-color: #aaa;
+  animation: pulse 1.5s ease-in-out infinite; /* Pulsating animation */
+}
