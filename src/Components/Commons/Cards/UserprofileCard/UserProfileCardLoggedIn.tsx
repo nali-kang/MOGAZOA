@@ -5,6 +5,7 @@ import { useContext, useState } from 'react';
 import { ModalSetterContext } from '@/Context/ModalContext';
 import { useDeleteFollow, usePostFollow } from '@/Apis/Follow/useFollowService';
 import Link from 'next/link';
+import { QueryClient } from '@tanstack/react-query';
 
 interface UserProfileCardProps {
   id: number;
@@ -41,20 +42,30 @@ function UserProfileCardLoggedIn({ id }: UserProfileCardProps) {
   const handleLogout = () => {
     deleteCookie('token');
   };
+  const queryClient = new QueryClient();
 
   const handleDeleteFollow = () => {
     deleteFollow.mutate(payload);
     setIsFollower(false);
     setFollower((prev) => prev - 1);
+    queryClient.invalidateQueries({
+      queryKey: ['getUserFollowers'],
+    });
   };
 
   const handlePostFollow = () => {
     postFollow.mutate(payload);
     setIsFollower(true);
     setFollower((prev) => prev + 1);
+    queryClient.invalidateQueries({
+      queryKey: ['getUserFollowers'],
+    });
   };
 
   function handleFolloweeOnClick() {
+    queryClient.invalidateQueries({
+      queryKey: ['getUserFollowees'],
+    });
     setModalState({
       isOpen: true,
       type: 'followee',
@@ -64,6 +75,9 @@ function UserProfileCardLoggedIn({ id }: UserProfileCardProps) {
     });
   }
   function handleFollowerOnClick() {
+    queryClient.invalidateQueries({
+      queryKey: ['getUserFollowees'],
+    });
     setModalState({
       isOpen: true,
       type: 'follower',
@@ -85,7 +99,7 @@ function UserProfileCardLoggedIn({ id }: UserProfileCardProps) {
       <div
         className={
           isCurrentUser
-            ? 'flex flex-col items-center gap-[1.875rem] desktop:gap-[2.5rem] px-[1.25rem] md:px-[1.875rem] desktop:px-[1.25rem] py-[1.875rem] desktop:pt-[2.5rem] desktop:pb-[1.875rem] w-[20.9375rem] md:w-[31.8125rem]  desktop:w-[21.25rem] desktop:h-[634px] bg-scblack border-black4 rounded-[0.75rem]'
+            ? 'flex flex-col items-center gap-[1.875rem] desktop:gap-[2rem] px-[1.25rem] md:px-[1.875rem] desktop:px-[1.25rem] py-[1.875rem] desktop:pt-[2.5rem] desktop:pb-[1.875rem] w-[20.9375rem] md:w-[31.8125rem]  desktop:w-[21.25rem] desktop:h-[634px] bg-scblack border-black4 rounded-[0.75rem]'
             : 'flex flex-col items-center gap-[1.875rem] desktop:gap-[2.5rem] px-[1.25rem] md:px-[1.875rem] desktop:px-[1.25rem] py-[1.875rem] desktop:pt-[2.5rem] desktop:pb-[1.875rem] w-[20.9375rem] md:w-[31.8125rem]  desktop:w-[21.25rem] desktop:h-[603px] bg-scblack border-black4 rounded-[0.75rem]'
         }
       >

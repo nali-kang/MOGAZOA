@@ -25,7 +25,7 @@ function UserFollows({ Followees, Followers }: UserFollowProps) {
           className="w-[48px] h-[48px] desktop:w-[52px] desktop:h-[52px] bg-center rounded-[30px]"
           style={{
             backgroundImage: image ? `url(${image})` : 'url(/images/basic-profileImg.svg)',
-            backgroundSize: 'contain',
+            backgroundSize: 'cover',
             backgroundRepeat: 'no-repeat',
           }}
         />
