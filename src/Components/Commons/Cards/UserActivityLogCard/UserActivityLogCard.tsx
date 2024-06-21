@@ -25,7 +25,7 @@ function UserActivityLogCard({ id }: UserActivityLogCardProps) {
             <div className="flex items-center gap-[0.3125rem]">
               <div
                 className="w-[1.25rem] h-[1.25rem] desktop:w-[1.5rem] desktop:h-[1.5rem] bg-cover bg-center"
-                style={{ backgroundImage: 'url(/icons/star-icon.svg)' }}
+                style={{ backgroundImage: 'url(/Icons/star-icon.svg)' }}
               />
               <p className="font-['Pretendard'] text-white text-[1.25rem] desktop:text-[1.5rem] font-[400] leading-nomal">
                 {Math.round(usersInfo.data.averageRating * 10) / 10}
@@ -39,7 +39,7 @@ function UserActivityLogCard({ id }: UserActivityLogCardProps) {
             <div className="flex items-center gap-[0.3125rem]">
               <div
                 className="w-[1.25rem] h-[1.25rem] desktop:w-[1.5rem] desktop:h-[1.5rem] bg-cover bg-center"
-                style={{ backgroundImage: 'url(/icons/bubble-icon.svg)' }}
+                style={{ backgroundImage: 'url(/Icons/bubble-icon.svg)' }}
               />
               <p className="font-['Pretendard'] text-white text-[1.25rem] desktop:text-[1.5rem] font-[400] leading-nomal">
                 {usersInfo.data.reviewCount}

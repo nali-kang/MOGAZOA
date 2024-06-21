@@ -18,7 +18,7 @@ export default function FolloweesModal() {
         className="w-[24px] h-[24px] md:w-[36px] md:h-[36px] desktop:w-[40px] desktop:h-[40px] absolute right-[15px] md:right-[20px] top-[15px] md:top-[20px] bg-center"
         aria-label="Close"
         style={{
-          backgroundImage: 'url(/icons/close-icon.svg)',
+          backgroundImage: 'url(/Icons/close-icon.svg)',
           backgroundSize: 'contain',
           backgroundRepeat: 'no-repeat',
         }}

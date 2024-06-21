@@ -45,9 +45,9 @@ export default function FavoriteProductButton({ productId, isFavorite }: any) {
   return (
     <button type="button" onClick={onClick}>
       {IsOn ? (
-        <Image src="/icons/save-icon.svg" alt="하트 아이콘" width={24} height={24} />
+        <Image src="/Icons/save-icon.svg" alt="하트 아이콘" width={24} height={24} />
       ) : (
-        <Image src="/icons/unsave-icon.svg" alt="하트 아이콘" width={24} height={24} />
+        <Image src="/Icons/unsave-icon.svg" alt="하트 아이콘" width={24} height={24} />
       )}
     </button>
   );

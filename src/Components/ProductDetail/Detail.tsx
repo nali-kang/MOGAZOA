@@ -59,14 +59,14 @@ export default function Detail({ data }: any) {
                   type="button"
                   className="p-[5px] bg-scblack rounded-md justify-center items-center flex w-6 h-6"
                 >
-                  <Image src="/icons/kakao-icon.svg" alt="카카오아이콘" width={11.67} height={10.77} />
+                  <Image src="/Icons/kakao-icon.svg" alt="카카오아이콘" width={11.67} height={10.77} />
                 </button>
                 <button
                   type="button"
                   className="p-[5px] bg-scblack rounded-md justify-center items-center flex w-6 h-6"
                   onClick={clip}
                 >
-                  <Image src="/icons/share-icon.svg" alt="공유 아이콘" width={11.67} height={10.77} />
+                  <Image src="/Icons/share-icon.svg" alt="공유 아이콘" width={11.67} height={10.77} />
                 </button>
               </div>
             </div>
