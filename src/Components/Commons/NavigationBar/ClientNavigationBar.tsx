@@ -41,9 +41,27 @@ function ClientNavigationBar() {
   return (
     <div>
       <nav className="flex items-center justify-between w-full h-[70px] bg-bgblack px-[20px] min-w-[375px] md:hidden">
+        <Image
+          src="/Icons/menu-icon.svg"
+          onClick={handleMenuClick}
+          className="cursor-pointer"
+          alt="메뉴이미지"
+          width={24}
+          height={24}
+        />
         {!isSearchClicked && (
           <>
-            <Link href="/"></Link>
+            <Link href="/">
+              <Image src="/Icons/large-logo-icon.svg" alt="로고이미지" width={112} height={16} />
+            </Link>
+            <Image
+              src="/Icons/search-icon.svg"
+              alt="검색이미지"
+              width={24}
+              height={24}
+              onClick={handleSearchClick}
+              className="cursor-pointer"
+            />
           </>
         )}
         {isSearchClicked && <Searchbar />}
