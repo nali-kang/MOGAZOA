@@ -8,8 +8,6 @@ export default async function ServerNavigationBar() {
   const isAuthorized = !!token;
   const firstTitle = isAuthorized ? '비교하기' : '로그인';
   const secondTitle = isAuthorized ? '내 프로필' : '회원가입';
-
-  console.log(firstTitle);
   return (
     <nav className="hidden md:flex items-center bg-bgblack h-[80px] px-[30px] xl:h-[100px] xl:px-[120px]">
       <Link

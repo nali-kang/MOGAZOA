@@ -6,8 +6,9 @@ import ProductsCategory from '@/Components/Commons/Cards/ProductCard/ProductCate
 import UserProfileCardLoggedIn from '@/Components/Commons/Cards/UserprofileCard/UserProfileCardLoggedIn';
 import Cookies from 'js-cookie';
 import UserProfileCardLoggedOut from '@/Components/Commons/Cards/UserprofileCard/UserProfileCardLoggedOut';
+import FloatingButton from '@/Components/Commons/Button/FloatingButton';
 
-function UserProfilePage(props) {
+function UserProfilePage(props: { params: { userprofileId: any } }) {
   const [selectProduct, setSelectProduct] = useState<'review' | 'created' | 'favorite'>('review');
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [token, setIsToken] = useState('');
@@ -59,6 +60,7 @@ function UserProfilePage(props) {
           <ProductsCategory category={selectProduct} id={id} />
         </div>
       </div>
+      <FloatingButton />
     </div>
   );
 }

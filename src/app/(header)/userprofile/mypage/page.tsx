@@ -5,6 +5,7 @@ import UserActivityLogCard from '@/Components/Commons/Cards/UserActivityLogCard/
 import ProductsCategory from '@/Components/Commons/Cards/ProductCard/ProductCategory';
 import { useGetUserMe } from '@/Apis/User/useUserService';
 import UserProfileCardLoggedIn from '@/Components/Commons/Cards/UserprofileCard/UserProfileCardLoggedIn';
+import FloatingButton from '@/Components/Commons/Button/FloatingButton';
 
 function UserMeProfilePage() {
   const [selectProduct, setSelectProduct] = useState<'review' | 'created' | 'favorite'>('review');
@@ -48,6 +49,7 @@ function UserMeProfilePage() {
           <ProductsCategory category={selectProduct} id={Id} />
         </div>
       </div>
+      <FloatingButton />
     </div>
   );
 }
