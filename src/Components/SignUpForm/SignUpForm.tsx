@@ -11,7 +11,7 @@ import Button from '@/Components/Commons/Button';
 import InputForm from '@/Components/Commons/Input/InputForm/InputForm';
 import { IFormInput, defaultLoginFormValues, validate } from '@/Constant/AuthForm.type';
 import AuthService from '@/Apis/Auth/Auth.service';
-import { ReactComponent as LargeLogoIcon } from '@/public/icons/large-logo-icon.svg';
+import { ReactComponent as LargeLogoIcon } from '@/public/Icons/large-logo-icon.svg';
 import { ReactComponent as CloseIcon } from '@/public/Icons/close-icon.svg';
 import Link from 'next/link';
 
