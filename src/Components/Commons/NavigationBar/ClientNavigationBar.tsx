@@ -25,7 +25,7 @@ function ClientNavigationBar() {
   };
 
   useEffect(() => {
-    const handleClickOutside = (event) => {
+    const handleClickOutside = (event: { target: any }) => {
       const { target } = event;
       if (!target.closest('.search')) {
         setIsSearchClicked(false);
