@@ -1,19 +1,19 @@
 import { usePostImage } from '@/Apis/Image/useImageService';
-import React, { useRef, useState } from 'react';
+import React, { ChangeEvent, EventHandler, useRef, useState } from 'react';
 
 function ImageUpload() {
   const [uploadImage, setUploadImage] = useState('');
   const image = uploadImage;
-  const fileInputRef = useRef('');
-  const postImage = usePostImage(image);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const postImage = usePostImage({ image });
   postImage.mutate(image);
 
   const handleImageClick = () => {
-    fileInputRef.current.click();
+    (fileInputRef.current as HTMLInputElement).click();
   };
 
-  const handleFileChange = (event: { target: { files: any[] } }) => {
-    const file = event.target.files[0];
+  const handleFileChange = (event: ChangeEvent) => {
+    const file = (event.target as HTMLInputElement).files?.[0];
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       setUploadImage(imageUrl);
