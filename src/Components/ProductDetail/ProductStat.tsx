@@ -5,9 +5,9 @@ export default function ProductStat({ data }: any) {
 
   const categoryMetric = [
     // TODO: 객체로 바꿔서 마법수 없애기
-    [data.categoryMetric.rating, '별점 평균', '/icons/star-icon.svg', data.rating, '점 ', '더 높아요!'],
-    [data.categoryMetric.favoriteCount, '찜', '/icons/save-icon.svg', data.favoriteCount, '개 ', '더 많아요!'],
-    [data.categoryMetric.reviewCount, '리뷰', '/icons/bubble-icon.svg', data.reviewCount, '개 ', '더 많아요!'],
+    [data.categoryMetric.rating, '별점 평균', '/Icons/star-icon.svg', data.rating, '점 ', '더 높아요!'],
+    [data.categoryMetric.favoriteCount, '찜', '/Icons/save-icon.svg', data.favoriteCount, '개 ', '더 많아요!'],
+    [data.categoryMetric.reviewCount, '리뷰', '/Icons/bubble-icon.svg', data.reviewCount, '개 ', '더 많아요!'],
   ];
   return (
     <div className="mb-14 md:flex md:items-center md:justify-center">

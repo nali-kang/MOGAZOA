@@ -30,7 +30,7 @@ function ImageUpload() {
             : 'w-[24px] h-[24px] desktop:w-[34px] desktop:h-[34px] bg-center cursor-pointer'
         }`}
         style={{
-          backgroundImage: uploadImage ? `url(${uploadImage})` : 'url(/icons/img-icon.svg)',
+          backgroundImage: uploadImage ? `url(${uploadImage})` : 'url(/Icons/img-icon.svg)',
           backgroundSize: 'cover',
           backgroundRepeat: 'no-repeat',
         }}

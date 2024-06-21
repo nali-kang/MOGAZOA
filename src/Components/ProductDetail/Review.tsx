@@ -100,7 +100,7 @@ export default function ProductReview({ productId }: any) {
                   type="button"
                   className="px-2.5 py-1.5 bg-zinc-800 rounded-[100px] border border-zinc-700 justify-center items-center gap-[5px] flex"
                 >
-                  <Image src="/icons/like-icon.svg" alt="따봉" width={14} height={14} className="md:w-5 md:h-5" />
+                  <Image src="/Icons/like-icon.svg" alt="따봉" width={14} height={14} className="md:w-5 md:h-5" />
                   <div className=" text-xs bg-gradient font-normal font-['Pretendard'] bg-clip-text text-transparent">
                     {review.likeCount}
                   </div>
