@@ -24,7 +24,7 @@ export default function ProductReview({ productId }: any) {
   // console.log(data);
   // API
   const deleteReview = useDeleteReview(0);
-  function handleDeleteButton(e: React.MouseEvent<HTMLButtonElement>) {
+  function handleDeleteButton(e: React.MouseEvent<HTMLImageElement>) {
     deleteReview.mutate(e.currentTarget.id);
     window.location.reload();
   }
