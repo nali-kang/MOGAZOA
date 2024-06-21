@@ -1,7 +1,7 @@
 import UserService from './User.service';
 import { PatchUserProps } from './User.type';
 
-const queryKeys = {
+export const queryKeys = {
   getUserMe: () => ['getUserMe'] as const,
   patchUserMe: (payload: PatchUserProps) => ['patchUserMe', payload] as const,
   getUserRanking: () => ['getUserRanking'] as const,
@@ -43,7 +43,7 @@ const queryOptions = {
     queryFn: () => UserService.getUserFavoriteProduct(userId, cursor),
   }),
   getUserFollowees: (userId: number, userMeId: number, cursor: number) => ({
-    queryKey: queryKeys.getUserFollowees(userId || userMeId, cursor),
+    queryKey: queryKeys.getUserFollowees(userId, cursor),
     queryFn: () => UserService.getUserFollowees(userId, userMeId, cursor),
   }),
   getUserFollowers: (userId: number, cursor: number) => ({

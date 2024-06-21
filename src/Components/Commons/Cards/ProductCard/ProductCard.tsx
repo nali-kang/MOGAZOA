@@ -12,7 +12,7 @@ function ProductCard({ product }: ProductProps) {
   const { id, reviewCount, favoriteCount, image, name, rating } = product;
 
   return (
-    <Link href={`/prdouct/${id}`}>
+    <Link href={`/product/${id}`}>
       <div className="flex flex-col p-[10px] justify-center relative bg-scblack border border-black3 min-w-[150px] desktop:min-w-[250px] w-full rounded-[8px] ">
         <div className="flex justify-center relative items-center overflow-hidden  w-full h-[98px] mb-[10px] md:mb-[20px]  md:h-[160px]  desktop:h=[200px] desktop:mb-[25px]">
           <Image src={image} alt="productImage" fill />

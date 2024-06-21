@@ -8,6 +8,8 @@ import { ModalSetterContext } from '@/Context/ModalContext';
 import { FormProvider, useForm } from 'react-hook-form';
 import { usePostProductItems } from '@/Apis/Product/useProduct.Service';
 import { usePostImage } from '@/Apis/Image/useImageService';
+import withReactContent from 'sweetalert2-react-content';
+import Swal from 'sweetalert2';
 
 interface ProductFormInput {
   productName: string;
@@ -18,6 +20,24 @@ interface ProductFormInput {
 
 export default function AddProductModal() {
   const setModalState = useContext(ModalSetterContext);
+  const MySwal = withReactContent(Swal);
+
+  const showToast = (type: 'success' | 'error', title: string, text: string) => {
+    MySwal.fire({
+      toast: true,
+      position: 'top',
+      icon: type,
+      title,
+      text,
+      showConfirmButton: false,
+      timer: 3000,
+      background: '#22222c',
+      color: '#fff',
+      customClass: {
+        popup: 'custom-toast',
+      },
+    });
+  };
 
   const methods = useForm<ProductFormInput>({
     mode: 'onTouched',
@@ -80,16 +100,21 @@ export default function AddProductModal() {
             // 상품 추가
             onSuccess: () => {
               setModalState({ isOpen: false, type: 'addProduct' });
+              showToast('success', '상품 업로드 성공!!', '해당 상품이 업로드 되었습니다.');
             },
             onError: (error: any) => {
               console.error(error);
+              showToast('error', '상품 업로드 실패..', error.message || '잠시 후 다시 시도해주세요.');
             },
           });
         },
         onError: (error: any) => {
           console.error(error);
+          showToast('error', '이미지 업로드 실패..', error.message || '잠시 후 다시 시도해주세요.');
         },
       });
+    } else {
+      showToast('error', '이미지가 없어요..', '상품 이미지를 업로드해주세요.');
     }
   };
 
