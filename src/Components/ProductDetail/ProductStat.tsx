@@ -4,6 +4,7 @@ export default function ProductStat({ data }: any) {
   // console.log(data);
 
   const categoryMetric = [
+    // TODO: 객체로 바꿔서 마법수 없애기
     [data.categoryMetric.rating, '별점 평균', '/icons/star-icon.svg', data.rating, '점 ', '더 높아요!'],
     [data.categoryMetric.favoriteCount, '찜', '/icons/save-icon.svg', data.favoriteCount, '개 ', '더 많아요!'],
     [data.categoryMetric.reviewCount, '리뷰', '/icons/bubble-icon.svg', data.reviewCount, '개 ', '더 많아요!'],
@@ -23,7 +24,7 @@ export default function ProductStat({ data }: any) {
               <div className="justify-start items-center gap-[5px] flex">
                 <Image src={item[2]} alt="별 아이콘" width={19} height={19} className="md:w-5 md:h-5" />
                 <div className="text-gray-400 te xt-base font-light font-['Pretendard'] md:text-xl xl:text-2xl">
-                  {item[0].toFixed(1)}
+                  {item[1] === '별점 평균' ? item[0].toFixed(1) : Math.round(item[0])}
                 </div>
               </div>
             </div>
@@ -32,11 +33,11 @@ export default function ProductStat({ data }: any) {
                 같은 카테고리의 제품들보다{' '}
               </span>
               <span className="text-gray-100 text-xs font-light font-['Pretendard'] leading-[18px]">
-                {item[3] - item[0].toFixed(1)}
+                {item[1] === '별점 평균' ? (item[3] - item[0]).toFixed(1) : Math.round(item[3] - item[0])}
                 {item[4]}
               </span>
               <span className="text-gray-500 text-xs font-light font-['Pretendard'] leading-[18px]">
-                {item[3] - item[0].toFixed(1) < 0 ? '더 낮아요' : item[5]}
+                {Math.round(item[3] - item[0]) < 0 ? '더 낮아요' : item[5]}
               </span>
             </div>
           </div>

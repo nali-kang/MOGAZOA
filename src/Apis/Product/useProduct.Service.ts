@@ -61,8 +61,8 @@ export function useGetProductDetail(productId: number) {
   name: string;
 }
  */
-export function usePatchProductModify(productId: number, payload: PostProductItems) {
-  const res = useMutation(queryOptions.patchProductModify(productId, payload));
+export function usePatchProduct(payload: PostProductItems, productId: number) {
+  const res = useMutation(queryOptions.patchProduct(productId, payload));
   return selectData<ProductDetailRes>(res);
 }
 
