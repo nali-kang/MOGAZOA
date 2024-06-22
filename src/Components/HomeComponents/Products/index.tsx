@@ -24,7 +24,7 @@ export default function Products({ product }: ProductProps) {
           <div className="relative w-[12px] h-[12px]">
             <Image src="/Icons/star-icon.svg" alt="productGrade" fill />
           </div>
-          <p className="text-gray2 text-[12px] font-light md:text-[14px] lg:text-[16px]">{rating}</p>
+          <p className="text-gray2 text-[12px] font-light md:text-[14px] lg:text-[16px]">{rating.toFixed(1)}</p>
         </div>
       </div>
     </div>
