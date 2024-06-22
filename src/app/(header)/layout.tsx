@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
 import { SearchProvider } from '../SearchContext';
 import { CategoryProvider } from '../CategoryContext';
 import ClientNavigationBar from '@/Components/Commons/NavigationBar/ClientNavigationBar';
