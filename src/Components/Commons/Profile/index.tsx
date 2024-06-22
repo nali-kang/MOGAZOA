@@ -9,8 +9,13 @@ export default function Profile({ profileUrl, className = 'w-[36px] h-[36px] lg:
   const InitialProfile = '/Images/img-profile1.svg';
 
   return (
-    <div className={`relative ${className}`}>
-      <Image src={profileUrl || InitialProfile} alt="profileImage" fill priority />
+    <div className={`relative rounded-full overflow-hidden ${className}`}>
+      <Image
+        src={profileUrl || InitialProfile}
+        alt="profileImage"
+        fill
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+      />
     </div>
   );
 }

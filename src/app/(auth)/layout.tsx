@@ -6,9 +6,5 @@ export const metadata: Metadata = {
 };
 
 export default function HeaderLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <html lang="ko">
-      <body className={`bg-black1`}>{children}</body>
-    </html>
-  );
+  return <div className="bg-black1">{children}</div>;
 }
