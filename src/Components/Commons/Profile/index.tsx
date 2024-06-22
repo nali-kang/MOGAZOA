@@ -10,7 +10,12 @@ export default function Profile({ profileUrl, className = 'w-[36px] h-[36px] lg:
 
   return (
     <div className={`relative rounded-full overflow-hidden ${className}`}>
-      <Image src={profileUrl || InitialProfile} alt="profileImage" fill priority />
+      <Image
+        src={profileUrl || InitialProfile}
+        alt="profileImage"
+        fill
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+      />
     </div>
   );
 }
