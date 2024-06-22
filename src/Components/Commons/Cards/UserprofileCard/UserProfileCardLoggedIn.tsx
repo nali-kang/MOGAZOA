@@ -6,6 +6,7 @@ import { ModalSetterContext } from '@/Context/ModalContext';
 import { useDeleteFollow, usePostFollow } from '@/Apis/Follow/useFollowService';
 import Link from 'next/link';
 import { QueryClient, useQueryClient } from '@tanstack/react-query';
+import { signOut } from 'next-auth/react';
 
 interface UserProfileCardProps {
   id: number;
@@ -18,6 +19,7 @@ function UserProfileCardLoggedIn({ id }: UserProfileCardProps) {
   const payload = {
     userId: id,
   };
+
   const userMeInfo = useGetUserMe();
   const userMeId = userMeInfo.data.id;
   const usersInfo = useGetUserInfo(userId);
@@ -45,7 +47,7 @@ function UserProfileCardLoggedIn({ id }: UserProfileCardProps) {
 
   const handleLogout = () => {
     deleteCookie('token');
-    window.location.href = '/';
+    signOut({ callbackUrl: '/', redirect: true });
   };
 
   const handleDeleteFollow = () => {
