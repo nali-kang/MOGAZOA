@@ -28,10 +28,10 @@ export default function Home() {
   return (
     <div>
       <div className="flex flex-col justify-center px-[20px] pt-[30px] gap-[25px] lg:gap-[30px] md:pt-[40px] md:flex-row lg:w-full lg:pt-[60px] lg:px-[100px] lg:grid lg:grid-cols-10">
-        <div className="col-span-2">
+        <div className="col-span-3">
           <Sidemenu onSelectCategory={setSelectedCategory} />
         </div>
-        <div className="flex flex-col lg:col-span-5 lg:gap-[60px]">
+        <div className="flex flex-col lg:col-span-4 lg:gap-[60px]">
           <div className="lg:grid lg:grid-col-3">
             <div className="lg:hidden">
               <ReviewRank />
