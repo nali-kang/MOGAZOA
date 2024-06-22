@@ -6,6 +6,7 @@ import { ModalSetterContext } from '@/Context/ModalContext';
 import { useDeleteFollow, usePostFollow } from '@/Apis/Follow/useFollowService';
 import Link from 'next/link';
 import { QueryClient, useQueryClient } from '@tanstack/react-query';
+import { signOut } from 'next-auth/react';
 
 interface UserProfileCardProps {
   id: number;
@@ -45,6 +46,7 @@ function UserProfileCardLoggedIn({ id }: UserProfileCardProps) {
 
   const handleLogout = () => {
     deleteCookie('token');
+    signOut();
     window.location.href = '/';
   };
 
