@@ -1,22 +1,20 @@
+import { Follow as UserFollow } from '@/Apis/User/User.type';
 import { ModalSetterContext } from '@/Context/ModalContext';
-import { UserFollowee, UserFollower } from '@/Types/UserProfile';
+import { Follow, UserFollowee, UserFollower } from '@/Types/UserProfile';
 import { useQueryClient } from '@tanstack/react-query';
 import Link from 'next/link';
 import { useContext } from 'react';
 
 interface UserFollowProps {
-  Followees: UserFollowee | undefined;
-  Followers: UserFollower | undefined;
+  Followees?: UserFollow;
+  Followers?: Follow;
 }
 
 function UserFollows({ Followees, Followers }: UserFollowProps) {
   const setModalState = useContext(ModalSetterContext);
   const queryClient = useQueryClient();
 
-  const followeeData = Followees?.followee;
-  const followerData = Followers?.follower;
-
-  const { id, image, nickname } = followeeData || followerData;
+  const { id, image, nickname } = Followees ?? Followers ?? { id: '', image: '', nickname: '' };
   const userId = id;
 
   function handleFolloweeCloseOnClick() {

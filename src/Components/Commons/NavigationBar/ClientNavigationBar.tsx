@@ -25,7 +25,7 @@ function ClientNavigationBar() {
   };
 
   useEffect(() => {
-    const handleClickOutside = (event) => {
+    const handleClickOutside = (event: { target: any }) => {
       const { target } = event;
       if (!target.closest('.search')) {
         setIsSearchClicked(false);
@@ -42,7 +42,7 @@ function ClientNavigationBar() {
     <div>
       <nav className="flex items-center justify-between w-full h-[70px] bg-bgblack px-[20px] min-w-[375px] md:hidden">
         <Image
-          src="/icons/menu-icon.svg"
+          src="/Icons/menu-icon.svg"
           onClick={handleMenuClick}
           className="cursor-pointer"
           alt="메뉴이미지"
@@ -52,10 +52,10 @@ function ClientNavigationBar() {
         {!isSearchClicked && (
           <>
             <Link href="/">
-              <Image src="/icons/large-logo-icon.svg" alt="로고이미지" width={112} height={16} />
+              <Image src="/Icons/large-logo-icon.svg" alt="로고이미지" width={112} height={16} />
             </Link>
             <Image
-              src="/icons/search-icon.svg"
+              src="/Icons/search-icon.svg"
               alt="검색이미지"
               width={24}
               height={24}
