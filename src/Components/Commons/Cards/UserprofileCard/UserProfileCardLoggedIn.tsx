@@ -50,9 +50,9 @@ function UserProfileCardLoggedIn({ id }: UserProfileCardProps) {
 
   const handleLogout = () => {
     deleteCookie('token');
-    signOut();
-    // window.location.href = '/';
-    router.push('/');
+    signOut().then(() => {
+      router.push('/');
+    });
   };
 
   const handleDeleteFollow = () => {
