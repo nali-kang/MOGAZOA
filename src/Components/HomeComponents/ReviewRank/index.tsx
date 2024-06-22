@@ -19,7 +19,7 @@ export default function ReviewRank() {
   const sortedReviewData = data.sort((a: UserProfile, b: UserProfile) => b.followersCount - a.followersCount);
 
   return (
-    <div className="flex flex-col mb-[60px] lg:border-l lg:border-scblack lg:pl-[30px] w-[530px] md:w-[550px] lg:w-[300px]">
+    <div className="flex flex-col mb-[60px] lg:border-l lg:border-scblack lg:pl-[30px] w-auto md:w-[550px] lg:w-[300px]">
       <p className="text-white mb-[20px] lg:mb-[30px]">리뷰어 랭킹</p>
       <div className="flex overflow-x-auto gap-[15px]  lg:flex-col lg:overflow-hidden">
         {sortedReviewData.slice(0, 5).map((profile: UserProfile, ranking: number) => (
