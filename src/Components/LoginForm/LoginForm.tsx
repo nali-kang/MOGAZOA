@@ -12,12 +12,12 @@ import InputForm from '@/Components/Commons/Input/InputForm/InputForm';
 import { IFormInput, defaultLoginFormValues, validate } from '@/Constant/AuthForm.type';
 import { ReactComponent as KaKaoIcon } from '@/public/Icons/kakao-icon.svg';
 import { ReactComponent as GoogleIcon } from '@/public/Icons/google-icon.svg';
-// import { ReactComponent as LargeLogoIcon } from '@/public/icons/large-logo-icon.svg';
+import { ReactComponent as LargeLogoIcon } from '@/public/icons/large-logo-icon.svg';
 import { ReactComponent as CheckTrue } from '@/public/Icons/checkbox-true.svg';
 import { ReactComponent as CheckNone } from '@/public/Icons/checkbox-none.svg';
 import { ReactComponent as CloseIcon } from '@/public/Icons/close-icon.svg';
 import Cookies from 'js-cookie';
-// import Link from 'next/link';
+import Link from 'next/link';
 
 const MySwal = withReactContent(Swal);
 
@@ -132,11 +132,11 @@ export default function LoginForm() {
   return (
     <FormProvider {...methods}>
       <div className="flex flex-col justify-center items-center h-screen">
-        {/* <div className="flex justify-center items-center w-[300px] sm:w-[400px] mt-[10px] sm:mt-[70px] mb-[70px] sm:mb-[90px]">
+        <div className="flex justify-center items-center w-[300px] sm:w-[400px] mt-[10px] sm:mt-[70px] mb-[70px] sm:mb-[90px]">
           <Link href="/">
             <LargeLogoIcon className="cursor-pointer" />
           </Link>
-        </div> */}
+        </div>
         <div className="p-4 sm:p-8 w-[350px] sm:w-[500px]">
           <form onSubmit={methods.handleSubmit(onSubmit)} className="space-y-6">
             <div className="relative">
