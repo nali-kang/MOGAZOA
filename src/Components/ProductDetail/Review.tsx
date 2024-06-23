@@ -25,8 +25,8 @@ export default function ProductReview({ productId }: any) {
 
   // 리뷰 삭제
   const deleteReview = useDeleteReview(0);
-  function handleDeleteButton(e: MouseEvent<HTMLImageElement>) {
-    deleteReview.mutate(e.currentTarget.id);
+  async function handleDeleteButton(e: MouseEvent<HTMLImageElement>) {
+    await deleteReview.mutate(e.currentTarget.id);
     window.location.reload();
   }
   // 내 아이디 확인
@@ -39,13 +39,13 @@ export default function ProductReview({ productId }: any) {
   const deleteReviewLike = useDeleteReviewLike(0);
   async function handleLikeClick(e: MouseEvent<HTMLButtonElement>) {
     await postReviewLike.mutate(e.currentTarget.id);
-    await queryClient.invalidateQueries();
-    await queryClient.refetchQueries();
+    await queryClient.invalidateQueries({ queryKey: ['getProductReviewList', { order: sorting, productId }] });
+    await queryClient.refetchQueries({ queryKey: ['getProductReviewList', { order: sorting, productId }] });
   }
   async function handleUnlikeClick(e: MouseEvent<HTMLButtonElement>) {
     await deleteReviewLike.mutate(e.currentTarget.id);
-    await queryClient.invalidateQueries();
-    await queryClient.refetchQueries();
+    await queryClient.invalidateQueries({ queryKey: ['getProductReviewList', { order: sorting, productId }] });
+    await queryClient.refetchQueries({ queryKey: ['getProductReviewList', { order: sorting, productId }] });
   }
 
   useEffect(() => {
