@@ -12,7 +12,7 @@ import InputForm from '@/Components/Commons/Input/InputForm/InputForm';
 import { IFormInput, defaultLoginFormValues, validate } from '@/Constant/AuthForm.type';
 import { ReactComponent as KaKaoIcon } from '@/public/Icons/kakao-icon.svg';
 import { ReactComponent as GoogleIcon } from '@/public/Icons/google-icon.svg';
-import { ReactComponent as LargeLogoIcon } from '@/public/icons/large-logo-icon.svg';
+import { ReactComponent as LargeLogoIcon } from '@/public/Icons/large-logo-icon.svg';
 import { ReactComponent as CheckTrue } from '@/public/Icons/checkbox-true.svg';
 import { ReactComponent as CheckNone } from '@/public/Icons/checkbox-none.svg';
 import { ReactComponent as CloseIcon } from '@/public/Icons/close-icon.svg';
@@ -115,7 +115,7 @@ export default function LoginForm() {
           }
 
           showToast('success', '로그인 되었습니다', '서비스를 이용해 주세요.');
-          router.push('/');
+          window.location.href = '/';
         },
         onError: (error: any) => {
           console.error('Login failed:', error);
@@ -184,7 +184,11 @@ export default function LoginForm() {
             <div className="flex items-center justify-between">
               <div className="flex items-center mt-3 mb-3">
                 <button type="button" onClick={toggleRememberMe} aria-pressed={rememberMe} className="cursor-pointer">
-                  {rememberMe ? <CheckTrue className="w-[18px] h-[18px]" /> : <CheckNone className="w-[18px] h-[18px]" />}
+                  {rememberMe ? (
+                    <CheckTrue className="w-[18px] h-[18px]" />
+                  ) : (
+                    <CheckNone className="w-[18px] h-[18px]" />
+                  )}
                 </button>
                 <button
                   type="button"

@@ -6,6 +6,7 @@ import { Dropdown, Option } from '../Commons/Dropdown/DropdownComponent';
 import { useGetProductReviewList } from '@/Apis/Product/useProduct.Service';
 import { Rating } from 'react-simple-star-rating';
 import { useRouter } from 'next/navigation';
+import { useDeleteReview } from '@/Apis/Review/useReview.Service';
 
 export default function ProductReview({ productId }: any) {
   const router = useRouter();
@@ -21,7 +22,12 @@ export default function ProductReview({ productId }: any) {
     { label: '좋아요순', value: 'like' },
   ];
   // console.log(data);
-
+  // API
+  const deleteReview = useDeleteReview(0);
+  function handleDeleteButton(e: React.MouseEvent<HTMLImageElement>) {
+    deleteReview.mutate(e.currentTarget.id);
+    window.location.reload();
+  }
   return (
     <div className="flex-col ">
       <div className="w-[375px] md:w-[726px] xl:w-[980px] flex justify-between items-center mb-7">
@@ -38,8 +44,17 @@ export default function ProductReview({ productId }: any) {
       {data.list.map((review: any) => (
         <div
           key={review.id}
-          className="w-[335px] md:w-[684px] xl:w-[940px] bg-scblack rounded-xl border border-zinc-700 justify-center mx-auto p-5 md:flex"
+          className="relative w-[335px] md:w-[684px] xl:w-[940px] bg-scblack rounded-xl border border-zinc-700 justify-center mx-auto p-5 md:flex mb-3"
         >
+          <Image
+            id={review.id}
+            src="/Icons/close-icon.svg"
+            alt="close-modal"
+            className="w-4 h-4 absolute right-4 top-4 hover:cursor-pointer"
+            width={10}
+            height={10}
+            onClick={handleDeleteButton}
+          />
           <div className="justify-start items-start gap-2.5 flex">
             <Image
               src={review.user.image || defaultUserImage}
@@ -85,7 +100,7 @@ export default function ProductReview({ productId }: any) {
                   type="button"
                   className="px-2.5 py-1.5 bg-zinc-800 rounded-[100px] border border-zinc-700 justify-center items-center gap-[5px] flex"
                 >
-                  <Image src="/icons/like-icon.svg" alt="따봉" width={14} height={14} className="md:w-5 md:h-5" />
+                  <Image src="/Icons/like-icon.svg" alt="따봉" width={14} height={14} className="md:w-5 md:h-5" />
                   <div className=" text-xs bg-gradient font-normal font-['Pretendard'] bg-clip-text text-transparent">
                     {review.likeCount}
                   </div>

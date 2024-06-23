@@ -16,6 +16,7 @@
     "@tanstack/react-query-devtools": "^5.45.1",
     "@types/react-modal": "^3.16.3",
     "axios": "^1.7.1",
+    "base-64": "^1.0.0",
     "classnames": "^2.5.1",
     "dotenv": "^16.4.5",
     "js-cookie": "^3.0.5",
@@ -27,6 +28,7 @@
     "react-dom": "^18",
     "react-easy-crop": "^5.0.7",
     "react-hook-form": "^7.51.4",
+    "react-loading-skeleton": "^3.4.0",
     "react-modal": "^3.16.1",
     "react-query": "^3.39.3",
     "react-router-dom": "^6.23.1",
@@ -37,6 +39,7 @@
   },
   "devDependencies": {
     "@svgr/webpack": "^8.1.0",
+    "@types/base-64": "^1.0.2",
     "@types/js-cookie": "^3.0.6",
     "@types/jsonwebtoken": "^9.0.6",
     "@types/node": "^20",

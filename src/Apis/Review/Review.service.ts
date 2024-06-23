@@ -7,8 +7,7 @@ import { PatchReview, PostReview } from './Review.type';
 class ReviewService {
   // 리뷰 생성
   postReview(params: PostReview) {
-    const config: AxiosRequestConfig = { params };
-    return apiRequestorToken.post(`/reviews`, config);
+    return apiRequestorToken.post(`/reviews`, params);
   }
 
   // 리뷰 삭제
