@@ -93,7 +93,6 @@ function CompareComponent({ compareFirst, compareSecond }: Props) {
   }, [compareFirst, compareSecond, params, compareState]);
   const changeDropdownValue = useCallback(
     (value: any, index: number) => {
-      console.log(selectOption1, selectOption2);
       const selectValue = value ? { label: option.find((e) => e.value === value)?.label ?? '', value } : undefined;
       if (index === 0) {
         setSelectOption1(selectValue);
