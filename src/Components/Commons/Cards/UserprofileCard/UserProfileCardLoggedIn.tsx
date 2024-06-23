@@ -7,7 +7,6 @@ import { useDeleteFollow, usePostFollow } from '@/Apis/Follow/useFollowService';
 import Link from 'next/link';
 import { QueryClient, useQueryClient } from '@tanstack/react-query';
 import { signOut } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
 
 interface UserProfileCardProps {
   id: number;
@@ -20,8 +19,6 @@ function UserProfileCardLoggedIn({ id }: UserProfileCardProps) {
   const payload = {
     userId: id,
   };
-
-  const router = useRouter();
 
   const userMeInfo = useGetUserMe();
   const userMeId = userMeInfo.data.id;
