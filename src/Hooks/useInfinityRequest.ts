@@ -3,15 +3,15 @@ import { useIntersectionObserver } from './useIntersectionObserver';
 import { useInfiniteQuery } from '@tanstack/react-query';
 
 interface requestType {
-  queryKey: string | string[];
+  infinityQueryKey: string | string[];
   requestParam: Record<string, any>;
   requestPath: string;
   method: string;
 }
 
-export const useInfinityRequest = ({ queryKey, requestParam, requestPath, method }: requestType) => {
+export const useInfinityRequest = ({ infinityQueryKey, requestParam, requestPath, method }: requestType) => {
   const { data, isLoading, fetchNextPage, hasNextPage, refetch } = useInfiniteQuery({
-    queryKey: typeof queryKey === 'string' ? [queryKey] : queryKey,
+    queryKey: typeof infinityQueryKey === 'string' ? [infinityQueryKey] : infinityQueryKey,
     queryFn: ({ pageParam }: { pageParam: any }) => {
       let path = requestPath;
       let apiBody = requestParam;
@@ -28,6 +28,7 @@ export const useInfinityRequest = ({ queryKey, requestParam, requestPath, method
     getNextPageParam: (lastPage: any) => {
       return lastPage?.data?.nextCursor;
     },
+    initialPageParam: undefined,
   });
 
   const { setTarget } = useIntersectionObserver({

@@ -72,7 +72,7 @@ function CompareComponent({ compareFirst, compareSecond }: Props) {
     setTarget: firstTarget,
     refetch: firstRefetch,
   } = useInfinityRequest({
-    queryKey: ['products', search1],
+    infinityQueryKey: ['products', search1],
     requestParam: { keyword: search1 ?? '' },
     requestPath: '/products',
     method: 'GET',
@@ -83,7 +83,7 @@ function CompareComponent({ compareFirst, compareSecond }: Props) {
     setTarget: secondTarget,
     refetch: secondRefetch,
   } = useInfinityRequest({
-    queryKey: ['products', search2],
+    infinityQueryKey: ['products', search2],
     requestParam: { keyword: search2 ?? '', order: undefined },
     requestPath: '/products',
     method: 'GET',
@@ -96,12 +96,12 @@ function CompareComponent({ compareFirst, compareSecond }: Props) {
 
   const optionFirst: Option[] = useMemo(() => {
     const productOption = firstData?.pages?.map((page: Record<string, any>) => page.data.list).flat();
-    return productOption?.map((e: any) => ({ label: e.name, value: e.id }));
+    return productOption?.map((e: any) => ({ label: e.name, value: e.id })) ?? [];
   }, [firstData]);
 
   const optionSecond: Option[] = useMemo(() => {
     const productOption = secondData?.pages?.map((page: Record<string, any>) => page.data.list).flat();
-    return productOption?.map((e: any) => ({ label: e.name, value: e.id }));
+    return productOption?.map((e: any) => ({ label: e.name, value: e.id })) ?? [];
   }, [secondData]);
 
   // 상품의 비교대상(별점, 리뷰, 찜)을 계산하여 점수 확인
