@@ -7,6 +7,7 @@ import { useCustomParam } from '@/Hooks/useCustomParams';
 import CompareTable from './CompareTable';
 import { useGetProductItems } from '@/Apis/Product/useProduct.Service';
 import { Compare } from '@/Types/CompareType';
+import { useInfinityRequest } from '@/Hooks/useInfinityRequest';
 
 /**
  * @type compareFirst 비교하기 첫번째 상품
@@ -55,14 +56,23 @@ function CompareComponent({ compareFirst, compareSecond }: Props) {
     const compareItem = localStorage.getItem('compare') && JSON.parse(localStorage.getItem('compare') ?? '[]');
     setSelectOption1(compareItem?.[0]);
     setSelectOption2(compareItem?.[1]);
+
+    fetchNextPage();
   }, []);
 
-  const productOption = useGetProductItems({});
+  const { data, fetchNextPage, setTarget } = useInfinityRequest({
+    queryKey: ['products'],
+    requestParam: {},
+    requestPath: '/products',
+    method: 'GET',
+  });
 
-  const option: Option[] = useMemo(
-    () => productOption?.data?.list?.map((e: any) => ({ label: e.name, value: e.id })),
-    [productOption]
-  );
+  const option: Option[] = useMemo(() => {
+    console.log(data);
+    const productOption = data?.pages?.map((page: Record<string, any>) => page.data.list).flat();
+    console.log(productOption);
+    return productOption?.map((e: any) => ({ label: e.name, value: e.id }));
+  }, [data]);
 
   // 상품의 비교대상(별점, 리뷰, 찜)을 계산하여 점수 확인
   // 양수일 경우 첫번째 상품 승, 음수일 경우 두번째 상품 승, 0점 무승부
@@ -93,7 +103,6 @@ function CompareComponent({ compareFirst, compareSecond }: Props) {
   }, [compareFirst, compareSecond, params, compareState]);
   const changeDropdownValue = useCallback(
     (value: any, index: number) => {
-      console.log(selectOption1, selectOption2);
       const selectValue = value ? { label: option.find((e) => e.value === value)?.label ?? '', value } : undefined;
       if (index === 0) {
         setSelectOption1(selectValue);
@@ -120,6 +129,7 @@ function CompareComponent({ compareFirst, compareSecond }: Props) {
               value={selectOption1?.value}
               onChange={(value: any) => changeDropdownValue(value, 0)}
               type="tag_first"
+              target={setTarget}
             />
           </div>
           <div className="flex flex-col gap-[0.62rem]">
@@ -133,6 +143,7 @@ function CompareComponent({ compareFirst, compareSecond }: Props) {
                 changeDropdownValue(value, 1);
               }}
               type="tag_second"
+              target={setTarget}
             />
           </div>
           <Button
