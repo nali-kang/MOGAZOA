@@ -9,6 +9,7 @@ export default function ProductStat({ data }: any) {
     [data.categoryMetric.favoriteCount, '찜', '/Icons/save-icon.svg', data.favoriteCount, '개 ', '더 많아요!'],
     [data.categoryMetric.reviewCount, '리뷰', '/Icons/bubble-icon.svg', data.reviewCount, '개 ', '더 많아요!'],
   ];
+
   return (
     <div className="mb-14 md:flex md:items-center md:justify-center">
       {categoryMetric.map((item) => (
@@ -24,7 +25,7 @@ export default function ProductStat({ data }: any) {
               <div className="justify-start items-center gap-[5px] flex">
                 <Image src={item[2]} alt="별 아이콘" width={19} height={19} className="md:w-5 md:h-5" />
                 <div className="text-gray-400 te xt-base font-light font-['Pretendard'] md:text-xl xl:text-2xl">
-                  {item[1] === '별점 평균' ? item[0].toFixed(1) : Math.round(item[0])}
+                  {item[3]}
                 </div>
               </div>
             </div>
