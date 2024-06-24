@@ -27,7 +27,7 @@ export default function Sidemenu({ onSelectCategory, isMenuClick }: SidemenuProp
   };
 
   return (
-    <div className="lg:flex lg:justify-center">
+    <div className="lg:flex lg:justify-end">
       <div className="hidden px-[20px] w-[150px] md:flex md:flex-col">
         <p className="text-[16px] text-white mb-[32px]">카테고리</p>
         <ul>

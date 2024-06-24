@@ -10,11 +10,12 @@ import { usePostProductItems } from '@/Apis/Product/useProduct.Service';
 import { usePostImage } from '@/Apis/Image/useImageService';
 import withReactContent from 'sweetalert2-react-content';
 import Swal from 'sweetalert2';
+import { transliterate } from 'transliteration';
 
 interface ProductFormInput {
   productName: string;
   productDescription: string;
-  imgUrl: string;
+  imgUrl: FileList;
   categoryId: number;
 }
 
@@ -44,7 +45,7 @@ export default function AddProductModal() {
     defaultValues: {
       productName: '',
       productDescription: '',
-      imgUrl: '',
+      imgUrl: new DataTransfer().files,
       categoryId: 1,
     },
   });
@@ -85,7 +86,10 @@ export default function AddProductModal() {
     const formData = new FormData();
     const file = data.imgUrl[0];
     if (file) {
-      formData.append('image', file);
+      const transliteratedFileName = transliterate(file.name);
+      const renamedFile = new File([file], transliteratedFileName, { type: file.type });
+      formData.append('image', renamedFile);
+
       postImgUrl.mutate(formData, {
         // 이미지 업로드
         onSuccess: (result: any) => {
