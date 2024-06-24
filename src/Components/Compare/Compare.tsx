@@ -5,7 +5,6 @@ import { DropdownSearch, Option } from '../Commons/Dropdown/DropdownComponent';
 import Button from '../Commons/Button';
 import { useCustomParam } from '@/Hooks/useCustomParams';
 import CompareTable from './CompareTable';
-import { useGetProductItems } from '@/Apis/Product/useProduct.Service';
 import { Compare } from '@/Types/CompareType';
 import { useInfinityRequest } from '@/Hooks/useInfinityRequest';
 
@@ -49,6 +48,11 @@ function CompareComponent({ compareFirst, compareSecond }: Props) {
   const [selectOption1, setSelectOption1] = useState<Option | undefined>();
   const [selectOption2, setSelectOption2] = useState<Option | undefined>();
 
+  // 검색 input value state
+  const [search1, setSearch1] = useState<string>('');
+  // 검색 input value state
+  const [search2, setSearch2] = useState<string>('');
+
   useEffect(() => {
     // SSR 방식으로 localStorage 접근 시 오류 발생
     // window 객체를 직접 호출하면 오류 발생
@@ -56,23 +60,49 @@ function CompareComponent({ compareFirst, compareSecond }: Props) {
     const compareItem = localStorage.getItem('compare') && JSON.parse(localStorage.getItem('compare') ?? '[]');
     setSelectOption1(compareItem?.[0]);
     setSelectOption2(compareItem?.[1]);
-
-    fetchNextPage();
   }, []);
 
-  const { data, fetchNextPage, setTarget } = useInfinityRequest({
-    queryKey: ['products'],
-    requestParam: {},
+  // useEffect(() => {
+  //   // value값이 변경될 경우 input값을 해당 option의 label로 변경하여 표출
+  //   setSearch(selectOption1?.label ?? '');
+  // }, [selectOption1]);
+
+  const {
+    data: firstData,
+    setTarget: firstTarget,
+    refetch: firstRefetch,
+  } = useInfinityRequest({
+    queryKey: ['products', search1],
+    requestParam: { keyword: search1 ?? '' },
     requestPath: '/products',
     method: 'GET',
   });
 
-  const option: Option[] = useMemo(() => {
-    console.log(data);
-    const productOption = data?.pages?.map((page: Record<string, any>) => page.data.list).flat();
-    console.log(productOption);
+  const {
+    data: secondData,
+    setTarget: secondTarget,
+    refetch: secondRefetch,
+  } = useInfinityRequest({
+    queryKey: ['products', search2],
+    requestParam: { keyword: search2 ?? '', order: undefined },
+    requestPath: '/products',
+    method: 'GET',
+  });
+
+  useEffect(() => {
+    firstRefetch();
+    secondRefetch();
+  }, [search1, search2]);
+
+  const optionFirst: Option[] = useMemo(() => {
+    const productOption = firstData?.pages?.map((page: Record<string, any>) => page.data.list).flat();
     return productOption?.map((e: any) => ({ label: e.name, value: e.id }));
-  }, [data]);
+  }, [firstData]);
+
+  const optionSecond: Option[] = useMemo(() => {
+    const productOption = secondData?.pages?.map((page: Record<string, any>) => page.data.list).flat();
+    return productOption?.map((e: any) => ({ label: e.name, value: e.id }));
+  }, [secondData]);
 
   // 상품의 비교대상(별점, 리뷰, 찜)을 계산하여 점수 확인
   // 양수일 경우 첫번째 상품 승, 음수일 경우 두번째 상품 승, 0점 무승부
@@ -101,8 +131,10 @@ function CompareComponent({ compareFirst, compareSecond }: Props) {
     }
     return 0;
   }, [compareFirst, compareSecond, params, compareState]);
+
   const changeDropdownValue = useCallback(
     (value: any, index: number) => {
+      const option = index === 1 ? optionSecond : optionFirst;
       const selectValue = value ? { label: option.find((e) => e.value === value)?.label ?? '', value } : undefined;
       if (index === 0) {
         setSelectOption1(selectValue);
@@ -113,7 +145,7 @@ function CompareComponent({ compareFirst, compareSecond }: Props) {
       }
       params.reset();
     },
-    [selectOption1, selectOption2]
+    [optionFirst, optionSecond, selectOption1, selectOption2]
   );
 
   return (
@@ -125,11 +157,13 @@ function CompareComponent({ compareFirst, compareSecond }: Props) {
               상품1
             </strong>
             <DropdownSearch
-              option={option}
-              value={selectOption1?.value}
+              option={optionFirst}
+              value={selectOption1}
               onChange={(value: any) => changeDropdownValue(value, 0)}
               type="tag_first"
-              target={setTarget}
+              target={firstTarget}
+              search={search1}
+              setSearch={setSearch1}
             />
           </div>
           <div className="flex flex-col gap-[0.62rem]">
@@ -137,13 +171,13 @@ function CompareComponent({ compareFirst, compareSecond }: Props) {
               상품2
             </strong>
             <DropdownSearch
-              option={option}
-              value={selectOption2?.value}
-              onChange={(value: number) => {
-                changeDropdownValue(value, 1);
-              }}
+              option={optionSecond}
+              value={selectOption2}
+              onChange={(value: number) => changeDropdownValue(value, 1)}
               type="tag_second"
-              target={setTarget}
+              target={secondTarget}
+              search={search2}
+              setSearch={setSearch2}
             />
           </div>
           <Button
