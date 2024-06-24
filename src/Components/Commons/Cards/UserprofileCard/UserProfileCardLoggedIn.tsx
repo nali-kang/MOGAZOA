@@ -1,7 +1,7 @@
 import { useGetUserMe, useGetUserInfo, useGetUserFollowees, useGetUserFollowers } from '@/Apis/User/useUserService';
 
 import Button from '../../Button';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { ModalSetterContext } from '@/Context/ModalContext';
 import { useDeleteFollow, usePostFollow } from '@/Apis/Follow/useFollowService';
 import { useQueryClient } from '@tanstack/react-query';
@@ -29,12 +29,16 @@ function UserProfileCardLoggedIn({ id }: UserProfileCardProps) {
     (followee: { followee: { id: number } }) => followee.followee.id == userId
   );
   const { image, nickname, description, followersCount, followeesCount } = userInfo;
-  const [followerInfo, setIsFollowerInfo] = useState<boolean>(isFolloweeUser);
+  const [isfollower, setIsFollower] = useState<boolean>(isFolloweeUser);
+  const [Follower, setFollower] = useState<number>(followersCount);
+
+  const [followerInfo, setFollowerInfo] = useState<any>(null);
+  const [followeeInfo, setFolloweeInfo] = useState<any>(null);
+
   const setModalState = useContext(ModalSetterContext);
   const postFollow = usePostFollow(payload);
   const deleteFollow = useDeleteFollow(payload);
   const queryClient = useQueryClient();
-
   const deleteCookie = (name: string) => {
     document.cookie = `${name}=; Max-Age=-99999999; path=/`;
   };
@@ -44,61 +48,47 @@ function UserProfileCardLoggedIn({ id }: UserProfileCardProps) {
   };
 
   const handleDeleteFollow = () => {
-    queryClient.invalidateQueries({
-      queryKey: ['getUserInfo', userId],
-    });
+    setIsFollower(false);
     deleteFollow.mutate(payload);
-    if (deleteFollow.data) {
-      const { isFollowing } = deleteFollow.data;
-      setIsFollowerInfo(isFollowing);
-      console.log(isFollowing);
-    }
+    setFollower((prev) => prev - 1);
   };
 
   const handlePostFollow = () => {
-    queryClient.invalidateQueries({
-      queryKey: ['getUserInfo', userId],
-    });
+    setIsFollower(true);
     postFollow.mutate(payload);
-    if (postFollow.data) {
-      const { isFollowing } = postFollow.data;
-      setIsFollowerInfo(isFollowing);
-      console.log(isFollowing);
-    }
+    setFollower((prev) => prev + 1);
   };
 
-  function handleFolloweeOnClick() {
-    queryClient.invalidateQueries({
+  async function handleFolloweeOnClick() {
+    await queryClient.invalidateQueries({
       queryKey: ['getUserFollowers', { userId, cursor }],
     });
-    queryClient.invalidateQueries({
-      queryKey: ['getUserFollowees', { userId, cursor }],
-    });
+    const updatedFolloweesInfo = queryClient.getQueryData(['getUserFollowees', { userId, cursor }]);
+    setFollowerInfo(updatedFolloweesInfo);
     setModalState({
       isOpen: true,
       type: 'followee',
-      FolloweesInfo: FolloweesInfo,
+      FolloweesInfo: updatedFolloweesInfo,
       userId: userId,
       nickName: usersInfo.data.nickname,
     });
   }
 
-  function handleFollowerOnClick() {
-    queryClient.invalidateQueries({
-      queryKey: ['getUserFollowees', { userId, cursor }],
-    });
-    queryClient.invalidateQueries({
+  async function handleFollowerOnClick() {
+    await queryClient.invalidateQueries({
       queryKey: ['getUserFollowers', { userId, cursor }],
     });
+
+    const updatedFollowersInfo = queryClient.getQueryData(['getUserFollowers', { userId, cursor }]);
+    setFollowerInfo(updatedFollowersInfo);
     setModalState({
       isOpen: true,
       type: 'follower',
-      FollowersInfo: FollowersInfo,
+      FollowersInfo: updatedFollowersInfo,
       userId: userId,
       nickName: usersInfo.data.nickname,
     });
   }
-
   function handleProfileEditOnClick() {
     setModalState({
       isOpen: true,
@@ -132,26 +122,26 @@ function UserProfileCardLoggedIn({ id }: UserProfileCardProps) {
           </p>
         </div>
         <div className="flex">
-          <div className="flex flex-col items-center gap-[0.625rem] pr-[3.75rem] md:pr-[5rem] desktop:pr-[3.125rem] border-r border-black4">
-            <button
-              onClick={handleFollowerOnClick}
-              className="font-['Pretendard'] text-white text-[1.125rem] desktop:text-[1.25rem] font-semibold bg-transparent border-none p-0 cursor-pointer"
-              type="button"
-            >
-              {followersCount}
-            </button>
+          <button
+            onClick={handleFollowerOnClick}
+            type="button"
+            className="flex flex-col items-center gap-[0.625rem] pr-[3.75rem] md:pr-[5rem] desktop:pr-[3.125rem] border-r border-black4"
+          >
+            <div className="font-['Pretendard'] text-white text-[1.125rem] desktop:text-[1.25rem] font-semibold bg-transparent border-none p-0 cursor-pointer">
+              {Follower}
+            </div>
             <p className="font-['Pretendard'] text-gray2 text-[0.875rem] desktop:text-[1rem] font-normal">팔로워</p>
-          </div>
-          <div className="flex flex-col items-center gap-[0.625rem] pl-[3.75rem] md:pl-[5rem] desktop:pl-[3.125rem]">
-            <button
-              onClick={handleFolloweeOnClick}
-              className="font-['Pretendard'] text-white text-[1.125rem] desktop:text-[1.25rem] font-semibold bg-transparent border-none p-0 cursor-pointer"
-              type="button"
-            >
+          </button>
+          <button
+            onClick={handleFolloweeOnClick}
+            type="button"
+            className="flex flex-col items-center gap-[0.625rem] pl-[3.75rem] md:pl-[5rem] desktop:pl-[3.125rem]"
+          >
+            <div className="font-['Pretendard'] text-white text-[1.125rem] desktop:text-[1.25rem] font-semibold bg-transparent border-none p-0 cursor-pointer">
               {followeesCount}
-            </button>
+            </div>
             <p className="font-['Pretendard'] text-gray2 text-[0.875rem] desktop:text-[1rem] font-normal">팔로잉</p>
-          </div>
+          </button>
         </div>
         <div className="flex flex-col gap-[10px] md:gap-[15px] desktop:gap-[20px]">
           {isCurrentUser ? (
@@ -173,7 +163,7 @@ function UserProfileCardLoggedIn({ id }: UserProfileCardProps) {
             </>
           ) : (
             <div className="flex flex-col gap-[10px] md:gap-[15px] desktop:gap-[20px]">
-              {followerInfo ? (
+              {isfollower ? (
                 <Button
                   onClick={handleDeleteFollow}
                   className="w-[18.4375rem] h-[3.125rem] md:w-[28.0625rem] md:h-[3.4375rem] desktop:w-[18.75rem] desktop:h-[4.0625rem] font-['Pretendard'] text-md desktop-text-[1.125rem]"

@@ -9,6 +9,7 @@ export default function FollowerModal() {
   function handleFollowerCloseOnClick() {
     setModalState({ isOpen: false, type: 'follower' });
   }
+
   return (
     <div className="w-[335px] h-[550px] md:w-[500px] md:h-[600px] desktop:w-[500px] desktop:h-[660px] relative pl-[20px] md:pl-[40px] pt-[40px] md:pt-[60px] pr-[18px] pb-[6px] md:pb-[16px] desktop-[17px] ">
       <button

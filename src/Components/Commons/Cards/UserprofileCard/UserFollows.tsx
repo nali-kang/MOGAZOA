@@ -11,26 +11,17 @@ interface UserFollowProps {
 
 function UserFollows({ Followees, Followers }: UserFollowProps) {
   const setModalState = useContext(ModalSetterContext);
-  const queryClient = useQueryClient();
+
   const { id, image, nickname } = Followees
     ? Followees?.followee ?? { id: '', image: '', nickname: '' }
     : Followers?.follower ?? { id: '', image: '', nickname: '' };
 
-  const userId = id;
   function handleFolloweeCloseOnClick() {
     setModalState({ isOpen: false, type: 'followee' });
   }
-  const handleGetUserMeInfo = () => {
-    queryClient.invalidateQueries({
-      queryKey: ['getUserMe'],
-    });
-    queryClient.invalidateQueries({
-      queryKey: ['getUserInfo', userId],
-    });
-  };
 
   return (
-    <Link href={`/userprofile/${id}`} onClick={handleGetUserMeInfo}>
+    <Link href={`/userprofile/${id}`}>
       <div onClick={handleFolloweeCloseOnClick} className="flex gap-[20px] items-center">
         <div
           className="w-[48px] h-[48px] desktop:w-[52px] desktop:h-[52px] bg-center rounded-[30px]"
