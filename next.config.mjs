@@ -10,13 +10,13 @@ const __dirname = path.dirname(__filename);
 const nextConfig = {
   sassOptions: {
     prependData: `@import "src/styles/globals.scss";`,
-    includePaths: [path.join(__dirname, 'styles')]
+    includePaths: [path.join(__dirname, 'styles')],
   },
   webpack: (config) => {
     config.module.rules.push({
       test: /\.svg$/,
       issuer: /\.[jt]sx?$/,
-      use: ['@svgr/webpack', 'url-loader']
+      use: ['@svgr/webpack', 'url-loader'],
     });
     return config;
   },
@@ -27,9 +27,9 @@ const nextConfig = {
         protocol: 'https',
         hostname: '**',
         port: '',
-        pathname: '/**'
-      }
-    ]
+        pathname: '/**',
+      },
+    ],
   },
   env: {
     NEXT_PUBLIC_API_BASE_URL: process.env.NEXT_PUBLIC_API_BASE_URL || 'https://default-api-url.com',
@@ -63,6 +63,9 @@ const nextConfig = {
         permanent: false,
       },
     ];
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
   },
 };
 

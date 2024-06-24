@@ -9,7 +9,7 @@ interface UserProfileCardProps {
   id: number;
 }
 
-function UserProfileCardLoggedIn({ id }: UserProfileCardProps) {
+function UserProfileCardLoggedOut({ id }: UserProfileCardProps) {
   const params = 0;
   const userId = id;
   const usersInfo = useGetUserInfo(userId);
@@ -18,7 +18,6 @@ function UserProfileCardLoggedIn({ id }: UserProfileCardProps) {
   const userInfo = usersInfo.data;
   const { image, nickname, description, followersCount, followeesCount } = userInfo;
   const setModalState = useContext(ModalSetterContext);
-  console.log(userInfo);
 
   function handleFolloweeOnClick() {
     setModalState({
@@ -94,4 +93,4 @@ function UserProfileCardLoggedIn({ id }: UserProfileCardProps) {
     </article>
   );
 }
-export default UserProfileCardLoggedIn;
+export default UserProfileCardLoggedOut;
