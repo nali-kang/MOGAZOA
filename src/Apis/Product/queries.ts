@@ -1,20 +1,19 @@
-import { BaseQuery } from '../common.type';
 import ProductService from './Product.service';
-import { GetProductProps, GetProductReviewList, PostProductItems } from './Product.type';
+import { GetProductProps, GetProductReviewList, OrderType, PostProductItems } from './Product.type';
 
 const queryKeys = {
   getProductItems: (params: GetProductProps) => ['getProductItems', params] as const,
   postProductItems: (payload: PostProductItems) => ['postProductItems', payload] as const,
   getProductDetail: (productId: number) => ['getProductDetail', productId] as const,
   patchProduct: (productId: number, payload: PostProductItems) => ['patchProduct', { productId, payload }] as const,
-  getProductReviewList: (productId: number, params?: GetProductReviewList) =>
-    ['getProductReviewList', { productId, params }] as const,
+  getProductReviewList: (productId: number, order: OrderType, params?: GetProductReviewList) =>
+    ['getProductReviewList', { productId, order, params }] as const,
   postProductFavorite: (productId: number) => ['postProductFavorite', productId] as const,
   deleteProductFavorite: (productId: number) => ['deleteProductFavorite', productId] as const,
 };
 
 const queryOptions = {
-  getProductItems: (params: BaseQuery) => ({
+  getProductItems: (params: GetProductProps) => ({
     queryKey: queryKeys.getProductItems(params),
     queryFn: () => ProductService.getProductItems(params),
   }),
@@ -31,9 +30,9 @@ const queryOptions = {
     mutationFn: ({ productId2, payload2 }: { productId2: number; payload2: PostProductItems }) =>
       ProductService.patchProduct({ productId2, payload2 }),
   }),
-  getProductReviewList: (productId: number, params?: GetProductReviewList) => ({
-    queryKey: queryKeys.getProductReviewList(productId, params),
-    queryFn: () => ProductService.getProductReviewList(productId, params),
+  getProductReviewList: (productId: number, order: OrderType, params?: GetProductReviewList) => ({
+    queryKey: queryKeys.getProductReviewList(productId, order, params),
+    queryFn: () => ProductService.getProductReviewList(productId, order, params),
   }),
   postProductFavorite: (productId: number) => ({
     mutationKey: queryKeys.postProductFavorite(productId),

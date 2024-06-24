@@ -31,7 +31,7 @@ export default function Home() {
         <div className="col-span-3">
           <Sidemenu onSelectCategory={setSelectedCategory} />
         </div>
-        <div className="flex flex-col lg:col-span-4 lg:gap-[60px]">
+        <div className="flex flex-col md-lg:col-span-5 lg:col-span-4 lg:gap-[60px]">
           <div className="lg:grid lg:grid-col-3">
             <div className="lg:hidden">
               <ReviewRank />

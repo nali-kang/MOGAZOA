@@ -1,15 +1,15 @@
 import { useContext } from 'react';
 import { ModalSetterContext, ModalStateContext } from '@/Context/ModalContext';
 import UserFollows from './UserFollows';
-import { Follow } from '@/Types/UserProfile';
+import { Follow, FollowProps } from '@/Types/UserProfile';
 
 export default function FollowerModal() {
   const modalState = useContext(ModalStateContext);
   const setModalState = useContext(ModalSetterContext);
-
   function handleFollowerCloseOnClick() {
     setModalState({ isOpen: false, type: 'follower' });
   }
+
   return (
     <div className="w-[335px] h-[550px] md:w-[500px] md:h-[600px] desktop:w-[500px] desktop:h-[660px] relative pl-[20px] md:pl-[40px] pt-[40px] md:pt-[60px] pr-[18px] pb-[6px] md:pb-[16px] desktop-[17px] ">
       <button
@@ -28,7 +28,7 @@ export default function FollowerModal() {
           {modalState.nickName}님을 팔로우하는 유저
         </h1>
         <div className="flex flex-col gap-[20px] desktop:gap-[25px] mt-[20px] md:mt-[40px] ">
-          {modalState.FollowersInfo?.data?.list.map((follower: Follow) => (
+          {modalState.FollowersInfo?.data?.list.map((follower: FollowProps) => (
             <UserFollows key={follower.id} Followers={follower} />
           ))}
         </div>

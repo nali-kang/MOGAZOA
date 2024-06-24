@@ -31,9 +31,10 @@ interface SearchProps extends Props {
    * search(default) - 검색이 가능한 기본 Dropdown
    */
   type?: 'tag_first' | 'tag_second' | 'search';
+  target: any;
 }
 
-export function DropdownSearch({ option, value, onChange, type = 'search' }: SearchProps) {
+export function DropdownSearch({ option, value, onChange, target, type = 'search' }: SearchProps) {
   // dropdown hook
   const { btnRef, isOpen, clickHandler } = useDropdown();
   // 검색 input value state
@@ -75,9 +76,9 @@ export function DropdownSearch({ option, value, onChange, type = 'search' }: Sea
    */
   const optionList = useMemo(() => {
     // 검색 후 뿌려주기 (filter)
-    const searchFilter = option.filter((e) => e.label.includes(search));
+    const searchFilter = option?.filter((e) => e.label.includes(search));
 
-    return searchFilter.length > 0 ? (
+    return searchFilter?.length > 0 ? (
       searchFilter.map((e) => (
         <button
           key={e.value}
@@ -147,9 +148,10 @@ export function DropdownSearch({ option, value, onChange, type = 'search' }: Sea
         <div className="relative">
           <div className="absolute top-2">
             <div
-              className={`${widthSize} state_menu__size_l flex flex-col items-start p-2 rounded-lg border border-[#353542] bg-[#252530]`}
+              className={`${widthSize} max-h-[200px] overflow-auto state_menu__size_l flex flex-col items-start p-2 rounded-lg border border-[#353542] bg-[#252530]`}
             >
               {optionList}
+              <div className="h-[1px]" ref={target}></div>
             </div>
           </div>
         </div>

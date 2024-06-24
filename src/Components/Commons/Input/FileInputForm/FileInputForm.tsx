@@ -61,7 +61,7 @@ const FileInputForm = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputFo
         {inputId && (
           <label
             htmlFor={inputId}
-            className="relative cursor-pointer rounded-lg border border-black4 bg-scblack aspect-video hover:border-blue"
+            className="relative w-full h-full cursor-pointer rounded-lg border border-black4 bg-scblack aspect-video hover:border-blue"
           >
             <div
               className={inputFieldContainerClasses}

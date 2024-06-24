@@ -11,10 +11,6 @@ export default function ProductDetailContainer() {
   const numberProductId = parseInt(productId, 10);
   const { data } = useGetProductDetail(numberProductId);
 
-  // const token = Cookies.get('token');
-  // console.log(token);
-
-  // console.log(data);
   return (
     <div className=" text-white flex-col justify-center">
       <Detail data={data} />

@@ -1,36 +1,27 @@
-import { Follow as UserFollow } from '@/Apis/User/User.type';
 import { ModalSetterContext } from '@/Context/ModalContext';
-import { Follow, UserFollowee, UserFollower } from '@/Types/UserProfile';
+import { FollowProps } from '@/Types/UserProfile';
 import { useQueryClient } from '@tanstack/react-query';
 import Link from 'next/link';
 import { useContext } from 'react';
 
 interface UserFollowProps {
-  Followees?: UserFollow;
-  Followers?: Follow;
+  Followees?: FollowProps;
+  Followers?: FollowProps;
 }
 
 function UserFollows({ Followees, Followers }: UserFollowProps) {
   const setModalState = useContext(ModalSetterContext);
-  const queryClient = useQueryClient();
 
-  const { id, image, nickname } = Followees ?? Followers ?? { id: '', image: '', nickname: '' };
-  const userId = id;
+  const { id, image, nickname } = Followees
+    ? Followees?.followee ?? { id: '', image: '', nickname: '' }
+    : Followers?.follower ?? { id: '', image: '', nickname: '' };
 
   function handleFolloweeCloseOnClick() {
     setModalState({ isOpen: false, type: 'followee' });
   }
-  const handleGetUserMeInfo = () => {
-    queryClient.invalidateQueries({
-      queryKey: ['getUserMe'],
-    });
-    queryClient.invalidateQueries({
-      queryKey: ['getUserInfo', userId],
-    });
-  };
 
   return (
-    <Link href={`/userprofile/${id}`} onClick={handleGetUserMeInfo}>
+    <Link href={`/userprofile/${id}`}>
       <div onClick={handleFolloweeCloseOnClick} className="flex gap-[20px] items-center">
         <div
           className="w-[48px] h-[48px] desktop:w-[52px] desktop:h-[52px] bg-center rounded-[30px]"

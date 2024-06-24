@@ -20,11 +20,11 @@ const queryOptions = {
   }),
   postReviewLike: (reviewId: number) => ({
     mutationKey: queryKeys.postReviewLike(reviewId),
-    mutationFn: () => ReviewService.postReviewLike(reviewId),
+    mutationFn: (id: number) => ReviewService.postReviewLike(id),
   }),
   deleteReviewLike: (reviewId: number) => ({
     mutationKey: queryKeys.deleteReviewLike(reviewId),
-    mutationFn: () => ReviewService.deleteReviewLike(reviewId),
+    mutationFn: (id: number) => ReviewService.deleteReviewLike(id),
   }),
   patchReview: (reviewId: number, params: PatchReview) => ({
     mutationKey: queryKeys.patchReview(reviewId, params),

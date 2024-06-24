@@ -1,9 +1,7 @@
-'use client';
-
 import { useDeleteProductFavorite, usePostProductFavorite } from '@/Apis/Product/useProduct.Service';
 import Image from 'next/image';
 import Cookies from 'js-cookie';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import { useQueryClient } from '@tanstack/react-query';
 
@@ -20,27 +18,26 @@ export default function FavoriteProductButton({ productId, isFavorite }: any) {
   const [IsOn, setIsOn] = useState(isFavorite);
   const queryClient = useQueryClient();
 
-  // const onPostSuccess = () => {
-  //   queryClient.invalidateQueries();
-  //   queryClient.setQueryData(['productDetail', productId], updatedProduct));
-  // };
-  // const onDeleteSuccess = () => {
-  //   queryClient.invalidateQueries();
-  // };
-
-  // console.log('버튼안', isFavorite);
+  // console.log('버튼안isFavorite', isFavorite);
   // console.log('버튼안IsOn', IsOn);
-  const onClick = () => {
+  const onClick = async () => {
     if (!token) {
       Swal.fire('찜 기능은 로그인이 필요합니다.');
     } else if (IsOn) {
-      deleteFavorite.mutate(productId, { onSuccess: queryClient.invalidateQueries() });
+      deleteFavorite.mutate(productId);
+      await queryClient.invalidateQueries();
+      await queryClient.refetchQueries();
       setIsOn(false);
     } else {
-      postFavorite.mutate(productId, { onSuccess: queryClient.invalidateQueries() });
+      postFavorite.mutate(productId);
+      await queryClient.invalidateQueries();
+      await queryClient.refetchQueries();
       setIsOn(true);
     }
   };
+  useEffect(() => {
+    setIsOn(isFavorite);
+  }, []);
 
   return (
     <button type="button" onClick={onClick}>
