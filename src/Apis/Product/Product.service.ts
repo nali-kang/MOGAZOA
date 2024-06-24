@@ -3,7 +3,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { AxiosRequestConfig } from 'axios';
 import { apiRequestor, apiRequestorToken } from '../requestor';
-import { GetProductProps, GetProductReviewList, PostProductItems } from './Product.type';
+import { GetProductProps, GetProductReviewList, OrderType, PostProductItems } from './Product.type';
 
 class ProductService {
   // 상품 목록 조회
@@ -19,7 +19,7 @@ class ProductService {
 
   // 상품 상세 조회
   getProductDetail(productId: number) {
-    return apiRequestor.get(`/products/${productId}`);
+    return apiRequestorToken.get(`/products/${productId}`);
   }
 
   // 상품 수정
@@ -29,9 +29,9 @@ class ProductService {
   }
 
   // 상품 리뷰 목록 조회
-  getProductReviewList(productId: number, params?: GetProductReviewList) {
+  getProductReviewList(productId: number, order: OrderType, params?: GetProductReviewList) {
     const config: AxiosRequestConfig = { params };
-    return apiRequestor.get(`products/${productId}/reviews`, config);
+    return apiRequestorToken.get(`products/${productId}/reviews?order=${order}`, config);
   }
 
   // 상품 찜하기(토큰)

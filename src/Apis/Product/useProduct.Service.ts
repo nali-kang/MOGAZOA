@@ -6,6 +6,7 @@ import {
   GetProductProps,
   GetProductReviewList,
   GetProductReviewListRes,
+  OrderType,
   PostProductItems,
   PostProductItemsRes,
   ProductDetailRes,
@@ -74,8 +75,8 @@ export function usePatchProduct(payload: PostProductItems, productId: number) {
   cursor?: number;
 }
  */
-export function useGetProductReviewList(productId: number, params?: GetProductReviewList) {
-  const res = useSuspenseQuery(queryOptions.getProductReviewList(productId, params));
+export function useGetProductReviewList(productId: number, order: OrderType = 'recent', params?: GetProductReviewList) {
+  const res = useSuspenseQuery(queryOptions.getProductReviewList(productId, order, params));
   return selectData<GetProductReviewListRes>(res);
 }
 

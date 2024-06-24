@@ -8,6 +8,8 @@ import isMyProduct from '@/Utils/isMyProduct';
 import FavoriteProductButton from './FavoriteProductButton';
 import getUserInfoFromToken from '@/Utils/getUserInfoFromToken';
 import DetailSkeleton from '@/Utils/skeleton';
+import Swal from 'sweetalert2';
+import Cookies from 'js-cookie';
 
 export default function Detail({ data }: any) {
   // 모달 상태
@@ -20,6 +22,11 @@ export default function Detail({ data }: any) {
   }, []);
 
   const handleReviewButton: React.MouseEventHandler<HTMLButtonElement> = () => {
+    const token = Cookies.get('token');
+    if (!token) {
+      Swal.fire('리뷰 작성은 로그인이 필요합니다.');
+      return null;
+    }
     isOpenModal({ isOpen: true, type: 'createReview' });
   };
   const handleEditButton: React.MouseEventHandler<HTMLButtonElement> = () => {

@@ -17,7 +17,7 @@ class ReviewService {
 
   // 리뷰 좋아요
   postReviewLike(reviewId: number) {
-    return apiRequestorToken.post(`/products/${reviewId}/like`);
+    return apiRequestorToken.post(`/reviews/${reviewId}/like`);
   }
 
   // 리뷰 좋아요 취소
