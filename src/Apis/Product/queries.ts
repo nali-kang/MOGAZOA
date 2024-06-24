@@ -1,4 +1,3 @@
-import { BaseQuery } from '../common.type';
 import ProductService from './Product.service';
 import { GetProductProps, GetProductReviewList, OrderType, PostProductItems } from './Product.type';
 
@@ -14,7 +13,7 @@ const queryKeys = {
 };
 
 const queryOptions = {
-  getProductItems: (params: BaseQuery) => ({
+  getProductItems: (params: GetProductProps) => ({
     queryKey: queryKeys.getProductItems(params),
     queryFn: () => ProductService.getProductItems(params),
   }),

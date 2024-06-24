@@ -9,12 +9,11 @@ import { usePostImage } from '@/Apis/Image/useImageService';
 import { ModalSetterContext } from '@/Context/ModalContext';
 import Button from '../Commons/Button';
 import { useParams } from 'next/navigation';
-import { transliterate } from 'transliteration';
 
 interface ProductFormInput {
   name: string;
   description: string;
-  image: FileList;
+  image: string;
   categoryId: number;
 }
 
@@ -29,7 +28,7 @@ export default function EditProductModal() {
       categoryId: initialData.categoryId,
       name: initialData.name,
       description: initialData.description,
-      image: new DataTransfer().files,
+      image: initialData.image,
     },
     numberProductId
   );
@@ -84,9 +83,7 @@ export default function EditProductModal() {
     console.log(formData);
 
     if (file) {
-      const transliteratedFileName = transliterate(file.name);
-      const renamedFile = new File([file], transliteratedFileName, { type: file.type });
-      formData.append('image', renamedFile);
+      formData.append('image', file);
       postImgUrl.mutate(formData, {
         // 이미지 업로드
         onSuccess: (result: any) => {
