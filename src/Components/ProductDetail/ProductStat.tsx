@@ -25,11 +25,11 @@ export default function ProductStat({ data }: any) {
               <div className="justify-start items-center gap-[5px] flex">
                 <Image src={item[2]} alt="별 아이콘" width={19} height={19} className="md:w-5 md:h-5" />
                 <div className="text-gray-400 te xt-base font-light font-['Pretendard'] md:text-xl xl:text-2xl">
-                  {item[3]}
+                  {item[1] === '별점 평균' ? item[3].toFixed(1) : item[3]}
                 </div>
               </div>
             </div>
-            <div className="md:text-center md:w-[160px]">
+            <div className="md:text-center md:w-[140px]">
               <span className="text-gray-500 text-xs font-light font-['Pretendard'] leading-[18px]">
                 같은 카테고리의 제품들보다{' '}
               </span>
