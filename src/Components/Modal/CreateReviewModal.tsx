@@ -14,10 +14,11 @@ import { useParams, useRouter } from 'next/navigation';
 import { useGetProductDetail } from '@/Apis/Product/useProduct.Service';
 import { usePostReview } from '@/Apis/Review/useReview.Service';
 import { QueryClient } from '@tanstack/react-query';
+import { transliterate } from 'transliteration';
 
 interface ProductReviewFormInput {
   productId: number;
-  images: string[];
+  images: FileList;
   content: string;
   rating: number;
 }
@@ -41,6 +42,9 @@ export default function CreateReviewModal() {
   // 폼 관련
   const methods = useForm<ProductReviewFormInput>({
     mode: 'onTouched',
+    defaultValues: {
+      images: new DataTransfer().files,
+    },
   });
   const { handleSubmit } = methods;
 
@@ -89,7 +93,9 @@ export default function CreateReviewModal() {
     const formData = new FormData();
     const file = data.images[0];
     if (file) {
-      formData.append('image', file);
+      const transliteratedFileName = transliterate(file.name);
+      const renamedFile = new File([file], transliteratedFileName, { type: file.type });
+      formData.append('image', renamedFile);
       postImgUrl.mutate(formData, {
         onSuccess: (result: any) => {
           const ImageUrl = result.data.url;

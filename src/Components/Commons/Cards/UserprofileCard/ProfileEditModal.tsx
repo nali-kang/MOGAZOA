@@ -5,11 +5,12 @@ import { usePatchUserMe } from '@/Apis/User/useUserService';
 import { usePostImage } from '@/Apis/Image/useImageService';
 import FileInputForm from '../../Input/FileInputForm/FileInputForm';
 import { FormProvider, useForm } from 'react-hook-form';
+import { transliterate } from 'transliteration';
 
 interface ProfileEditProps {
   description: string;
   nickname: string;
-  imgUrl: string;
+  imgUrl: FileList;
 }
 
 export default function ProfileEditModal() {
@@ -26,7 +27,7 @@ export default function ProfileEditModal() {
   const methods = useForm<ProfileEditProps>({
     mode: 'onTouched',
     defaultValues: {
-      imgUrl: '',
+      imgUrl: new DataTransfer().files,
     },
   });
   const { handleSubmit } = methods;
@@ -39,7 +40,10 @@ export default function ProfileEditModal() {
     const formData = new FormData();
     const file = data.imgUrl[0];
     if (file) {
-      formData.append('image', file);
+      const transliteratedFileName = transliterate(file.name);
+      const renamedFile = new File([file], transliteratedFileName, { type: file.type });
+      formData.append('image', renamedFile);
+
       postImgUrl.mutate(formData, {
         onSuccess: (result: any) => {
           const ImageUrl = result.data.url;
