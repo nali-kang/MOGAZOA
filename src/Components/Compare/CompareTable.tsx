@@ -38,8 +38,8 @@ function CompareTable({ compareFirst, compareSecond }: Props) {
               className="h-[2.96rem] md:h-[5rem] grid grid-cols-4 content-center justify-items-center"
             >
               <p>{compare.label}</p>
-              <p className="text-white">{first}</p>
-              <p className="text-white">{second}</p>
+              <p className="text-white">{parseFloat(first.toFixed(1))}</p>
+              <p className="text-white">{parseFloat(second.toFixed(1))}</p>
               <p className="text-white">
                 {first > second && <span className="text-[#05D58B]">상품 1 승리</span>}
                 {first < second && <span className="text-[#FF2F9F]">상품 2 승리</span>}

@@ -32,19 +32,13 @@ interface SearchProps extends Props {
    */
   type?: 'tag_first' | 'tag_second' | 'search';
   target: any;
+  search: string;
+  setSearch: any;
 }
 
-export function DropdownSearch({ option, value, onChange, target, type = 'search' }: SearchProps) {
+export function DropdownSearch({ option, value, onChange, search, setSearch, target, type = 'search' }: SearchProps) {
   // dropdown hook
   const { btnRef, isOpen, clickHandler } = useDropdown();
-  // 검색 input value state
-  const [search, setSearch] = useState<string>('');
-
-  useEffect(() => {
-    // value값이 변경될 경우 input값을 해당 option의 label로 변경하여 표출
-    setSearch(option?.find((e) => e.value === value)?.label ?? '');
-  }, [value]);
-
   /**
    * type 별 반응형 (width)
    */
@@ -75,11 +69,8 @@ export function DropdownSearch({ option, value, onChange, target, type = 'search
    * input에 검색한 내용을 filtering 하기 위해 사용
    */
   const optionList = useMemo(() => {
-    // 검색 후 뿌려주기 (filter)
-    const searchFilter = option?.filter((e) => e.label.includes(search));
-
-    return searchFilter?.length > 0 ? (
-      searchFilter.map((e) => (
+    return option?.length > 0 ? (
+      option.map((e) => (
         <button
           key={e.value}
           type="button"
@@ -97,7 +88,7 @@ export function DropdownSearch({ option, value, onChange, target, type = 'search
         검색 결과가 없습니다.
       </div>
     );
-  }, [search, onChange]);
+  }, [option, search, onChange]);
 
   return (
     <div>
@@ -106,13 +97,13 @@ export function DropdownSearch({ option, value, onChange, target, type = 'search
           isOpen ? 'border-[#5097fa] bg-[#252530]' : 'border-[#353542] bg-[#252530]'
         } flex justify-between items-center rounded-lg border `}
       >
-        {value && type.includes('tag') ? (
+        {value?.value && type.includes('tag') ? (
           <div className={`${type === 'tag_first' ? 'bg-[#05d58b]/[.10]' : 'bg-[#ff2f9f]/[.10]'} p-2 rounded-md`}>
             <div className="flex items-center justify-start gap-2.5">
               <div
                 className={`${type === 'tag_first' ? 'text-[#05d58b]' : 'text-[#ff2f9f]'} text-sm md:text-base font-['Pretendard'] leading-[normal]`}
               >
-                {option.find((e) => e.value === value)?.label}
+                {value?.label ?? ''}
               </div>
               <button
                 type="button"

@@ -16,8 +16,8 @@ interface ProductsCategoryProps {
 export default function ProductsCategory({ category, order, sortingOption, searchValue }: ProductsCategoryProps) {
   // const params = { keyword: searchValue, category, order };
   // const { data } = useGetProductItems(params);
-  const { data, fetchNextPage, setTarget } = useInfinityRequest({
-    queryKey: ['products'],
+  const { data, fetchNextPage, setTarget, refetch } = useInfinityRequest({
+    infinityQueryKey: ['products'],
     requestParam: {
       ...(searchValue && { keyword: searchValue }),
       ...(category !== undefined && { category }),
@@ -30,6 +30,10 @@ export default function ProductsCategory({ category, order, sortingOption, searc
   useEffect(() => {
     fetchNextPage();
   }, []);
+
+  useEffect(() => {
+    refetch();
+  }, [searchValue]);
 
   let productList: any = useMemo(() => data?.pages?.map((page: Record<string, any>) => page.data.list).flat(), [data]);
 
