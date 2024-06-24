@@ -14,7 +14,7 @@ import { transliterate } from 'transliteration';
 interface ProductFormInput {
   name: string;
   description: string;
-  image: string | FileList;
+  image: FileList;
   categoryId: number;
 }
 
@@ -29,7 +29,7 @@ export default function EditProductModal() {
       categoryId: initialData.categoryId,
       name: initialData.name,
       description: initialData.description,
-      image: initialData.image || new DataTransfer().files,
+      image: new DataTransfer().files,
     },
     numberProductId
   );
