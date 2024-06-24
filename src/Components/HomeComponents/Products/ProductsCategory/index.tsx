@@ -2,7 +2,6 @@ import sortingOptions from '@/Constant/SortingOption';
 import { ProductType } from '@/Types/ProductType';
 
 import Products from '..';
-import { useGetProductItems } from '@/Apis/Product/useProduct.Service';
 import Link from 'next/link';
 import { useInfinityRequest } from '@/Hooks/useInfinityRequest';
 import { useEffect, useMemo } from 'react';
