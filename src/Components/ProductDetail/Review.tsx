@@ -21,7 +21,7 @@ export default function ProductReview({ productId }: any) {
     { label: '좋아요순', value: 'likeCount' },
   ];
   // TODO: 유저 프로필 기본 이미지 설정
-  const defaultUserImage = '/images/apple-watch.svg';
+  const defaultUserImage = '/Images/basic-profileImg.svg';
 
   // 리뷰 삭제
   const deleteReview = useDeleteReview(0);
@@ -89,7 +89,7 @@ export default function ProductReview({ productId }: any) {
               width={42}
               height={42}
               className="bg-zinc-300 rounded-full w-[42px] h-[42px] hover:cursor-pointer mt-[3px]"
-              onClick={() => router.push(`/user/${review.userId}`)}
+              onClick={() => router.push(`/userprofile/${review.userId}`)}
             />
 
             <div className="flex-col justify-start items-start inline-flex w-40">
