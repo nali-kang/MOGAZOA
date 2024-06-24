@@ -58,4 +58,5 @@ export function usePostFollow(payload: FollowPayload) {
 export function useDeleteFollow(payload: FollowPayload) {
   const res = useMutation(queryOptions.deleteFollow(payload));
   return selectData<FollowRes>(res);
+  console.log(selectData);
 }

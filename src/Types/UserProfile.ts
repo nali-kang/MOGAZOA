@@ -9,18 +9,33 @@ export interface UserProfile {
   reviewCount: number;
   followersCount: number;
 }
-export interface UserFollowee {
-  followee: Follow ;
-}
-export interface UserFollower {
-  follower: Follow ;
-}
 export interface Follow {
-  updatedAt: string;
-  createdAt: string;
+  updatedAt: Date;
+  createdAt: Date;
   teamId: string;
-  image: string;
+  image: string | null;
   description: string;
   nickname: string;
+}
+
+export interface FollowProps {
   id: number;
+  followee: {
+    updatedAt: Date;
+    createdAt: Date;
+    teamId: string;
+    image: string | null;
+    description: string;
+    nickname: string;
+    id: number;
+  };
+  follower: {
+    updatedAt: Date;
+    createdAt: Date;
+    teamId: string;
+    image: string | null;
+    description: string;
+    nickname: string;
+    id: number;
+  };
 }

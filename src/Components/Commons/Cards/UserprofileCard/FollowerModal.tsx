@@ -1,12 +1,11 @@
 import { useContext } from 'react';
 import { ModalSetterContext, ModalStateContext } from '@/Context/ModalContext';
 import UserFollows from './UserFollows';
-import { Follow } from '@/Types/UserProfile';
+import { Follow, FollowProps } from '@/Types/UserProfile';
 
 export default function FollowerModal() {
   const modalState = useContext(ModalStateContext);
   const setModalState = useContext(ModalSetterContext);
-
   function handleFollowerCloseOnClick() {
     setModalState({ isOpen: false, type: 'follower' });
   }
@@ -28,7 +27,7 @@ export default function FollowerModal() {
           {modalState.nickName}님을 팔로우하는 유저
         </h1>
         <div className="flex flex-col gap-[20px] desktop:gap-[25px] mt-[20px] md:mt-[40px] ">
-          {modalState.FollowersInfo?.data?.list.map((follower: Follow) => (
+          {modalState.FollowersInfo?.data?.list.map((follower: FollowProps) => (
             <UserFollows key={follower.id} Followers={follower} />
           ))}
         </div>

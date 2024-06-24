@@ -4,8 +4,7 @@ import Button from '../../Button';
 import { useContext, useState } from 'react';
 import { ModalSetterContext } from '@/Context/ModalContext';
 import { useDeleteFollow, usePostFollow } from '@/Apis/Follow/useFollowService';
-import Link from 'next/link';
-import { QueryClient, useQueryClient } from '@tanstack/react-query';
+import { useQueryClient } from '@tanstack/react-query';
 import { signOut } from 'next-auth/react';
 
 interface UserProfileCardProps {
@@ -13,13 +12,11 @@ interface UserProfileCardProps {
 }
 
 function UserProfileCardLoggedIn({ id }: UserProfileCardProps) {
-  const params = 0;
   const userId = id;
   const cursor = 0;
   const payload = {
     userId: id,
   };
-
   const userMeInfo = useGetUserMe();
   const userMeId = userMeInfo.data.id;
   const usersInfo = useGetUserInfo(userId);
@@ -31,39 +28,43 @@ function UserProfileCardLoggedIn({ id }: UserProfileCardProps) {
   const isFolloweeUser = isFolloweesInfo.data?.list.some(
     (followee: { followee: { id: number } }) => followee.followee.id == userId
   );
-
   const { image, nickname, description, followersCount, followeesCount } = userInfo;
-  const [isFollower, setIsFollower] = useState<boolean>(isFolloweeUser);
+  const [followerInfo, setIsFollowerInfo] = useState<boolean>(isFolloweeUser);
   const setModalState = useContext(ModalSetterContext);
   const postFollow = usePostFollow(payload);
   const deleteFollow = useDeleteFollow(payload);
   const queryClient = useQueryClient();
-  console.log(isFolloweesInfo);
-  console.log(isFollower);
 
   const deleteCookie = (name: string) => {
     document.cookie = `${name}=; Max-Age=-99999999; path=/`;
   };
-
   const handleLogout = () => {
     deleteCookie('token');
     signOut({ callbackUrl: '/', redirect: true });
   };
 
   const handleDeleteFollow = () => {
-    deleteFollow.mutate(payload);
-    setIsFollower(false);
     queryClient.invalidateQueries({
       queryKey: ['getUserInfo', userId],
     });
+    deleteFollow.mutate(payload);
+    if (deleteFollow.data) {
+      const { isFollowing } = deleteFollow.data;
+      setIsFollowerInfo(isFollowing);
+      console.log(isFollowing);
+    }
   };
 
   const handlePostFollow = () => {
-    postFollow.mutate(payload);
-    setIsFollower(true);
     queryClient.invalidateQueries({
       queryKey: ['getUserInfo', userId],
     });
+    postFollow.mutate(payload);
+    if (postFollow.data) {
+      const { isFollowing } = postFollow.data;
+      setIsFollowerInfo(isFollowing);
+      console.log(isFollowing);
+    }
   };
 
   function handleFolloweeOnClick() {
@@ -172,7 +173,7 @@ function UserProfileCardLoggedIn({ id }: UserProfileCardProps) {
             </>
           ) : (
             <div className="flex flex-col gap-[10px] md:gap-[15px] desktop:gap-[20px]">
-              {isFollower ? (
+              {followerInfo ? (
                 <Button
                   onClick={handleDeleteFollow}
                   className="w-[18.4375rem] h-[3.125rem] md:w-[28.0625rem] md:h-[3.4375rem] desktop:w-[18.75rem] desktop:h-[4.0625rem] font-['Pretendard'] text-md desktop-text-[1.125rem]"

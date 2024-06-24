@@ -40,7 +40,7 @@ function ClientNavigationBar() {
 
   return (
     <div>
-      <nav className="flex items-center justify-between w-full h-[70px] bg-bgblack px-[20px] min-w-[375px] md:hidden">
+      <nav className="flex items-center justify-between w-full h-[70px] bg-black1 px-[20px] min-w-[375px] md:hidden">
         <Image
           src="/Icons/menu-icon.svg"
           onClick={handleMenuClick}
