@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import { categories } from '@/Constant/Categories';
+import { usePathname, useRouter } from 'next/navigation';
 
 interface SidemenuProps {
   onSelectCategory: (category: number | null) => void;
@@ -8,6 +9,8 @@ interface SidemenuProps {
 }
 
 export default function Sidemenu({ onSelectCategory, isMenuClick }: SidemenuProps) {
+  const url = usePathname();
+  const router = useRouter();
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
 
   const handleCategoryClick = (category: number) => {
@@ -17,6 +20,9 @@ export default function Sidemenu({ onSelectCategory, isMenuClick }: SidemenuProp
     } else {
       setSelectedCategory(category);
       onSelectCategory(category);
+      if (url !== '/') {
+        router.push('/');
+      }
     }
   };
 

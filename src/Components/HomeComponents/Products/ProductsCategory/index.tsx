@@ -33,7 +33,7 @@ export default function ProductsCategory({ category, order, sortingOption, searc
     return <div className="text-white">해당 상품이 없습니다</div>;
   }
   return (
-    <div className="grid grid-cols-2 gap-[15px] lg:grid-cols-3 lg:gap-[20px] lg:w-full">
+    <div className="grid grid-cols-2 gap-[15px] md-lg:grid-cols-2 lg:grid-cols-3 lg:gap-[20px] lg:w-full">
       {sortedProductData.map((product: ProductType) => (
         <div key={product.id}>
           <Link href={`product/${product.id}`}>
