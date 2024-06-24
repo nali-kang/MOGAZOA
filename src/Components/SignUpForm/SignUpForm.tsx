@@ -52,9 +52,7 @@ export default function SignUpForm() {
 
   const handleSignupSuccess = () => {
     showToast('success', '회원가입 성공', '회원가입이 성공적으로 완료되었습니다.');
-    setTimeout(() => {
-      router.push('/login');
-    }, 2000); // 3초 후에 로그인 페이지로 리디렉션
+    router.push('/login');
   };
 
   const handleSignupError = (error: any) => {
@@ -102,14 +100,14 @@ export default function SignUpForm() {
   console.log('NEXT_PUBLIC_API_BASE_URL:', process.env.NEXT_PUBLIC_API_BASE_URL);
 
   return (
-    <FormProvider {...methods}>
-      <div className="flex flex-col justify-center items-center h-screen">
-        <div className="flex justify-center items-center w-[300px] sm:w-[400px] mt-[10px] sm:mt-[70px] mb-[70px] sm:mb-[90px]">
-          <Link href="/">
-            <LargeLogoIcon className="cursor-pointer" />
-          </Link>
-        </div>
-        <div className="p-4 sm:p-8 w-[350px] sm:w-[500px]">
+    <div className="flex flex-col justify-center items-center h-screen">
+      <div className="flex justify-center items-center w-[300px] sm:w-[400px] mt-[10px] sm:mt-[70px] mb-[70px] sm:mb-[90px]">
+        <Link href="/">
+          <LargeLogoIcon className="cursor-pointer" />
+        </Link>
+      </div>
+      <div className="p-4 sm:p-8 w-[350px] sm:w-[500px]">
+        <FormProvider {...methods}>
           <form onSubmit={methods.handleSubmit(onSubmit)} className="space-y-12">
             <div className="relative">
               <InputForm
@@ -201,33 +199,33 @@ export default function SignUpForm() {
               가입하기
             </Button>
           </form>
-          <div className="flex flex-col space-y-4 mt-6">
-            <div className="relative flex items-center justify-center mt-[60px] mb-[60px]">
-              <div className="flex-grow border-0 border-b-[1px] border-[#443f3f]" />
-              <span className="mx-2 text-gray1 text-[12px] font-semibold">또는</span>
-              <div className="flex-grow border-0 border-b-[1px] border-[#443f3f]" />
-            </div>
-          </div>
-          <div className="flex justify-center mt-8">
-            <p className="text-gray1 text-center font-semibold text-[14px]">
-              간편하게
-              <span
-                role="button"
-                tabIndex={0}
-                className="text-gradient cursor-pointer ml-2"
-                onClick={() => router.push('/login')}
-                onKeyDown={(event) => {
-                  if (event.key === 'Enter' || event.key === ' ') {
-                    router.push('/login');
-                  }
-                }}
-              >
-                SNS로 로그인
-              </span>
-            </p>
+        </FormProvider>
+        <div className="flex flex-col space-y-4 mt-6">
+          <div className="relative flex items-center justify-center mt-[60px] mb-[60px]">
+            <div className="flex-grow border-0 border-b-[1px] border-[#443f3f]" />
+            <span className="mx-2 text-gray1 text-[12px] font-semibold">또는</span>
+            <div className="flex-grow border-0 border-b-[1px] border-[#443f3f]" />
           </div>
         </div>
+        <div className="flex justify-center mt-8">
+          <p className="text-gray1 text-center font-semibold text-[14px]">
+            간편하게
+            <span
+              role="button"
+              tabIndex={0}
+              className="text-gradient cursor-pointer ml-2"
+              onClick={() => router.push('/login')}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                  router.push('/login');
+                }
+              }}
+            >
+              SNS로 로그인
+            </span>
+          </p>
+        </div>
       </div>
-    </FormProvider>
+    </div>
   );
 }
