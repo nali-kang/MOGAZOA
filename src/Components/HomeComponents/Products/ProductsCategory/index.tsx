@@ -30,7 +30,7 @@ export default function ProductsCategory({ category, order, sortingOption, searc
 
   useEffect(() => {
     fetchNextPage();
-  });
+  }, []);
 
   let productList: any = useMemo(() => data?.pages?.map((page: Record<string, any>) => page.data.list).flat(), [data]);
 
@@ -51,15 +51,17 @@ export default function ProductsCategory({ category, order, sortingOption, searc
     return <div className="text-white">해당 상품이 없습니다</div>;
   }
   return (
-    <div className="grid grid-cols-2 gap-[15px] md-lg:grid-cols-2 lg:grid-cols-3 lg:gap-[20px] lg:w-full">
-      {productList.map((product: ProductType) => (
-        <div key={product.id}>
-          <Link href={`product/${product.id}`}>
-            <Products product={product} />
-          </Link>
-        </div>
-      ))}
-      <div className="h-[1px]" ref={setTarget as any} />
-    </div>
+    <>
+      <div className="grid grid-cols-2 gap-[15px] md-lg:grid-cols-2 lg:grid-cols-3 lg:gap-[20px] lg:w-full">
+        {productList.map((product: ProductType) => (
+          <div key={product.id}>
+            <Link href={`product/${product.id}`}>
+              <Products product={product} />
+            </Link>
+          </div>
+        ))}
+      </div>
+      {order !== 'recent' && <div className="h-[1px]" ref={setTarget as any} />}
+    </>
   );
 }
